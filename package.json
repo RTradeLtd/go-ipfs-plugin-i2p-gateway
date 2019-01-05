@@ -1,0 +1,13 @@
+{
+  "name": "ipfs-plugin-i2p",
+  "author": "idk",
+  "version": "0.0.0",
+  "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
+  "language": "Go",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/rtradeltd/ipfs-plugin-i2p"
+  },
+  "gxVersion": "0.12.1"
+}
+
