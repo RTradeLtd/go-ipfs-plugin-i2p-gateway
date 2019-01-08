@@ -8,7 +8,7 @@ import (
 
 type I2PGatePlugin struct {
 	configPath string
-    config     *config.Config
+	config     *config.Config
 }
 
 // I2PType will be used to identify this as the i2p gateway plugin to things
@@ -35,8 +35,8 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-    i.config, err = fsrepo.ConfigAt(i.configPath)
-    if err != nil {
+	i.config, err = fsrepo.ConfigAt(i.configPath)
+	if err != nil {
 		return err
 	}
 	return nil
@@ -49,4 +49,3 @@ func (*I2PGatePlugin) I2PTypeName() string {
 
 type I2PConfig struct {
 }
-

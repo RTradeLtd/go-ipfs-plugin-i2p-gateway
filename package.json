@@ -11,12 +11,6 @@
     },
     {
       "author": "magik6k",
-      "hash": "QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C",
-      "name": "go-ipfs-config",
-      "version": "0.2.23"
-    },
-    {
-      "author": "magik6k",
       "hash": "QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR",
       "name": "go-ipfs-config",
       "version": "0.2.16"

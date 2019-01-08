@@ -34,7 +34,7 @@ b:
 	go build ./i2p
 
 dep:
-	gx-go get "github.com/ipfs/go-ipfs-config"
+	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs-config"
 
 fmt:
 	find ./i2p -name '*.go' -exec gofmt -w {} \;
