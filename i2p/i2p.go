@@ -1,14 +1,14 @@
 package i2p
 
 import (
-	config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
+	config "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config"
 	plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
 	fsrepo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo/fsrepo"
 )
 
 type I2PGatePlugin struct {
 	configPath string
-    config     config.Config
+    config     *config.Config
 }
 
 // I2PType will be used to identify this as the i2p gateway plugin to things
@@ -49,3 +49,4 @@ func (*I2PGatePlugin) I2PTypeName() string {
 
 type I2PConfig struct {
 }
+
