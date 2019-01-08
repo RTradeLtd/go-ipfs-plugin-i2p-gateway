@@ -3,7 +3,7 @@ package i2p
 import (
 	"time"
 
-	plugin "github.com/ipfs/go-ipfs/plugin"
+	plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
 )
 
 type I2PPlugin struct{}
