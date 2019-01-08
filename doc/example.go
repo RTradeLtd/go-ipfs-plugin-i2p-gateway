@@ -1,13 +1,9 @@
 package i2p
 
 import (
-	//"fmt"
-	//"io"
-	//"time"
+	"time"
 
-	//delay "gx/ipfs/QmRJVNatYJwTAHgdSM1Xef9QVQ1Ch3XHdmcrykjP5Y4soL/go-ipfs-delay"
 	plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
-	//repo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo"
 )
 
 type I2PPlugin struct{}

@@ -1,7 +1,7 @@
 GOCC ?= go
 IPFS_PATH ?= $(HOME)/.ipfs
 
-GOPATH=$(shell pwd)/go
+#GOPATH=$(shell pwd)/go
 
 GX_PATH=$(GOPATH)/bin/gx
 GX_GO_PATH=$(GOPATH)/bin/gx-go
@@ -26,4 +26,16 @@ docker:
 	docker build -f Dockerfile.build -t eyedeekay/go-ipfs-plugin-build .
 
 deps:
-	$(GX_GO_PATH) get github.com/rtradeltd/i2p-ipfs-plugin
+	$(GX_GO_PATH) get github.com/ipfs/go-ipfs-example-plugin
+	#$(GX_GO_PATH) get github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
+
+b:
+	go build ./i2p
+
+dep:
+	go get -u "github.com/ipfs/go-datastore"
+	go get -u "github.com/ipfs/go-datastore/delayed"
+	go get -u "github.com/ipfs/go-ipfs-delay"
+
+fmt:
+	find ./i2p -name '*.go' -exec gofmt -w {} \;
