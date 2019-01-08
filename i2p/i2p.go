@@ -35,7 +35,10 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-
+    i.config, err = fsrepo.ConfigAt(i.configPath)
+    if err != nil {
+		return err
+	}
 	return nil
 }
 
