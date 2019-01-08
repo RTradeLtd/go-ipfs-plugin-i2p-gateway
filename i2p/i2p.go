@@ -2,10 +2,13 @@ package i2p
 
 import (
 	fsrepo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo/fsrepo"
+    plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
+    config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
 )
 
 type I2PGatePlugin struct {
 	configPath string
+    config     config.Config
 }
 
 // I2PType will be used to identify this as the i2p gateway plugin to things
@@ -32,6 +35,7 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 
