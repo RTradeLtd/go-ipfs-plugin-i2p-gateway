@@ -1,46 +1,44 @@
 package i2p
 
 import (
-	//"fmt"
-	//"io"
-	//"time"
-
-	//delay "gx/ipfs/QmRJVNatYJwTAHgdSM1Xef9QVQ1Ch3XHdmcrykjP5Y4soL/go-ipfs-delay"
-	plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
-	//repo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo"
+	fsrepo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo/fsrepo"
 )
 
-type I2PPlugin struct{}
+type I2PGatePlugin struct {
+	configPath string
+}
 
-// I2PType is this datastore's type name (used to identify the datastore
-// in the datastore config).
-var I2PType = "delaystore"
+// I2PType will be used to identify this as the i2p gateway plugin to things
+// that use it.
+var I2PType = "i2pgate"
 
-var _ plugin.Plugin = (*I2PPlugin)(nil)
+var _ plugin.Plugin = (*I2PGatePlugin)(nil)
 
 // Name returns the plugin's name, satisfying the plugin.Plugin interface.
-func (*I2PPlugin) Name() string {
-	return "ds-delaystore"
+func (*I2PGatePlugin) Name() string {
+	return "fwd-i2pgate"
 }
 
 // Version returns the plugin's version, satisfying the plugin.Plugin interface.
-func (*I2PPlugin) Version() string {
+func (*I2PGatePlugin) Version() string {
 	return "0.0.1"
 }
 
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
-func (*I2PPlugin) Init() error {
+func (i *I2PGatePlugin) Init() error {
+	var err error
+	i.configPath, err = fsrepo.BestKnownPath()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
-// I2PTypeName returns the datastore's name. Every datastore
-// implementation must have a unique name.
-func (*I2PPlugin) I2PTypeName() string {
+// I2PTypeName returns I2PType
+func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
 }
 
 type I2PConfig struct {
-	//delay time.Duration
-	//inner fsrepo.DatastoreConfig
 }

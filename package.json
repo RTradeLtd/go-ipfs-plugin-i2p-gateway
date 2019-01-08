@@ -1,13 +1,20 @@
 {
-  "name": "ipfs-plugin-i2p",
   "author": "idk",
-  "version": "0.0.0",
-  "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
-  "language": "Go",
-  "license": "",
   "bugs": {
     "url": "https://github.com/rtradeltd/ipfs-plugin-i2p"
   },
-  "gxVersion": "0.12.1"
+  "gxDependencies": [
+    {
+      "hash": "QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r",
+      "name": "go-ipfs",
+      "version": "0.4.18"
+    }
+  ],
+  "gxVersion": "0.12.1",
+  "language": "Go",
+  "license": "",
+  "name": "ipfs-plugin-i2p",
+  "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
+  "version": "0.0.0"
 }
 
