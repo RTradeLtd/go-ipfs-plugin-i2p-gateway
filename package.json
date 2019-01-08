@@ -1,7 +1,7 @@
 {
   "author": "idk",
   "bugs": {
-    "url": "https://github.com/rtradeltd/ipfs-plugin-i2p"
+    "url": "https://github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
   },
   "gxDependencies": [
     {
@@ -13,7 +13,7 @@
   "gxVersion": "0.12.1",
   "language": "Go",
   "license": "",
-  "name": "ipfs-plugin-i2p",
+  "name": "go-ipfs-plugin-i2p-gateway",
   "releaseCmd": "git commit -a -m \"gx publish $VERSION\"",
   "version": "0.0.0"
 }

@@ -26,8 +26,7 @@ docker:
 	docker build -f Dockerfile.build -t eyedeekay/go-ipfs-plugin-build .
 
 deps:
-	$(GX_GO_PATH) get github.com/ipfs/go-ipfs-example-plugin
-	#$(GX_GO_PATH) get github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
+	$(GX_GO_PATH) get github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
 
 b:
 	go build ./i2p
