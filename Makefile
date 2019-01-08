@@ -32,6 +32,7 @@ b:
 	go build ./i2p
 
 dep:
+	go get -u "github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
 	go get -u "github.com/ipfs/go-datastore"
 	go get -u "github.com/ipfs/go-datastore/delayed"
 	go get -u "github.com/ipfs/go-ipfs-delay"
