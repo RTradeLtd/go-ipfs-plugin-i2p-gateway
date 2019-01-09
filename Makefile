@@ -27,17 +27,20 @@ docker:
 	docker build -t eyedeekay/go-ipfs-plugin-base .
 	docker build -f Dockerfile.build -t eyedeekay/go-ipfs-plugin-build .
 
-deps:
+deps: dep
 	$(GX_GO_PATH) get github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
 
 b:
 	go build ./i2p
 
 dep:
+	go get -u "github.com/ipfs/go-ipfs"
 	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs"
 	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs-config"
 	$(GX_PATH) repo add plugin QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r
 	$(GX_PATH) repo add config QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C
+	#$(GX_GO_PATH) import "github.com/ipfs/go-ipfs" #QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r
+	$(GX_GO_PATH) import "github.com/ipfs/go-ipfs-config" #QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C
 
 fmt:
 	find ./i2p -name '*.go' -exec gofmt -w {} \;
