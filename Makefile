@@ -3,7 +3,7 @@ IPFS_PATH ?= $(HOME)/.ipfs
 
 #VERSION="0.0.0"
 
-#GOPATH=$(shell pwd)/go
+GOPATH=$(shell pwd)/go
 
 GX_PATH=$(GOPATH)/bin/gx
 GX_GO_PATH=$(GOPATH)/bin/gx-go
