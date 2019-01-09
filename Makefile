@@ -1,7 +1,7 @@
 GOCC ?= go
 IPFS_PATH ?= $(HOME)/.ipfs
 
-#VERSION="0.0.0"
+VERSION="0.0.0"
 
 GOPATH=$(shell pwd)/go
 
@@ -34,7 +34,13 @@ b:
 	go build ./i2p
 
 dep:
+	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs"
 	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs-config"
+	$(GX_PATH) repo add plugin QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r
+	$(GX_PATH) repo add config QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C
 
 fmt:
 	find ./i2p -name '*.go' -exec gofmt -w {} \;
+
+gx-install:
+	$(GX_PATH) install
