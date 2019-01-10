@@ -1,14 +1,25 @@
-package i2p
+package i2pgate
 
 import (
-	config "github.com/ipfs/go-ipfs-config"
-	plugin "github.com/ipfs/go-ipfs/plugin"
-	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
+	"../config"
+	"github.com/rtradeltd/go-garlic-tcp-transport"
+	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
+
+	//TODO: Fix this. Get a better understanding of gx.
+	//config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
+	config "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config"
+	plugin "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/plugin"
+	fsrepo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo/fsrepo"
 )
 
 type I2PGatePlugin struct {
+	i2ptcp.GarlicTCPTransport
 	configPath string
 	config     *config.Config
+	i2pconfig  *i2pgateconfig.Config
+
+	forwardHTTP string
+	forwardRPC  string
 }
 
 // I2PType will be used to identify this as the i2p gateway plugin to things
@@ -24,7 +35,7 @@ func (*I2PGatePlugin) Name() string {
 
 // Version returns the plugin's version, satisfying the plugin.Plugin interface.
 func (*I2PGatePlugin) Version() string {
-	return "0.0.1"
+	return "0.0.0"
 }
 
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
@@ -39,6 +50,16 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
+	rpcaddressbytes, err := i.config.Addresses.API.MarshalJSON()
+	if err != nil {
+		return err
+	}
+	i.forwardRPC = string(rpcaddressbytes)
+	httpaddressbytes, err := i.config.Addresses.Gateway.MarshalJSON()
+	if err != nil {
+		return err
+	}
+	i.forwardHTTP = string(httpaddressbytes)
 	return nil
 }
 
@@ -46,7 +67,3 @@ func (i *I2PGatePlugin) Init() error {
 func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
 }
-
-type I2PConfig struct {
-}
-
