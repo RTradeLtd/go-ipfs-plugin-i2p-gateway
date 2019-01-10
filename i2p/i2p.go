@@ -1,8 +1,8 @@
 package i2pgate
 
 import (
-	"../config"
 	"github.com/rtradeltd/go-garlic-tcp-transport"
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
 
 	//TODO: Fix this. Get a better understanding of gx.

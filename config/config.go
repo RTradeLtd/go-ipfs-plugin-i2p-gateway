@@ -2,6 +2,7 @@ package i2pgateconfig
 
 import (
 	//"errors"
+    "io"
     "os"
     "path/filepath"
 
@@ -65,8 +66,13 @@ func Filename(ipfs_path string) (string, error) {
 	return Path(ipfs_path, "i2pconfig")
 }
 
-func Init() (*Config, error) {
-    return nil, nil
+func Init(out io.Writer) (*Config, error) {
+    cfg := &Config {
+        tunname: "ipfs",
+        hops: 5,
+        tunnels: 5,
+    }
+    return cfg, nil
 }
 
 func ReadConfig(filename string, cfg interface{}) (*Config, error) {
@@ -87,14 +93,13 @@ func Load(filename string) (*Config, error) {
 	// if nothing is there, generate a 'safe(paranoid)' default config and
 	// inform the user thusly
 	if !util.FileExists(filename) {
-		return Init()
+        f, err := os.Create(filename)
+        if err != nil {
+            return nil, err
+        }
+		return Init(f)
 	}
 
 	var cfg Config
-	err := serialize.ReadConfigFile(filename, &cfg)
-	if err != nil {
-		return nil, err
-	}
-
-	return &cfg, err
+	return ReadConfig(filename, &cfg)
 }
