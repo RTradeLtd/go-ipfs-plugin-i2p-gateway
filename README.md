@@ -26,7 +26,7 @@ help rectify this issue by documenting this process very methodically.
 (1) I'm going to do that too, but that's the hard part(the plan is to adapt
 BiglyBT-style bridging, with a pure-clearnet peers, clearnet-to-i2p peers, and
 pure-i2p peers. That may be less straightforward than the simple description
-made it sound.
+made it sound).
 
 (2) Of course, that leaves the matter of i2p-compatible IPFS applications but
 those are almost as simple as the gateway.

@@ -1,22 +1,110 @@
 package i2pgateconfig
 
 import (
-	//"errors"
-    "io"
-    "os"
-    "path/filepath"
+	"io"
+	"log"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
 
-    "github.com/ipfs/go-ipfs-util"
-    "github.com/mitchellh/go-homedir"
+	"github.com/ipfs/go-ipfs-util"
+	"github.com/mitchellh/go-homedir"
+	ma "github.com/multiformats/go-multiaddr"
 
-    //config "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config"
+	//config "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config"
 	serialize "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config/serialize"
 )
 
 type Config struct {
-	tunname string
-	hops    int
-	tunnels int
+	SAMHost                            string
+	SAMPort                            string
+	TunName                            string
+	AddressRPC                         string
+	AddressHTTP                        string
+	EncryptLeaseSet                    bool
+	EncryptedLeaseSetKey               string
+	EncryptedLeaseSetPrivateKey        string
+	EncryptedLeaseSetPrivateSigningKey string
+	InAllowZeroHop                     bool
+	OutAllowZeroHop                    bool
+	InLength                           int
+	OutLength                          int
+	InQuantity                         int
+	OutQuantity                        int
+	InVariance                         int
+	OutVariance                        int
+	InBackupQuantity                   int
+	OutBackupQuantity                  int
+	UseCompression                     bool
+	FastRecieve                        bool
+	ReduceIdle                         bool
+	ReduceIdleTime                     int
+	ReduceIdleQuantity                 int
+	CloseIdle                          bool
+	CloseIdleTime                      int
+	AccessListType                     string
+	AccessList                         []string
+	MessageReliability                 string
+    OnlyI2P                            bool
+}
+
+func (c *Config) accesslisttype() string {
+	if c.AccessListType == "whitelist" {
+		return "i2cp.enableAccessList=true"
+	} else if c.AccessListType == "blacklist" {
+		return "i2cp.enableBlackList=true"
+	} else if c.AccessListType == "none" {
+		return ""
+	}
+	return ""
+}
+
+func (c *Config) accesslist() string {
+	if c.AccessListType != "" && len(c.AccessList) > 0 {
+		r := ""
+		for _, s := range c.AccessList {
+			r += s + ","
+		}
+		return "i2cp.accessList=" + strings.TrimSuffix(r, ",")
+	}
+	return ""
+}
+
+// Print returns and prints a formatted list of configured tunnel settings.
+func (c *Config) Print() []string {
+	confstring := []string{
+		"inbound.length=" + strconv.Itoa(c.InLength),
+		"outbound.length=" + strconv.Itoa(c.OutLength),
+		"inbound.lengthVariance=" + strconv.Itoa(c.InVariance),
+		"outbound.lengthVariance=" + strconv.Itoa(c.OutVariance),
+		"inbound.backupQuantity=" + strconv.Itoa(c.InBackupQuantity),
+		"outbound.backupQuantity=" + strconv.Itoa(c.OutBackupQuantity),
+		"inbound.quantity=" + strconv.Itoa(c.InQuantity),
+		"outbound.quantity=" + strconv.Itoa(c.OutQuantity),
+		"inbound.allowZeroHop=" + strconv.FormatBool(c.InAllowZeroHop),
+		"outbound.allowZeroHop=" + strconv.FormatBool(c.OutAllowZeroHop),
+		"i2cp.encryptLeaseSet=" + strconv.FormatBool(c.EncryptLeaseSet),
+		"i2cp.gzip=" + strconv.FormatBool(c.UseCompression),
+		"i2cp.reduceOnIdle=" + strconv.FormatBool(c.ReduceIdle),
+		"i2cp.reduceIdleTime=" + strconv.Itoa(c.ReduceIdleTime),
+		"i2cp.reduceQuantity=" + strconv.Itoa(c.ReduceIdleQuantity),
+		"i2cp.closeOnIdle=" + strconv.FormatBool(c.CloseIdle),
+		"i2cp.closeIdleTime=" + strconv.Itoa(c.CloseIdleTime),
+		c.accesslisttype(),
+		c.accesslist(),
+	}
+
+	log.Println(confstring)
+	return confstring
+}
+
+func (c *Config) SAMAddr() string {
+	return c.SAMHost + ":" + c.SAMPort
+}
+
+func (c *Config) SAMMultiaddr() (ma.Multiaddr, error) {
+	return ma.NewMultiaddr(c.SAMAddr())
 }
 
 const (
@@ -30,14 +118,37 @@ const (
 	EnvDir = "IPFS_PATH"
 )
 
-// PathRoot returns the default configuration root directory
-func PathRoot() (string, error) {
-	dir := os.Getenv(EnvDir)
-	var err error
-	if len(dir) == 0 {
-		dir, err = homedir.Expand(DefaultPathRoot)
+func Init(out io.Writer) (*Config, error) {
+	cfg := &Config{
+		SAMHost:                            "/ip4/127.0.0.1",
+		SAMPort:                            "/tcp/7656",
+		TunName:                            "ipfs",
+		AddressRPC:                         "/ip4/127.0.0.1/tcp/4001",
+		AddressHTTP:                        "/ip4/127.0.0.1/tcp/5001",
+		EncryptLeaseSet:                    false,
+		EncryptedLeaseSetKey:               "",
+		EncryptedLeaseSetPrivateKey:        "",
+		EncryptedLeaseSetPrivateSigningKey: "",
+		InAllowZeroHop:                     false,
+		OutAllowZeroHop:                    false,
+		InLength:                           3,
+		OutLength:                          3,
+		InQuantity:                         3,
+		OutQuantity:                        3,
+		InVariance:                         0,
+		OutVariance:                        0,
+		InBackupQuantity:                   1,
+		OutBackupQuantity:                  1,
+		UseCompression:                     true,
+		FastRecieve:                        true,
+		ReduceIdle:                         true,
+		ReduceIdleQuantity:                 1,
+		CloseIdle:                          false,
+		AccessListType:                     "none",
+		AccessList:                         []string{""},
+        OnlyI2P:                             false,
 	}
-	return dir, err
+	return cfg, nil
 }
 
 // ConfigAt loads an i2p gateway plugin from the IPFS_PATH directory. It's a
@@ -48,6 +159,28 @@ func ConfigAt(ipfs_path string) (*Config, error) {
 		return Load(filename)
 	}
 	return nil, final
+}
+
+// Filename returns the correct path to the config file for consumption by other
+// parts of the application
+func Filename(ipfs_path string) (string, error) {
+	return Path(ipfs_path, DefaultConfigFile)
+}
+
+func Load(filename string) (*Config, error) {
+	// if nothing is there, generate a 'safe(paranoid)' default config and
+	// inform the user thusly
+	if !util.FileExists(filename) {
+		f, err := os.Create(filename)
+		if err != nil {
+			return nil, err
+		}
+		log.Println("i2p Gateway tunnel configuration initialized.")
+		return Init(f)
+	}
+
+	var cfg Config
+	return ReadConfig(filename, &cfg)
 }
 
 func Path(configroot, extension string) (string, error) {
@@ -62,44 +195,36 @@ func Path(configroot, extension string) (string, error) {
 	return filepath.Join(configroot, extension), nil
 }
 
-func Filename(ipfs_path string) (string, error) {
-	return Path(ipfs_path, "i2pconfig")
+// PathRoot returns the default configuration root directory
+func PathRoot() (string, error) {
+	dir := os.Getenv(EnvDir)
+	var err error
+	if len(dir) == 0 {
+		dir, err = homedir.Expand(DefaultPathRoot)
+	}
+	return dir, err
 }
 
-func Init(out io.Writer) (*Config, error) {
-    cfg := &Config {
-        tunname: "ipfs",
-        hops: 5,
-        tunnels: 5,
-    }
-    return cfg, nil
+func AddressRPC(addr string, cfg interface{}) error {
+	cfg.(*Config).AddressRPC = addr
+	return nil
+}
+
+func AddressHTTP(addr string, cfg interface{}) error {
+	cfg.(*Config).AddressHTTP = addr
+	return nil
 }
 
 func ReadConfig(filename string, cfg interface{}) (*Config, error) {
-    if err := serialize.ReadConfigFile(filename, cfg); err != nil {
-        return nil, err
-    }
-    return cfg.(*Config), nil
+	if err := serialize.ReadConfigFile(filename, cfg); err != nil {
+		return nil, err
+	}
+	return cfg.(*Config), nil
 }
 
 func WriteConfig(filename string, cfg interface{}) (*Config, error) {
-    if err := serialize.WriteConfigFile(filename, cfg); err != nil {
-        return nil, err
-    }
-    return cfg.(*Config), nil
-}
-
-func Load(filename string) (*Config, error) {
-	// if nothing is there, generate a 'safe(paranoid)' default config and
-	// inform the user thusly
-	if !util.FileExists(filename) {
-        f, err := os.Create(filename)
-        if err != nil {
-            return nil, err
-        }
-		return Init(f)
+	if err := serialize.WriteConfigFile(filename, cfg); err != nil {
+		return nil, err
 	}
-
-	var cfg Config
-	return ReadConfig(filename, &cfg)
+	return cfg.(*Config), nil
 }

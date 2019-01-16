@@ -3,6 +3,7 @@ package i2pgate
 import (
 	"github.com/rtradeltd/go-garlic-tcp-transport"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+	//"../config"
 	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
 
 	//TODO: Fix this. Get a better understanding of gx.
@@ -13,10 +14,11 @@ import (
 )
 
 type I2PGatePlugin struct {
-	i2ptcp.GarlicTCPTransport
-	configPath string
-	config     *config.Config
-	i2pconfig  *i2pgateconfig.Config
+	*i2ptcp.GarlicTCPTransport
+	configPath    string
+	config        *config.Config
+	i2pconfigPath string
+	i2pconfig     *i2pgateconfig.Config
 
 	forwardHTTP string
 	forwardRPC  string
@@ -60,6 +62,37 @@ func (i *I2PGatePlugin) Init() error {
 		return err
 	}
 	i.forwardHTTP = string(httpaddressbytes)
+	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
+	if err != nil {
+		return err
+	}
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.forwardRPC)
+	if err != nil {
+		return err
+	}
+	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.forwardHTTP)
+	if err != nil {
+		return err
+	}
+    i.i2pconfig, err = i2pgateconfig.WriteConfig(i.configPath, i.i2pconfig)
+    if err != nil {
+		return err
+	}
+	i.GarlicTCPTransport, err = i2ptcp.NewGarlicTCPTransport(
+        SAMHost(i.i2pconfig.SAMHost),
+		SAMPort(i.i2pconfig.SAMPort),
+		SAMPass(""),
+		KeysPath(i.configPath+".i2pkeys"),
+		OnlyGarlic(i.i2pconfig.OnlyI2P),
+		GarlicOptions(i.i2pconfig.Print()),
+	)
+	if err != nil {
+		return err
+	}
+    conn, err := i.GarlicTCPTransport.Accept()
+    if err != nil {
+		return err
+	}
 	return nil
 }
 
