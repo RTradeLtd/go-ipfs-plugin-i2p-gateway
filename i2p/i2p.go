@@ -2,6 +2,7 @@ package i2pgate
 
 import (
 	"github.com/rtradeltd/go-garlic-tcp-transport"
+    "github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 
 	//TODO: Fix this. Get a better understanding of gx.
@@ -13,6 +14,7 @@ import (
 
 type I2PGatePlugin struct {
 	*i2ptcp.GarlicTCPTransport
+    *i2ptcpconn.GarlicTCPConn
 	configPath    string
 	config        *config.Config
 	i2pconfigPath string
@@ -76,18 +78,26 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.GarlicTCPTransport, err = i2ptcp.NewGarlicTCPTransport(
-		SAMHost(i.i2pconfig.SAMHost),
-		SAMPort(i.i2pconfig.SAMPort),
-		SAMPass(""),
-		KeysPath(i.configPath+".i2pkeys"),
-		OnlyGarlic(i.i2pconfig.OnlyI2P),
-		GarlicOptions(i.i2pconfig.Print()),
+	i.GarlicTCPTransport, err = i2ptcp.NewGarlicTCPTransportFromOptions(
+		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
+		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
+		i2ptcp.SAMPass(""),
+		i2ptcp.KeysPath(i.configPath+".i2pkeys"),
+		i2ptcp.OnlyGarlic(i.i2pconfig.OnlyI2P),
+		i2ptcp.GarlicOptions(i.i2pconfig.Print()),
 	)
 	if err != nil {
 		return err
 	}
-	conn, err := i.GarlicTCPTransport.Accept()
+	i.GarlicTCPConn, err = i.GarlicTCPTransport.ListenI2P()
+	if err != nil {
+		return err
+	}
+    err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32())
+	if err != nil {
+		return err
+	}
+    err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.MaBase64())
 	if err != nil {
 		return err
 	}

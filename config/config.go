@@ -15,6 +15,8 @@ import (
 	serialize "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config/serialize"
 )
 
+// Config is a struct very alike the one used to configure IPFS which is used
+//to create, load, and access i2p configurations.
 type Config struct {
 	SAMHost                            string
 	SAMPort                            string
@@ -46,6 +48,8 @@ type Config struct {
 	AccessList                         []string
 	MessageReliability                 string
 	OnlyI2P                            bool
+    ListenerBase32                     string
+    ListenerBase64                     string
 }
 
 func (c *Config) accesslisttype() string {
@@ -146,6 +150,8 @@ func Init(out io.Writer) (*Config, error) {
 		AccessListType:                     "none",
 		AccessList:                         []string{""},
 		OnlyI2P:                            false,
+        ListenerBase32                      "",
+        ListenerBase64                      "",
 	}
 	return cfg, nil
 }
@@ -211,6 +217,16 @@ func AddressRPC(addr string, cfg interface{}) error {
 
 func AddressHTTP(addr string, cfg interface{}) error {
 	cfg.(*Config).AddressHTTP = addr
+	return nil
+}
+
+func ListenerBase32(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase32 = addr
+	return nil
+}
+
+func ListenerBase64(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase64 = addr
 	return nil
 }
 
