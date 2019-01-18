@@ -48,8 +48,8 @@ type Config struct {
 	AccessList                         []string
 	MessageReliability                 string
 	OnlyI2P                            bool
-    ListenerBase32                     string
-    ListenerBase64                     string
+	ListenerBase32                     string
+	ListenerBase64                     string
 }
 
 func (c *Config) accesslisttype() string {
@@ -150,8 +150,8 @@ func Init(out io.Writer) (*Config, error) {
 		AccessListType:                     "none",
 		AccessList:                         []string{""},
 		OnlyI2P:                            false,
-        ListenerBase32                      "",
-        ListenerBase64                      "",
+		ListenerBase32:                     "",
+		ListenerBase64:                     "",
 	}
 	return cfg, nil
 }

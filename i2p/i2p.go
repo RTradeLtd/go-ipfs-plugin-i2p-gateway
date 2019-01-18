@@ -2,7 +2,7 @@ package i2pgate
 
 import (
 	"github.com/rtradeltd/go-garlic-tcp-transport"
-    "github.com/rtradeltd/go-garlic-tcp-transport/conn"
+	"github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 
 	//TODO: Fix this. Get a better understanding of gx.
@@ -14,7 +14,7 @@ import (
 
 type I2PGatePlugin struct {
 	*i2ptcp.GarlicTCPTransport
-    *i2ptcpconn.GarlicTCPConn
+	*i2ptcpconn.GarlicTCPConn
 	configPath    string
 	config        *config.Config
 	i2pconfigPath string
@@ -93,11 +93,11 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-    err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32())
+	err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32())
 	if err != nil {
 		return err
 	}
-    err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.MaBase64())
+	err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.MaBase64())
 	if err != nil {
 		return err
 	}
