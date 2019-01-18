@@ -66,11 +66,11 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.forwardRPC)
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.forwardHTTP)
+	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.i2pconfig)
 	if err != nil {
 		return err
 	}
@@ -93,11 +93,11 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32())
+	err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32(), i.i2pconfig)
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.MaBase64())
+	err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.Base64(), i.i2pconfig)
 	if err != nil {
 		return err
 	}
