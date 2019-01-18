@@ -4,6 +4,7 @@ import (
 	"github.com/rtradeltd/go-garlic-tcp-transport"
 	"github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+	"os"
 
 	//TODO: Fix this. Get a better understanding of gx.
 	//config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
@@ -45,6 +46,10 @@ func (*I2PGatePlugin) Version() string {
 func (i *I2PGatePlugin) Init() error {
 	var err error
 	i.configPath, err = fsrepo.BestKnownPath()
+	if err != nil {
+		return err
+	}
+	err = os.Setenv("KEYS_PATH", i.configPath)
 	if err != nil {
 		return err
 	}
