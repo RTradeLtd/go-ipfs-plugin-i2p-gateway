@@ -12,7 +12,6 @@ import (
 	"github.com/mitchellh/go-homedir"
 	ma "github.com/multiformats/go-multiaddr"
 
-	//config "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config"
 	serialize "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config/serialize"
 )
 
@@ -46,7 +45,7 @@ type Config struct {
 	AccessListType                     string
 	AccessList                         []string
 	MessageReliability                 string
-    OnlyI2P                            bool
+	OnlyI2P                            bool
 }
 
 func (c *Config) accesslisttype() string {
@@ -146,7 +145,7 @@ func Init(out io.Writer) (*Config, error) {
 		CloseIdle:                          false,
 		AccessListType:                     "none",
 		AccessList:                         []string{""},
-        OnlyI2P:                             false,
+		OnlyI2P:                            false,
 	}
 	return cfg, nil
 }
