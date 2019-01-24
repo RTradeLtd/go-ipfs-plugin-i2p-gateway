@@ -36,7 +36,6 @@ b:
 
 dep:
 	go get -u "github.com/rtradeltd/go-garlic-tcp-transport"
-	$(GX_GO_PATH) get "github.com/rtradeltd/go-garlic-tcp-transport"
 	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs"
 	$(GX_GO_PATH) get "github.com/ipfs/go-ipfs-config"
 
@@ -45,7 +44,6 @@ dep2:
 	$(GX_PATH) repo add config QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C67ty78
 
 import:
-	$(GX_PATH) import "github.com/rtradeltd/go-garlic-tcp-transport"
 	$(GX_PATH) import "github.com/ipfs/go-ipfs"
 	$(GX_PATH) import "github.com/ipfs/go-ipfs-config"
 
@@ -54,7 +52,6 @@ setup:
 	$(GX_PATH) import QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C
 
 dep3:
-	$(GX_GO_PATH) import --yesall "github.com/rtradeltd/go-garlic-tcp-transport"
 	$(GX_GO_PATH) import --yesall "github.com/ipfs/go-ipfs"
 	$(GX_GO_PATH) import --yesall "github.com/ipfs/go-ipfs-config"
 
