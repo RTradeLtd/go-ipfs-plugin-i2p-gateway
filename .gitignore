@@ -4,3 +4,6 @@ go
 vendor
 *log*
 *err*
+config/config
+config/i2pconfig
+config/.*

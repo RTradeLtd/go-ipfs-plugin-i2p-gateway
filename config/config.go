@@ -69,7 +69,9 @@ func (c *Config) accesslist() string {
 		for _, s := range c.AccessList {
 			r += s + ","
 		}
-		return "i2cp.accessList=" + strings.TrimSuffix(r, ",")
+		if r != "" {
+			return "i2cp.accessList=" + strings.TrimSuffix(r, ",")
+		}
 	}
 	return ""
 }
@@ -123,11 +125,11 @@ const (
 
 func Init(out io.Writer) (*Config, error) {
 	cfg := &Config{
-		SAMHost:                            "/ip4/127.0.0.1",
-		SAMPort:                            "/tcp/7656",
+		SAMHost:                            "/ip4/127.0.0.1/",
+		SAMPort:                            "/tcp/7656/",
 		TunName:                            "ipfs",
-		AddressRPC:                         "/ip4/127.0.0.1/tcp/4001",
-		AddressHTTP:                        "/ip4/127.0.0.1/tcp/5001",
+		AddressRPC:                         "/ip4/127.0.0.1/tcp/4001/",
+		AddressHTTP:                        "/ip4/127.0.0.1/tcp/5001/",
 		EncryptLeaseSet:                    false,
 		EncryptedLeaseSetKey:               "",
 		EncryptedLeaseSetPrivateKey:        "",
@@ -180,12 +182,43 @@ func Load(filename string) (*Config, error) {
 		if err != nil {
 			return nil, err
 		}
-		log.Println("i2p Gateway tunnel configuration initialized.")
-		return Init(f)
+		defer f.Close()
+		log.Println("i2p Gateway tunnel configuration initialized in: ", filename)
+		cfg, err := Init(f)
+		if err != nil {
+			return nil, err
+		}
+		return cfg, serialize.WriteConfigFile(filename, cfg)
 	}
 
 	var cfg Config
-	return ReadConfig(filename, &cfg)
+	err := serialize.ReadConfigFile(filename, &cfg)
+	if err != nil {
+		return nil, err
+	}
+	return &cfg, nil
+}
+
+func (cfg *Config) Save(ipfs_path string) (*Config, error) {
+	var filename string
+	var err error
+	if filename, err = Filename(ipfs_path); err != nil {
+		return nil, err
+	}
+
+	// if nothing is there, generate a 'safe(paranoid)' default config and
+	// inform the user thusly
+	if util.FileExists(filename) {
+		f, err := os.Open(filename)
+		if err != nil {
+			return nil, err
+		}
+		defer f.Close()
+		log.Println("i2p Gateway tunnel configuration saved in: ", filename)
+		return cfg, serialize.WriteConfigFile(filename, cfg)
+	}
+	return Load(filename)
+
 }
 
 func Path(configroot, extension string) (string, error) {
@@ -228,18 +261,4 @@ func ListenerBase32(addr string, cfg interface{}) error {
 func ListenerBase64(addr string, cfg interface{}) error {
 	cfg.(*Config).ListenerBase64 = addr
 	return nil
-}
-
-func ReadConfig(filename string, cfg interface{}) (*Config, error) {
-	if err := serialize.ReadConfigFile(filename, cfg); err != nil {
-		return nil, err
-	}
-	return cfg.(*Config), nil
-}
-
-func WriteConfig(filename string, cfg interface{}) (*Config, error) {
-	if err := serialize.WriteConfigFile(filename, cfg); err != nil {
-		return nil, err
-	}
-	return cfg.(*Config), nil
 }

@@ -12,7 +12,7 @@ a guarantee from them. File an issue here, I'm happy to help.
 How it works
 ------------
 
-
+I have documented this quite poorly.
 
 Figuring out what the IPFS plugin system actually allows me to do
 -----------------------------------------------------------------

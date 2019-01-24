@@ -1,10 +1,11 @@
 package i2pgate
 
 import (
+	"os"
+
 	"github.com/rtradeltd/go-garlic-tcp-transport"
 	"github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
-	"os"
 
 	//TODO: Fix this. Get a better understanding of gx.
 	//config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
@@ -79,7 +80,7 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.i2pconfig, err = i2pgateconfig.WriteConfig(i.configPath, i.i2pconfig)
+	i.i2pconfig, err = i.i2pconfig.Save(i.i2pconfig)
 	if err != nil {
 		return err
 	}
@@ -106,6 +107,7 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
+	i.i2pconfig, err = i.i2pconfig.Save(i.i2pconfig)
 	return nil
 }
 

@@ -13,7 +13,8 @@ GX_GO_PATH=$(GOPATH)/bin/gx-go
 build: example-plugin.so
 
 install: build
-	install -Dm700 example-plugin.so "$(IPFS_PATH)/plugins/example-plugin.so"
+	mkdir -p $(IPFS_PATH)/plugins
+	install -Dm700 go-ipfs-plugin-i2p-gateway.so "$(IPFS_PATH)/plugins/example-plugin.so"
 
 gx:
 	go get -u github.com/whyrusleeping/gx
@@ -62,3 +63,5 @@ fmt:
 
 gx-install:
 	$(GX_PATH) install
+
+
