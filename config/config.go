@@ -123,6 +123,16 @@ func (c *Config) TargetRPC() string {
 	return rt
 }
 
+func (c *Config) MaTargetHTTP() ma.Multiaddr {
+	rt, _ := ma.NewMultiaddr(c.AddressHTTP)
+	return rt
+}
+
+func (c *Config) MaTargetRPC() ma.Multiaddr {
+	rt, _ := ma.NewMultiaddr(c.AddressRPC)
+	return rt
+}
+
 func (c *Config) HostSAM() string {
 	st := strings.TrimPrefix(c.SAMHost, "/ip4/")
 	st = strings.TrimPrefix(st, "/ip6/")
