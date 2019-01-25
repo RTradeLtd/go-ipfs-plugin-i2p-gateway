@@ -1,9 +1,9 @@
 package i2pgate
 
 import (
-	"os"
-    "strings"
 	"github.com/rtradeltd/go-garlic-tcp-transport"
+	"os"
+	"strings"
 	//"github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 
@@ -11,7 +11,8 @@ import (
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
-    peer "github.com/libp2p/go-libp2p-peer")
+	peer "github.com/libp2p/go-libp2p-peer"
+)
 
 type I2PGatePlugin struct {
 	//*i2ptcp.GarlicTCPTransport
@@ -20,7 +21,7 @@ type I2PGatePlugin struct {
 	config        *config.Config
 	i2pconfigPath string
 	i2pconfig     *i2pgateconfig.Config
-    id peer.ID
+	id            peer.ID
 
 	forwardHTTP string
 	forwardRPC  string
@@ -72,13 +73,13 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-    idbytes := i.config.Identity.PeerID
-    idstring := strings.Replace(string(idbytes), "\"", "", -1)
-    i.id, err = peer.IDFromString(idstring)
+	idbytes := i.config.Identity.PeerID
+	idstring := strings.Replace(string(idbytes), "\"", "", -1)
+	i.id, err = peer.IDFromString(idstring)
 	if err != nil {
 		return err
 	}
-    err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return err
 	}
@@ -97,7 +98,7 @@ func (i *I2PGatePlugin) Init() error {
 
 func (i *I2PGatePlugin) transportHTTP() error {
 	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
-        i2ptcp.LocalPeerID(i.id),
+		i2ptcp.LocalPeerID(i.id),
 		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
 		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
 		i2ptcp.SAMPass(""),
@@ -125,12 +126,12 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		return err
 	}
 	GarlicTCPConn.ForwardI2P(i.i2pconfig.MaTargetHTTP())
-    return nil
+	return nil
 }
 
 func (i *I2PGatePlugin) transportRPC() error {
 	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
-        i2ptcp.LocalPeerID(i.id),
+		i2ptcp.LocalPeerID(i.id),
 		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
 		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
 		i2ptcp.SAMPass(""),
@@ -158,7 +159,7 @@ func (i *I2PGatePlugin) transportRPC() error {
 		return err
 	}
 	GarlicTCPConn.ForwardI2P(i.i2pconfig.MaTargetRPC())
-    return nil
+	return nil
 }
 
 // I2PTypeName returns I2PType
