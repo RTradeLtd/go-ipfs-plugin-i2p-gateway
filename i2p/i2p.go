@@ -82,7 +82,7 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.i2pconfig, err = i.i2pconfig.Save(i.i2pconfig)
+	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
 	if err != nil {
 		return err
 	}
@@ -98,6 +98,7 @@ func (i *I2PGatePlugin) Init() error {
 		return err
 	}
 	i.GarlicTCPConn, err = i.GarlicTCPTransport.ListenI2P()
+    //
 	if err != nil {
 		return err
 	}
@@ -109,7 +110,7 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.i2pconfig, err = i.i2pconfig.Save(i.i2pconfig)
+	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
 	return nil
 }
 

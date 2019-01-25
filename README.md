@@ -22,7 +22,7 @@ when the IPFS plugin is initialized. It does this by reading the IPFS config
 file to find the ports that have been configured by the admin running IPFS, then
 using the SAM API to forward those ports to I2P. Once they are forwarded, a
 config file is generated containing the i2p configuration and it's base32 and
-base64 settings. This is stored in a file called "i2pconfig."
+base64 addresses. This is stored in a file called "i2pconfig."
 
 ### Using it
 
