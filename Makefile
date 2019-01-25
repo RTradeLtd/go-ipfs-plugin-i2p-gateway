@@ -41,7 +41,7 @@ dep:
 
 dep2:
 	$(GX_PATH) repo add plugin QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r
-	$(GX_PATH) repo add config QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C67ty78
+	$(GX_PATH) repo add config QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR
 
 import:
 	$(GX_PATH) import "github.com/ipfs/go-ipfs"

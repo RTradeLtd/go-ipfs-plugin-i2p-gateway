@@ -6,7 +6,7 @@ import (
 
 	"github.com/rtradeltd/go-garlic-tcp-transport"
 
-	fsrepo "gx/ipfs/QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r/go-ipfs/repo/fsrepo"
+	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
 )
 
 // Test_config tries to create a config file

@@ -12,7 +12,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	ma "github.com/multiformats/go-multiaddr"
 
-	serialize "gx/ipfs/QmPEpj17FDRpc7K1aArKZp3RsHtzRMKykeK9GVgn4WQGPR/go-ipfs-config/serialize"
+	serialize "github.com/ipfs/go-ipfs-config/serialize"
 )
 
 // Config is a struct very alike the one used to configure IPFS which is used
