@@ -12,9 +12,9 @@ import (
 	//config "github.com/ipfs/go-ipfs-config"
 	//plugin "github.com/ipfs/go-ipfs/plugin"
 	//fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
-    config "github.com/ipsn/go-ipfs/tree/master/gxlibs/github.com/ipfs/go-ipfs-config"
-	plugin "github.com/ipsn/go-ipfs/tree/master/gxlibs/github.com/ipfs/go-ipfs/plugin"
-	fsrepo "github.com/ipsn/go-ipfs/tree/master/gxlibs/github.com/ipfs/go-ipfs/repo/fsrepo"
+	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
+	plugin "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs/plugin"
+	fsrepo "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs/repo/fsrepo"
 )
 
 type I2PGatePlugin struct {
