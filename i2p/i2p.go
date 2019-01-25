@@ -4,21 +4,18 @@ import (
 	"os"
 
 	"github.com/rtradeltd/go-garlic-tcp-transport"
-	"github.com/rtradeltd/go-garlic-tcp-transport/conn"
+	//"github.com/rtradeltd/go-garlic-tcp-transport/conn"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 
-	//TODO: Fix this. Get a better understanding of gx.
-	//config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
-	//config "github.com/ipfs/go-ipfs-config"
-	//config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
+	//TODO: Get a better understanding of gx.
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 )
 
 type I2PGatePlugin struct {
-	*i2ptcp.GarlicTCPTransport
-	*i2ptcpconn.GarlicTCPConn
+	//*i2ptcp.GarlicTCPTransport
+	//*i2ptcpconn.GarlicTCPConn
 	configPath    string
 	config        *config.Config
 	i2pconfigPath string
@@ -86,7 +83,13 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.GarlicTCPTransport, err = i2ptcp.NewGarlicTCPTransportFromOptions(
+	go transportHTTP()
+	go transportRPC()
+	return nil
+}
+
+func (i *I2PGatePlugin) transportHTTP() error {
+	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
 		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
 		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
 		i2ptcp.SAMPass(""),
@@ -97,21 +100,54 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	i.GarlicTCPConn, err = i.GarlicTCPTransport.ListenI2P()
-    //
+	GarlicTCPConn, err := GarlicTCPTransport.ListenI2P()
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.ListenerBase32(i.GarlicTCPConn.Base32(), i.i2pconfig)
+	err = i2pgateconfig.ListenerBase32(GarlicTCPConn.Base32(), i.i2pconfig)
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.ListenerBase64(i.GarlicTCPConn.Base64(), i.i2pconfig)
+	err = i2pgateconfig.ListenerBase64(GarlicTCPConn.Base64(), i.i2pconfig)
 	if err != nil {
 		return err
 	}
 	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	return nil
+	if err != nil {
+		return err
+	}
+	GarlicTCPConn.ForwardI2P(i.TargetHTTP())
+}
+
+func (i *I2PGatePlugin) transportRPC() error {
+	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
+		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
+		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
+		i2ptcp.SAMPass(""),
+		i2ptcp.KeysPath(i.configPath+".i2pkeys"),
+		i2ptcp.OnlyGarlic(i.i2pconfig.OnlyI2P),
+		i2ptcp.GarlicOptions(i.i2pconfig.Print()),
+	)
+	if err != nil {
+		return err
+	}
+	GarlicTCPConn, err := GarlicTCPTransport.ListenI2P()
+	if err != nil {
+		return err
+	}
+	err = i2pgateconfig.ListenerBase32RPC(GarlicTCPConn.Base32(), i.i2pconfig)
+	if err != nil {
+		return err
+	}
+	err = i2pgateconfig.ListenerBase64RPC(GarlicTCPConn.Base64(), i.i2pconfig)
+	if err != nil {
+		return err
+	}
+	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
+	if err != nil {
+		return err
+	}
+	GarlicTCPConn.ForwardI2P(i.TargetRPC())
 }
 
 // I2PTypeName returns I2PType

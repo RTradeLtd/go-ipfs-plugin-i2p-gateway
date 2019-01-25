@@ -51,6 +51,8 @@ type Config struct {
 	OnlyI2P                            bool
 	ListenerBase32                     string
 	ListenerBase64                     string
+	ListenerBase32RPC                  string
+	ListenerBase64RPC                  string
 }
 
 func (c *Config) accesslisttype() string {
@@ -105,8 +107,37 @@ func (c *Config) Print() []string {
 	return confstring
 }
 
+func (c *Config) TargetHTTP() string {
+	st := strings.TrimPrefix(c.AddressHTTP, "/ip4/")
+	st = strings.TrimPrefix(st, "/ip6/")
+	st = strings.Replace(st, "/tcp/", ":", -1)
+	rt := strings.TrimSuffix("/", st)
+	return rt
+}
+
+func (c *Config) TargetRPC() string {
+	st := strings.TrimPrefix(c.AddressRPC, "/ip4/")
+	st = strings.TrimPrefix(st, "/ip6/")
+	st = strings.Replace(st, "/tcp/", ":", -1)
+	rt := strings.TrimSuffix("/", st)
+	return rt
+}
+
+func (c *Config) HostSAM() string {
+	st := strings.TrimPrefix(c.SAMHost, "/ip4/")
+	st = strings.TrimPrefix(st, "/ip6/")
+	rt := strings.TrimSuffix(st, "/")
+	return rt
+}
+
+func (c *Config) PortSAM() string {
+	st := strings.TrimPrefix(c.SAMPort, "/tcp/")
+	rt := strings.TrimSuffix(st, "/")
+	return rt
+}
+
 func (c *Config) SAMAddr() string {
-	return c.SAMHost + ":" + c.SAMPort
+	return c.SAMHost + c.SAMPort
 }
 
 func (c *Config) SAMMultiaddr() (ma.Multiaddr, error) {
@@ -155,6 +186,8 @@ func Init(out io.Writer) (*Config, error) {
 		OnlyI2P:                            false,
 		ListenerBase32:                     "",
 		ListenerBase64:                     "",
+		ListenerBase32RPC:                  "",
+		ListenerBase64RPC:                  "",
 	}
 	return cfg, nil
 }
@@ -175,6 +208,7 @@ func Filename(ipfs_path string) (string, error) {
 	return Path(ipfs_path, DefaultConfigFile)
 }
 
+// Load reads a config file, or if one does not exist, initializes one.
 func Load(filename string) (*Config, error) {
 	// if nothing is there, generate a 'safe(paranoid)' default config and
 	// inform the user thusly
@@ -200,6 +234,7 @@ func Load(filename string) (*Config, error) {
 	return &cfg, nil
 }
 
+// Save writes a config file.
 func (cfg *Config) Save(ipfs_path string) (*Config, error) {
 	var filename string
 	var err error
@@ -207,8 +242,6 @@ func (cfg *Config) Save(ipfs_path string) (*Config, error) {
 		return nil, err
 	}
 
-	// if nothing is there, generate a 'safe(paranoid)' default config and
-	// inform the user thusly
 	if util.FileExists(filename) {
 		f, err := os.Open(filename)
 		if err != nil {
@@ -222,6 +255,7 @@ func (cfg *Config) Save(ipfs_path string) (*Config, error) {
 
 }
 
+//
 func Path(configroot, extension string) (string, error) {
 	if len(configroot) == 0 {
 		dir, err := PathRoot()
@@ -261,5 +295,15 @@ func ListenerBase32(addr string, cfg interface{}) error {
 
 func ListenerBase64(addr string, cfg interface{}) error {
 	cfg.(*Config).ListenerBase64 = addr
+	return nil
+}
+
+func ListenerBase32RPC(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase32RPC = addr
+	return nil
+}
+
+func ListenerBase64RPC(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase64RPC = addr
 	return nil
 }

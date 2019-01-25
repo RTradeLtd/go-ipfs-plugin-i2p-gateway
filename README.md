@@ -22,11 +22,30 @@ when the IPFS plugin is initialized. It does this by reading the IPFS config
 file to find the ports that have been configured by the admin running IPFS, then
 using the SAM API to forward those ports to I2P. Once they are forwarded, a
 config file is generated containing the i2p configuration and it's base32 and
-base64 addresses. This is stored in a file called "i2pconfig."
+base64 addresses. This is stored in a file called "i2pconfig." Finally, it
+simply forwards the IPFS gateway to I2P.
 
-### Using it
+Compiling
+---------
 
-Again, this plugin only shows the IPFS gateway, an
+Running the deps target pulls in the dependencies, and the build target profile
+builds the plugin. Since there's no "main" function you can't "go get" the
+plugin package, you have to clone it.
+
+        git clone https://github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
+        make deps build
+
+Installing and Using it
+-----------------------
+
+Assuming you have IPFS_PATH set, you can simply:
+
+        make install
+
+Again, this plugin only shows the IPFS gateway, it does not make you anonymous.
+Once you have it in your plugin directory, restart the IPFS daemon and the
+plugin should load. Retrieve the base32 address from the config file and visit
+the page in ~5-30 minutes.
 
 ### Notes:
 
