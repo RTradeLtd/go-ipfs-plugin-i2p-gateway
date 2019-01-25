@@ -1,7 +1,7 @@
 package main
 
 import (
-	plugin "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs/plugin"
+	plugin "github.com/ipsn/go-ipfs/plugin"
 	//i2p "github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p"
     i2p "./i2p"
 )
