@@ -12,14 +12,21 @@ a guarantee from them. File an issue here, I'm happy to help.
 How it works
 ------------
 
-I have documented this quite poorly.
+First of all, it uses the un-gxed version of IPFS found here for now:
+[Un-gxed IPFS](github.com/ipsn/go-ipfs).
 
-Figuring out what the IPFS plugin system actually allows me to do
------------------------------------------------------------------
+Officially speaking, the IPFS project has only documented plugins for
+filesystems. This plugin makes use of none of those interfaces. Instead it
+simply takes advantage of the plugin system to set up some hidden services
+when the IPFS plugin is initialized. It does this by reading the IPFS config
+file to find the ports that have been configured by the admin running IPFS, then
+using the SAM API to forward those ports to I2P. Once they are forwarded, a
+config file is generated containing the i2p configuration and it's base32 and
+base64 settings. This is stored in a file called "i2pconfig."
 
-The IPFS plugin system is relatively new and hasn't been used alot. It hasn't
-been used for something like this at all as far as I can tell. Hopefully I can
-help rectify this issue by documenting this process very methodically.
+### Using it
+
+Again, this plugin only shows the IPFS gateway, an
 
 ### Notes:
 

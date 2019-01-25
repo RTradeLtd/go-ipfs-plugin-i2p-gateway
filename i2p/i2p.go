@@ -9,10 +9,9 @@ import (
 
 	//TODO: Fix this. Get a better understanding of gx.
 	//config "gx/ipfs/QmRd5T3VmYoX6jaNoZovFRQcwWHJqHgTVQTs1Qz92ELJ7C/go-ipfs-config"
-	config "github.com/ipfs/go-ipfs-config"
-	//plugin "github.com/ipfs/go-ipfs/plugin"
-	//fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
+	//config "github.com/ipfs/go-ipfs-config"
 	//config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
+	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 )
