@@ -51,9 +51,9 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	}
 	go GarlicForwarder.Serve()
 	for {
-        if len(GarlicForwarder.Base32()) > 51 {
-            break
-        }
+		if len(GarlicForwarder.Base32()) > 51 {
+			break
+		}
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i.i2pconfig)
 	if err != nil {
@@ -114,9 +114,9 @@ func (i *I2PGatePlugin) transportRPC() error {
 	}
 	go GarlicForwarder.Serve()
 	for {
-        if len(GarlicForwarder.Base32()) > 51 {
-            break
-        }
+		if len(GarlicForwarder.Base32()) > 51 {
+			break
+		}
 	}
 	err = i2pgateconfig.ListenerBase32RPC(GarlicForwarder.Base32(), i.i2pconfig)
 	if err != nil {

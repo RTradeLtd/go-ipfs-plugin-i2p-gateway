@@ -1,12 +1,11 @@
 package i2pgate
 
 import (
-
+	"log"
 	"os"
-    "log"
 	"strings"
 
-    "github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	//TODO: Get a better understanding of gx.
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
@@ -90,7 +89,7 @@ func Setup(i *I2PGatePlugin) (*I2PGatePlugin, error) {
 	}
 	i.forwardRPC = i.rpcString()
 	i.forwardHTTP = i.httpString()
-    log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
+	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
 	return i, nil
 }
 

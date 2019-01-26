@@ -1,7 +1,7 @@
 package i2pgate
 
 import (
-    "log"
+	"log"
 	"os"
 	"testing"
 
@@ -86,11 +86,11 @@ func transportHTTP(i2pconfig *i2pgateconfig.Config) error {
 	go GarlicForwarder.Serve()
 	log.Println("waiting for i2p forwarding")
 	for true {
-        if len(GarlicForwarder.Base32()) > 51 {
-            log.Println(GarlicForwarder.Base32())
-        }else{
-            log.Println("waiting for i2p forwarding")
-        }
+		if len(GarlicForwarder.Base32()) > 51 {
+			log.Println(GarlicForwarder.Base32())
+		} else {
+			log.Println("waiting for i2p forwarding")
+		}
 
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i2pconfig)
@@ -116,7 +116,7 @@ func transportRPC(i2pconfig *i2pgateconfig.Config) error {
 	port, err := i2pconfig.RPCPort()
 	if err != nil {
 		return err
-    }
+	}
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i2pconfig.PortSAM()),
@@ -149,17 +149,17 @@ func transportRPC(i2pconfig *i2pgateconfig.Config) error {
 	)
 	if err != nil {
 		return err
-    }
-    log.Println("waiting for i2p forwarding")
+	}
+	log.Println("waiting for i2p forwarding")
 	go GarlicForwarder.Serve()
-    log.Println(GarlicForwarder.Base32())
-    log.Println( "len", len(GarlicForwarder.Base32()))
+	log.Println(GarlicForwarder.Base32())
+	log.Println("len", len(GarlicForwarder.Base32()))
 	for true {
-        if len(GarlicForwarder.Base32()) > 51 {
-            log.Println(GarlicForwarder.Base32())
-        }else{
-            log.Println("waiting for i2p forwarding")
-        }
+		if len(GarlicForwarder.Base32()) > 51 {
+			log.Println(GarlicForwarder.Base32())
+		} else {
+			log.Println("waiting for i2p forwarding")
+		}
 
 	}
 	err = i2pgateconfig.ListenerBase32RPC(GarlicForwarder.Base32(), i2pconfig)
