@@ -115,12 +115,20 @@ func (c *Config) TargetHTTP() string {
 }
 
 func (c *Config) HTTPHost() string {
-	at, _ := c.MaTargetHTTP().ValueForProtocol(ma.P_IP4)
+    temp, err := c.MaTargetHTTP()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_IP4)
 	return at
 }
 
 func (c *Config) HTTPPort() string {
-	at, _ := c.MaTargetHTTP().ValueForProtocol(ma.P_TCP)
+    temp, err := c.MaTargetHTTP()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_TCP)
 	return at
 }
 
@@ -129,12 +137,20 @@ func (c *Config) TargetRPC() string {
 }
 
 func (c *Config) RPCHost() string {
-	at, _ := c.MaTargetRPC().ValueForProtocol(ma.P_IP4)
+    temp, err := c.MaTargetRPC()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_IP4)
 	return at
 }
 
 func (c *Config) RPCPort() string {
-	at, _ := c.MaTargetRPC().ValueForProtocol(ma.P_TCP)
+    temp, err := c.MaTargetRPC()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_TCP)
 	return at
 }
 
@@ -143,28 +159,33 @@ func (c *Config) TargetSwarm() string {
 }
 
 func (c *Config) SwarmHost() string {
-	at, _ := c.MaTargetSwarm().ValueForProtocol(ma.P_IP4)
+    temp, err := c.MaTargetSwarm()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_IP4)
 	return at
 }
 
 func (c *Config) SwarmPort() string {
-	at, _ := c.MaTargetSwarm().ValueForProtocol(ma.P_TCP)
+    temp, err := c.MaTargetSwarm()
+    if err != nil {
+        log.Println(err.Error())
+    }
+	at, _ := temp.ValueForProtocol(ma.P_TCP)
 	return at
 }
 
-func (c *Config) MaTargetHTTP() ma.Multiaddr {
-	rt, _ := ma.NewMultiaddr(c.AddressHTTP)
-	return rt
+func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
+	return ma.NewMultiaddr(c.AddressHTTP)
 }
 
-func (c *Config) MaTargetRPC() ma.Multiaddr {
-	rt, _ := ma.NewMultiaddr(c.AddressRPC)
-	return rt
+func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
+	return ma.NewMultiaddr(c.AddressRPC)
 }
 
-func (c *Config) MaTargetSwarm() ma.Multiaddr {
-	rt, _ := ma.NewMultiaddr(c.AddressSwarm)
-	return rt
+func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
+	return ma.NewMultiaddr(c.AddressSwarm)
 }
 
 func (c *Config) HostSAM() string {

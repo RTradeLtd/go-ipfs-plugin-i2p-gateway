@@ -51,3 +51,7 @@ fmt:
 
 gx-install:
 	$(GX_PATH) install
+
+test:
+	go test ./config
+	go test ./i2p

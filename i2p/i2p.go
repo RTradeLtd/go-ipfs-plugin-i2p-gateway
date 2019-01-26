@@ -98,7 +98,7 @@ func (i *I2PGatePlugin) rpcString() string {
 	if err != nil {
 		panic("could not read RPC address, aborting")
 	}
-	return strings.Replace(string(rpcaddressbytes), "\"", "", -1)
+	return string(rpcaddressbytes)
 }
 
 func (i *I2PGatePlugin) httpString() string {
@@ -106,7 +106,7 @@ func (i *I2PGatePlugin) httpString() string {
 	if err != nil {
 		panic("could not read HTTP address, aborting")
 	}
-	return strings.Replace(string(httpaddressbytes), "\"", "", -1)
+	return string(httpaddressbytes)
 }
 
 func (i *I2PGatePlugin) idString() string {

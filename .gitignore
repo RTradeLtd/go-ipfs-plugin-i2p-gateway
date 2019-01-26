@@ -7,3 +7,5 @@ vendor
 config/config
 config/i2pconfig
 config/.*
+i2p/config
+i2p/i2pconfig

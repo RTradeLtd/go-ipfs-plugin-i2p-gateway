@@ -2,7 +2,6 @@ package i2pgateconfig
 
 import (
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/rtradeltd/go-garlic-tcp-transport"
@@ -27,12 +26,12 @@ func Test_Config(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	forwardRPC := strings.Replace(string(rpcaddressbytes), "\"", "", -1)
+	forwardRPC := string(rpcaddressbytes)
 	httpaddressbytes, err := config.Addresses.Gateway.MarshalJSON()
 	if err != nil {
 		t.Fatal(err)
 	}
-	forwardHTTP := strings.Replace(string(httpaddressbytes), "\"", "", -1)
+	forwardHTTP := string(httpaddressbytes)
 	i2pconfig, err := ConfigAt(configPath)
 	if err != nil {
 		t.Fatal(err)
