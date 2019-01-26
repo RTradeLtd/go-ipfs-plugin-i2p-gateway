@@ -1,6 +1,8 @@
 go-ipfs-plugin-i2p-gateway
 ==========================
 
+Plugin for presenting an IPFS gateway over i2p.
+
 **WARNING:** This is *only* the gateway part, A.K.A. the easy part. It will make
 your IPFS gateway accessible via i2p clients, but it **will not route**
 **communication between IPFS nodes over i2p(1)**. This means that it **doesn't**

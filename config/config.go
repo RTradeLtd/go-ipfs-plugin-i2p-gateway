@@ -24,6 +24,7 @@ type Config struct {
 	TunName                            string
 	AddressRPC                         string
 	AddressHTTP                        string
+	AddressSwarm                       string
 	EncryptLeaseSet                    bool
 	EncryptedLeaseSetKey               string
 	EncryptedLeaseSetPrivateKey        string
@@ -112,16 +113,13 @@ func (c *Config) TargetHTTP() string {
 }
 
 func (c *Config) HTTPHost() string {
-	st := strings.SplitN(c.AddressHTTP, "/tcp/", 2)
-	rt := strings.TrimPrefix(st[0], "/ip4/")
-	rt = strings.TrimPrefix(st[0], "/ip6/")
-	return rt
+	at, _ := c.MaTargetHTTP().ValueForProtocol(ma.P_IP4)
+	return at
 }
 
 func (c *Config) HTTPPort() string {
-	st := strings.SplitN(c.AddressHTTP, "/tcp/", 2)
-	rt := strings.Replace(strings.TrimPrefix(st[1], "tcp"), "/", "", -1)
-	return rt
+	at, _ := c.MaTargetHTTP().ValueForProtocol(ma.P_TCP)
+	return at
 }
 
 func (c *Config) TargetRPC() string {
@@ -129,16 +127,27 @@ func (c *Config) TargetRPC() string {
 }
 
 func (c *Config) RPCHost() string {
-	st := strings.SplitN(c.AddressRPC, "/tcp/", 2)
-	rt := strings.TrimPrefix(st[0], "/ip4/")
-	rt = strings.TrimPrefix(st[0], "/ip6/")
-	return rt
+	at, _ := c.MaTargetRPC().ValueForProtocol(ma.P_IP4)
+	return at
 }
 
 func (c *Config) RPCPort() string {
-	st := strings.SplitN(c.AddressRPC, "/tcp/", 2)
-	rt := strings.Replace(strings.TrimPrefix(st[1], "tcp"), "/", "", -1)
-	return rt
+	at, _ := c.MaTargetRPC().ValueForProtocol(ma.P_TCP)
+	return at
+}
+
+func (c *Config) TargetSwarm() string {
+	return c.RPCHost() + ":" + c.RPCPort()
+}
+
+func (c *Config) SwarmHost() string {
+	at, _ := c.MaTargetSwarm().ValueForProtocol(ma.P_IP4)
+	return at
+}
+
+func (c *Config) SwarmPort() string {
+	at, _ := c.MaTargetSwarm().ValueForProtocol(ma.P_TCP)
+	return at
 }
 
 func (c *Config) MaTargetHTTP() ma.Multiaddr {
@@ -151,17 +160,21 @@ func (c *Config) MaTargetRPC() ma.Multiaddr {
 	return rt
 }
 
-func (c *Config) HostSAM() string {
-	st := strings.TrimPrefix(c.SAMHost, "/ip4/")
-	st = strings.TrimPrefix(st, "/ip6/")
-	rt := strings.TrimSuffix(st, "/")
+func (c *Config) MaTargetSwarm() ma.Multiaddr {
+	rt, _ := ma.NewMultiaddr(c.AddressSwarm)
 	return rt
 }
 
+func (c *Config) HostSAM() string {
+	m, _ := c.SAMMultiaddr()
+	at, _ := m.ValueForProtocol(ma.P_IP4)
+	return at
+}
+
 func (c *Config) PortSAM() string {
-	st := strings.TrimPrefix(c.SAMPort, "/tcp/")
-	rt := strings.TrimSuffix(st, "/")
-	return rt
+	m, _ := c.SAMMultiaddr()
+	at, _ := m.ValueForProtocol(ma.P_TCP)
+	return at
 }
 
 func (c *Config) SAMAddr() string {
