@@ -54,6 +54,8 @@ type Config struct {
 	ListenerBase64                     string
 	ListenerBase32RPC                  string
 	ListenerBase64RPC                  string
+	ListenerBase32Swarm                string
+	ListenerBase64Swarm                string
 }
 
 func (c *Config) accesslisttype() string {
@@ -229,6 +231,8 @@ func Init(out io.Writer) (*Config, error) {
 		ListenerBase64:                     "",
 		ListenerBase32RPC:                  "",
 		ListenerBase64RPC:                  "",
+		ListenerBase32Swarm:                "",
+		ListenerBase64Swarm:                "",
 	}
 	return cfg, nil
 }
@@ -329,6 +333,11 @@ func AddressHTTP(addr string, cfg interface{}) error {
 	return nil
 }
 
+func AddressSwarm(addr string, cfg interface{}) error {
+	cfg.(*Config).AddressSwarm = addr
+	return nil
+}
+
 func ListenerBase32(addr string, cfg interface{}) error {
 	cfg.(*Config).ListenerBase32 = addr
 	return nil
@@ -346,5 +355,15 @@ func ListenerBase32RPC(addr string, cfg interface{}) error {
 
 func ListenerBase64RPC(addr string, cfg interface{}) error {
 	cfg.(*Config).ListenerBase64RPC = addr
+	return nil
+}
+
+func ListenerBase32Swarm(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase32Swarm = addr
+	return nil
+}
+
+func ListenerBase64Swarm(addr string, cfg interface{}) error {
+	cfg.(*Config).ListenerBase64Swarm = addr
 	return nil
 }
