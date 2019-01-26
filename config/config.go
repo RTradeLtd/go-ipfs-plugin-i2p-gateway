@@ -180,17 +180,14 @@ func (c *Config) SwarmPort() (string, error) {
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
-	log.Println(c.AddressHTTP)
 	return ma.NewMultiaddr(c.AddressHTTP)
 }
 
 func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
-	log.Println(c.AddressRPC)
 	return ma.NewMultiaddr(c.AddressRPC)
 }
 
 func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
-	log.Println(c.AddressSwarm)
 	return ma.NewMultiaddr(c.AddressSwarm)
 }
 
@@ -207,7 +204,8 @@ func (c *Config) PortSAM() string {
 }
 
 func (c *Config) SAMAddr() string {
-	return c.SAMHost + c.SAMPort
+    rt := strings.Replace(c.SAMHost + c.SAMPort, "//","/", -1)
+	return rt
 }
 
 func (c *Config) SAMMultiaddr() (ma.Multiaddr, error) {
@@ -249,6 +247,7 @@ func Init(out io.Writer) (*Config, error) {
 		UseCompression:                     true,
 		FastRecieve:                        true,
 		ReduceIdle:                         true,
+        ReduceIdleTime:                     200000,
 		ReduceIdleQuantity:                 1,
 		CloseIdle:                          false,
 		AccessListType:                     "none",

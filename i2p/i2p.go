@@ -5,8 +5,7 @@ import (
 	"os"
 	"strings"
 
-	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
-    "../config"
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	//TODO: Get a better understanding of gx.
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"

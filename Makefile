@@ -37,8 +37,8 @@ docker:
 	docker build -f Dockerfile.build -t eyedeekay/go-ipfs-plugin-build .
 
 deps:
-	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config
+	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
 
 clobber:
 	rm -rf $(GOPATH)
