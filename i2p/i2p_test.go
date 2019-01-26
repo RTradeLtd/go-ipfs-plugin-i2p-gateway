@@ -1,13 +1,13 @@
 package i2pgate
 
 import (
-	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
-	//peer "github.com/libp2p/go-libp2p-peer"
-	"github.com/eyedeekay/sam-forwarder"
-	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	"log"
 	"os"
 	"testing"
+
+	"github.com/eyedeekay/sam-forwarder"
+	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
 var configPath = "./"
@@ -54,11 +54,19 @@ func Test_Config(t *testing.T) {
 }
 
 func transportHTTP(i2pconfig *i2pgateconfig.Config) error {
+	host, err := i2pconfig.HTTPHost()
+	if err != nil {
+		return err
+	}
+	port, err := i2pconfig.HTTPPort()
+	if err != nil {
+		return err
+	}
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i2pconfig.PortSAM()),
-		samforwarder.SetHost(i2pconfig.HTTPHost()),
-		samforwarder.SetPort(i2pconfig.HTTPPort()),
+		samforwarder.SetHost(host),
+		samforwarder.SetPort(port),
 		samforwarder.SetType("server"),
 		samforwarder.SetSaveFile(true),
 		samforwarder.SetName("ipfs-gateway-http"),
@@ -107,11 +115,19 @@ func transportHTTP(i2pconfig *i2pgateconfig.Config) error {
 }
 
 func transportRPC(i2pconfig *i2pgateconfig.Config) error {
+	host, err := i2pconfig.RPCHost()
+	if err != nil {
+		return err
+	}
+	port, err := i2pconfig.RPCPort()
+	if err != nil {
+		return err
+	}
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i2pconfig.PortSAM()),
-		samforwarder.SetHost(i2pconfig.RPCHost()),
-		samforwarder.SetPort(i2pconfig.RPCPort()),
+		samforwarder.SetHost(host),
+		samforwarder.SetPort(port),
 		samforwarder.SetType("server"),
 		samforwarder.SetSaveFile(true),
 		samforwarder.SetName("ipfs-gateway-rpc"),
