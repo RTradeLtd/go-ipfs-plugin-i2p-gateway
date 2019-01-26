@@ -1,4 +1,4 @@
-// +build !samforwarder
+// +build libp2p
 
 package i2pgate
 

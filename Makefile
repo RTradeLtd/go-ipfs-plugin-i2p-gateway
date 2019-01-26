@@ -11,7 +11,7 @@ GX_GO_PATH=$(GOPATH)/bin/gx-go
 
 .PHONY: install build gx
 
-build: example-plugin.so
+build: go-ipfs-plugin-i2p-gateway.so
 
 install: build
 	mkdir -p $(IPFS_PATH)/plugins
@@ -23,8 +23,11 @@ gx:
 	go get -u github.com/karalabe/ungx
 
 go-ipfs-plugin-i2p-gateway.so: plugin.go
-	$(GOCC) build -a -tags samforwarder -buildmode=plugin
+	$(GOCC) build -buildmode=plugin
 	chmod +x "go-ipfs-plugin-i2p-gateway.so"
+
+plugin-libp2p:
+	$(GOCC) build -a -tags libp2p -buildmode=plugin
 
 docker:
 	docker build -t eyedeekay/go-ipfs-plugin-base .

@@ -1,10 +1,9 @@
 package i2pgate
 
 import (
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	"os"
 	"strings"
-	//"github.com/rtradeltd/go-garlic-tcp-transport/conn"
-	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 
 	//TODO: Get a better understanding of gx.
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
@@ -14,8 +13,6 @@ import (
 )
 
 type I2PGatePlugin struct {
-	//*i2ptcp.GarlicTCPTransport
-	//*i2ptcpconn.GarlicTCPConn
 	configPath    string
 	config        *config.Config
 	i2pconfigPath string
