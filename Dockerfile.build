@@ -1,3 +1,0 @@
-FROM eyedeekay/go-ipfs-plugin-base
-RUN make deps
-RUN ls
