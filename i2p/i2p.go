@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+    "../config"
 	//TODO: Get a better understanding of gx.
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
@@ -126,7 +127,7 @@ func (i *I2PGatePlugin) rpcString() string {
 	if err != nil {
 		panic("could not read RPC address, aborting")
 	}
-	return string(rpcaddressbytes)
+	return unquote(string(rpcaddressbytes))
 }
 
 func (i *I2PGatePlugin) httpString() string {
@@ -134,15 +135,19 @@ func (i *I2PGatePlugin) httpString() string {
 	if err != nil {
 		panic("could not read HTTP address, aborting")
 	}
-	return string(httpaddressbytes)
+	return unquote(string(httpaddressbytes))
 }
 
 func (i *I2PGatePlugin) idString() string {
 	idbytes := i.config.Identity.PeerID
-	return strings.Replace(string(idbytes), "\"", "", -1)
+	return unquote(string(idbytes))
 }
 
 // I2PTypeName returns I2PType
 func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
+}
+
+func unquote(s string) string{
+    return strings.Replace(s, "\"", "", -1)
 }

@@ -15,11 +15,12 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	if err != nil {
 		return err
 	}
+    log.Println("host", host)
 	port, err := i.i2pconfig.HTTPPort()
 	if err != nil {
 		return err
 	}
-	log.Println("HTTP: ", host, ":", port)
+	log.Println("port", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
@@ -50,6 +51,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		samforwarder.SetLeaseSetPrivateSigningKey(i.i2pconfig.EncryptedLeaseSetPrivateSigningKey),
 		samforwarder.SetMessageReliability(i.i2pconfig.MessageReliability),
 	)
+    log.Println("Generated Garlic Forwarder")
 	if err != nil {
 		return err
 	}
@@ -83,11 +85,12 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
+    log.Println("host", host)
 	port, err := i.i2pconfig.RPCPort()
 	if err != nil {
 		return err
 	}
-	log.Println("RPC: ", host, ":", port)
+	log.Println("port", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),

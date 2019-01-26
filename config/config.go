@@ -124,7 +124,6 @@ func (c *Config) HTTPHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -133,7 +132,6 @@ func (c *Config) HTTPPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -148,7 +146,6 @@ func (c *Config) RPCHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -157,7 +154,6 @@ func (c *Config) RPCPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -172,7 +168,6 @@ func (c *Config) SwarmHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -181,7 +176,6 @@ func (c *Config) SwarmPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
