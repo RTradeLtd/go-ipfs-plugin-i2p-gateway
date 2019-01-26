@@ -12,55 +12,10 @@ import (
 
 var configPath = "./"
 
-/*
-func Test_Config(t *testing.T) {
-	i := &I2PGatePlugin{}
-	if err := i.test(); err != nil {
-		t.Fatal(err)
-	}
-}
-
-func (i *I2PGatePlugin) test() error {
-	i.configPath = "./"
-	err := os.Setenv("KEYS_PATH", i.configPath)
-	if err != nil {
-		return err
-	}
-	i.config, err = fsrepo.ConfigAt(i.configPath)
-	if err != nil {
-		return err
-	}
-
-	i.forwardHTTP = i.httpString()
-    i.forwardRPC = i.rpcString()
-
-	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
-	if err != nil {
-		return err
-	}
-
-	i.id, err = peer.IDFromString(i.idString())
-	if err != nil {
-		return err
-	}
-	err = i.configGateway()
-	if err != nil {
-		return err
-	}
-	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	if err != nil {
-		return err
-	}
-	go i.transportHTTP()
-    go i.transportRPC()
-	return nil
-}
-*/
-
 // Test_config tries to create a config file
 func Test_Config(t *testing.T) {
 
-	err := os.Setenv("KEYS_PATH", configPath)
+	err := os.Setenv("IPFS_PATH", configPath)
 	if err != nil {
 		t.Fatal("")
 	}
