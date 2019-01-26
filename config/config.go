@@ -52,10 +52,13 @@ type Config struct {
 	OnlyI2P                            bool
 	ListenerBase32                     string
 	ListenerBase64                     string
+	ListenerSK                         string
 	ListenerBase32RPC                  string
 	ListenerBase64RPC                  string
+	ListenerSKRPC                      string
 	ListenerBase32Swarm                string
 	ListenerBase64Swarm                string
+	ListenerSKSwarm                    string
 }
 
 func (c *Config) accesslisttype() string {
@@ -121,6 +124,7 @@ func (c *Config) HTTPHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -129,6 +133,7 @@ func (c *Config) HTTPPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -143,6 +148,7 @@ func (c *Config) RPCHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -151,6 +157,7 @@ func (c *Config) RPCPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -165,6 +172,7 @@ func (c *Config) SwarmHost() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_IP4))
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -173,6 +181,7 @@ func (c *Config) SwarmPort() (string, error) {
 	if err != nil {
 		return "", err
 	}
+    log.Println(temp.ValueForProtocol(ma.P_TCP))
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -250,10 +259,13 @@ func Init(out io.Writer) (*Config, error) {
 		OnlyI2P:                            false,
 		ListenerBase32:                     "",
 		ListenerBase64:                     "",
+		ListenerSK:                         "",
 		ListenerBase32RPC:                  "",
 		ListenerBase64RPC:                  "",
+		ListenerSKRPC:                      "",
 		ListenerBase32Swarm:                "",
 		ListenerBase64Swarm:                "",
+		ListenerSKSwarm:                    "",
 	}
 	return cfg, nil
 }

@@ -5,7 +5,6 @@ package i2pgate
 import (
 	"github.com/eyedeekay/sam-forwarder"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
-	"log"
 )
 
 func (i *I2PGatePlugin) transportHTTP() error {
@@ -51,8 +50,10 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		return err
 	}
 	go GarlicForwarder.Serve()
-	for len(GarlicForwarder.Base32()) < 51 {
-		log.Println("Waiting for i2p destination to be generated(HTTP)")
+	for {
+        if len(GarlicForwarder.Base32()) > 51 {
+            break
+        }
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i.i2pconfig)
 	if err != nil {
@@ -112,8 +113,10 @@ func (i *I2PGatePlugin) transportRPC() error {
 		return err
 	}
 	go GarlicForwarder.Serve()
-	for len(GarlicForwarder.Base32()) < 51 {
-		log.Println("Waiting for i2p destination to be generated(RPC)")
+	for {
+        if len(GarlicForwarder.Base32()) > 51 {
+            break
+        }
 	}
 	err = i2pgateconfig.ListenerBase32RPC(GarlicForwarder.Base32(), i.i2pconfig)
 	if err != nil {

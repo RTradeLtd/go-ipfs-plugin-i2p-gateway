@@ -1,47 +1,35 @@
 package i2pgate
 
 import (
-	"log"
+    "log"
 	"os"
 	"testing"
 
 	"github.com/eyedeekay/sam-forwarder"
-	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
 var configPath = "./"
 
-// Test_config tries to create a config file
-func Test_Config(t *testing.T) {
+// Test_Network tries to create a config file
+func Test_Network(t *testing.T) {
 
 	err := os.Setenv("IPFS_PATH", configPath)
-	if err != nil {
-		t.Fatal("")
-	}
-	config, err := fsrepo.ConfigAt(configPath)
+
+	i, err := Setup(&I2PGatePlugin{})
 	if err != nil {
 		t.Fatal(err)
 	}
-	rpcaddressbytes, err := config.Addresses.API.MarshalJSON()
+
+	i2pconfig, err := i2pgateconfig.ConfigAt(i.configPath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	forwardRPC := string(rpcaddressbytes)
-	httpaddressbytes, err := config.Addresses.Gateway.MarshalJSON()
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i2pconfig)
 	if err != nil {
 		t.Fatal(err)
 	}
-	forwardHTTP := string(httpaddressbytes)
-	i2pconfig, err := i2pgateconfig.ConfigAt(configPath)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = i2pgateconfig.AddressRPC(forwardRPC, i2pconfig)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = i2pgateconfig.AddressHTTP(forwardHTTP, i2pconfig)
+	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i2pconfig)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -96,8 +84,14 @@ func transportHTTP(i2pconfig *i2pgateconfig.Config) error {
 		return err
 	}
 	go GarlicForwarder.Serve()
-	for len(GarlicForwarder.Base32()) < 51 {
-		log.Println("Waiting for i2p destination to be generated(HTTP)")
+	log.Println("waiting for i2p forwarding")
+	for true {
+        if len(GarlicForwarder.Base32()) > 51 {
+            log.Println(GarlicForwarder.Base32())
+        }else{
+            log.Println("waiting for i2p forwarding")
+        }
+
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i2pconfig)
 	if err != nil {
@@ -122,7 +116,7 @@ func transportRPC(i2pconfig *i2pgateconfig.Config) error {
 	port, err := i2pconfig.RPCPort()
 	if err != nil {
 		return err
-	}
+    }
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i2pconfig.PortSAM()),
@@ -155,10 +149,18 @@ func transportRPC(i2pconfig *i2pgateconfig.Config) error {
 	)
 	if err != nil {
 		return err
-	}
+    }
+    log.Println("waiting for i2p forwarding")
 	go GarlicForwarder.Serve()
-	for len(GarlicForwarder.Base32()) < 51 {
-		log.Println("Waiting for i2p destination to be generated(RPC)")
+    log.Println(GarlicForwarder.Base32())
+    log.Println( "len", len(GarlicForwarder.Base32()))
+	for true {
+        if len(GarlicForwarder.Base32()) > 51 {
+            log.Println(GarlicForwarder.Base32())
+        }else{
+            log.Println("waiting for i2p forwarding")
+        }
+
 	}
 	err = i2pgateconfig.ListenerBase32RPC(GarlicForwarder.Base32(), i2pconfig)
 	if err != nil {
