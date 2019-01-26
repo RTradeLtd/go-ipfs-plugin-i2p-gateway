@@ -43,7 +43,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		return err
 	}
 	go GarlicForwarder.Serve()
-	for len(GarlicForwader.Base32()) < 51 {
+	for len(GarlicForwarder.Base32()) < 51 {
 		log.Println("Waiting for i2p destination to be generated(HTTP)")
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i.i2pconfig)

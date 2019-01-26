@@ -22,8 +22,8 @@ gx:
 	go get -u github.com/whyrusleeping/gx-go
 	go get -u github.com/karalabe/ungx
 
-example-plugin.so: plugin.go
-	$(GOCC) build -buildmode=plugin
+go-ipfs-plugin-i2p-gateway.so: plugin.go
+	$(GOCC) build -a -tags samforwarder -buildmode=plugin
 	chmod +x "go-ipfs-plugin-i2p-gateway.so"
 
 docker:
