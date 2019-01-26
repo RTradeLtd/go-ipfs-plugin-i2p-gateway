@@ -186,14 +186,17 @@ func (c *Config) SwarmPort() (string, error) {
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
+	log.Println(c.AddressHTTP)
 	return ma.NewMultiaddr(c.AddressHTTP)
 }
 
 func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
+	log.Println(c.AddressRPC)
 	return ma.NewMultiaddr(c.AddressRPC)
 }
 
 func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
+	log.Println(c.AddressSwarm)
 	return ma.NewMultiaddr(c.AddressSwarm)
 }
 

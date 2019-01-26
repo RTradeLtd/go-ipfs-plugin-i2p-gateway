@@ -53,7 +53,7 @@ gx-install:
 	$(GX_PATH) install
 
 test:
-	go test ./config -v
+	go test ./config
 	go test ./i2p -v
 
 vet:

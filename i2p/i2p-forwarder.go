@@ -3,11 +3,14 @@
 package i2pgate
 
 import (
+	"log"
+
 	"github.com/eyedeekay/sam-forwarder"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
 func (i *I2PGatePlugin) transportHTTP() error {
+	log.Println("Creating an i2p destination for the HTTP Server")
 	host, err := i.i2pconfig.HTTPHost()
 	if err != nil {
 		return err
@@ -16,6 +19,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	if err != nil {
 		return err
 	}
+	log.Println("HTTP: ", host, ":", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
@@ -52,7 +56,10 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	go GarlicForwarder.Serve()
 	for {
 		if len(GarlicForwarder.Base32()) > 51 {
+			log.Println("base32: ", GarlicForwarder.Base32())
 			break
+		} else {
+			log.Println("waiting for address")
 		}
 	}
 	err = i2pgateconfig.ListenerBase32(GarlicForwarder.Base32(), i.i2pconfig)
@@ -71,6 +78,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 }
 
 func (i *I2PGatePlugin) transportRPC() error {
+	log.Println("Creating an i2p destination for the RPC Server")
 	host, err := i.i2pconfig.RPCHost()
 	if err != nil {
 		return err
@@ -79,6 +87,7 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
+	log.Println("RPC: ", host, ":", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
@@ -115,7 +124,10 @@ func (i *I2PGatePlugin) transportRPC() error {
 	go GarlicForwarder.Serve()
 	for {
 		if len(GarlicForwarder.Base32()) > 51 {
+			log.Println("base32: ", GarlicForwarder.Base32())
 			break
+		} else {
+			log.Println("waiting for address")
 		}
 	}
 	err = i2pgateconfig.ListenerBase32RPC(GarlicForwarder.Base32(), i.i2pconfig)

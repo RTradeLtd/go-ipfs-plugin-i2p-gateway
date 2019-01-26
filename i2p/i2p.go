@@ -44,17 +44,22 @@ func (*I2PGatePlugin) Version() string {
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
 	var err error
-	i, err = Setup(i)
+	i.configPath, err = fsrepo.BestKnownPath()
 	if err != nil {
 		return err
 	}
+	err = os.Setenv("KEYS_PATH", i.configPath)
+	if err != nil {
+		return err
+	}
+	i.config, err = fsrepo.ConfigAt(i.configPath)
+	if err != nil {
+		return err
+	}
+	i.forwardRPC = i.rpcString()
+	i.forwardHTTP = i.httpString()
 
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
-	if err != nil {
-		return err
-	}
-
-	i.id, err = peer.IDFromString(i.idString())
 	if err != nil {
 		return err
 	}
@@ -73,8 +78,9 @@ func (i *I2PGatePlugin) Init() error {
 	return nil
 }
 
-func Setup(i *I2PGatePlugin) (*I2PGatePlugin, error) {
+func Setup() (*I2PGatePlugin, error) {
 	var err error
+	var i I2PGatePlugin
 	i.configPath, err = fsrepo.BestKnownPath()
 	if err != nil {
 		return nil, err
@@ -90,15 +96,25 @@ func Setup(i *I2PGatePlugin) (*I2PGatePlugin, error) {
 	i.forwardRPC = i.rpcString()
 	i.forwardHTTP = i.httpString()
 	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
-	return i, nil
+	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
+	return &i, nil
 }
 
-func (i *I2PGatePlugin) configGateway() error {
+func (i I2PGatePlugin) configGateway() error {
 	err := i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return err
 	}
 	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.i2pconfig)
+	if err != nil {
+		return err
+	}
+	i.id, err = peer.IDFromString(i.idString())
+	if err != nil {
+		return err
+	}
+	log.Println(i.idString())
+	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
 	if err != nil {
 		return err
 	}
