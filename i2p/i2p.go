@@ -147,6 +147,6 @@ func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
 }
 
-func unquote(s string) string{
-    return strings.Replace(s, "\"", "", -1)
+func unquote(s string) string {
+	return strings.Replace(s, "\"", "", -1)
 }

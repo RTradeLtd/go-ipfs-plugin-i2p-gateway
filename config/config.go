@@ -204,7 +204,7 @@ func (c *Config) PortSAM() string {
 }
 
 func (c *Config) SAMAddr() string {
-    rt := strings.Replace(c.SAMHost + c.SAMPort, "//","/", -1)
+	rt := strings.Replace(c.SAMHost+c.SAMPort, "//", "/", -1)
 	return rt
 }
 
@@ -247,7 +247,7 @@ func Init(out io.Writer) (*Config, error) {
 		UseCompression:                     true,
 		FastRecieve:                        true,
 		ReduceIdle:                         true,
-        ReduceIdleTime:                     200000,
+		ReduceIdleTime:                     2000000,
 		ReduceIdleQuantity:                 1,
 		CloseIdle:                          false,
 		AccessListType:                     "none",

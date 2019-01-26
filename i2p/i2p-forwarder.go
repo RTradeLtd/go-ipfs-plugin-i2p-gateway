@@ -15,7 +15,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	if err != nil {
 		return err
 	}
-    log.Println("host", host)
+	log.Println("host", host)
 	port, err := i.i2pconfig.HTTPPort()
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		samforwarder.SetAllowZeroOut(i.i2pconfig.OutAllowZeroHop),
 		samforwarder.SetCompress(i.i2pconfig.UseCompression),
 		samforwarder.SetReduceIdle(i.i2pconfig.ReduceIdle),
-		//samforwarder.SetReduceIdleTimeMs(i.i2pconfig.ReduceIdleTime),
+		samforwarder.SetReduceIdleTimeMs(i.i2pconfig.ReduceIdleTime),
 		samforwarder.SetReduceIdleQuantity(i.i2pconfig.ReduceIdleQuantity),
 		samforwarder.SetAccessListType(i.i2pconfig.AccessListType),
 		samforwarder.SetAccessList(i.i2pconfig.AccessList),
@@ -51,7 +51,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		samforwarder.SetLeaseSetPrivateSigningKey(i.i2pconfig.EncryptedLeaseSetPrivateSigningKey),
 		samforwarder.SetMessageReliability(i.i2pconfig.MessageReliability),
 	)
-    log.Println("Generated Garlic Forwarder")
+	log.Println("Generated Garlic Forwarder")
 	if err != nil {
 		return err
 	}
@@ -85,7 +85,7 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
-    log.Println("host", host)
+	log.Println("host", host)
 	port, err := i.i2pconfig.RPCPort()
 	if err != nil {
 		return err
@@ -111,7 +111,7 @@ func (i *I2PGatePlugin) transportRPC() error {
 		samforwarder.SetAllowZeroOut(i.i2pconfig.OutAllowZeroHop),
 		samforwarder.SetCompress(i.i2pconfig.UseCompression),
 		samforwarder.SetReduceIdle(i.i2pconfig.ReduceIdle),
-		//samforwarder.SetReduceIdleTimeMs(i.i2pconfig.ReduceIdleTime),
+		samforwarder.SetReduceIdleTimeMs(i.i2pconfig.ReduceIdleTime),
 		samforwarder.SetReduceIdleQuantity(i.i2pconfig.ReduceIdleQuantity),
 		samforwarder.SetAccessListType(i.i2pconfig.AccessListType),
 		samforwarder.SetAccessList(i.i2pconfig.AccessList),

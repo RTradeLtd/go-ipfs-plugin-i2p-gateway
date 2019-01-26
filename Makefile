@@ -14,7 +14,7 @@ GX_GO_PATH=$(GOPATH)/bin/gx-go
 build: go-ipfs-plugin-i2p-gateway.so
 
 clean:
-	rm -f go-ipfs-plugin-i2p-gateway.so
+	rm -f go-ipfs-plugin-i2p-gateway.so */i2pconfig */*.i2pkeys
 
 install: build
 	mkdir -p $(IPFS_PATH)/plugins
