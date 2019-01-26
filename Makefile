@@ -18,7 +18,7 @@ clean:
 
 install: build
 	mkdir -p $(IPFS_PATH)/plugins
-	install -Dm700 go-ipfs-plugin-i2p-gateway.so "$(IPFS_PATH)/plugins/example-plugin.so"
+	install -Dm700 go-ipfs-plugin-i2p-gateway.so "$(IPFS_PATH)/plugins/go-ipfs-plugin-i2p-gateway.so"
 
 gx:
 	go get -u github.com/whyrusleeping/gx
