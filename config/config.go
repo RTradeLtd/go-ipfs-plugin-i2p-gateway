@@ -111,69 +111,69 @@ func (c *Config) Print() []string {
 }
 
 func (c *Config) TargetHTTP() string {
-	return c.HTTPHost() + ":" + c.HTTPPort()
+    h, _ := c.HTTPHost()
+    p, _ := c.HTTPPort()
+	return h+":"+p
 }
 
-func (c *Config) HTTPHost() string {
+func (c *Config) HTTPHost() (string, error) {
     temp, err := c.MaTargetHTTP()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_IP4)
-	return at
+	return temp.ValueForProtocol(ma.P_IP4)
 }
 
-func (c *Config) HTTPPort() string {
+func (c *Config) HTTPPort() (string, error) {
     temp, err := c.MaTargetHTTP()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_TCP)
-	return at
+	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) TargetRPC() string {
-	return c.RPCHost() + ":" + c.RPCPort()
+	h, _ := c.RPCHost()
+    p, _ := c.RPCPort()
+	return h+":"+p
 }
 
-func (c *Config) RPCHost() string {
+func (c *Config) RPCHost() (string, error) {
     temp, err := c.MaTargetRPC()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_IP4)
-	return at
+	return temp.ValueForProtocol(ma.P_IP4)
 }
 
-func (c *Config) RPCPort() string {
+func (c *Config) RPCPort() (string, error) {
     temp, err := c.MaTargetRPC()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_TCP)
-	return at
+	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) TargetSwarm() string {
-	return c.RPCHost() + ":" + c.RPCPort()
+	h, _ := c.SwarmHost()
+    p, _ := c.SwarmPort()
+	return h+""+p
 }
 
-func (c *Config) SwarmHost() string {
+func (c *Config) SwarmHost() (string, error) {
     temp, err := c.MaTargetSwarm()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_IP4)
-	return at
+	return temp.ValueForProtocol(ma.P_IP4)
 }
 
-func (c *Config) SwarmPort() string {
+func (c *Config) SwarmPort() (string, error) {
     temp, err := c.MaTargetSwarm()
     if err != nil {
-        log.Println(err.Error())
+        return "", err
     }
-	at, _ := temp.ValueForProtocol(ma.P_TCP)
-	return at
+	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
