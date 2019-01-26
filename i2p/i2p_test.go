@@ -3,11 +3,11 @@ package i2pgate
 import (
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 	//peer "github.com/libp2p/go-libp2p-peer"
-    "log"
+	"github.com/eyedeekay/sam-forwarder"
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
+	"log"
 	"os"
 	"testing"
-    "github.com/eyedeekay/sam-forwarder"
 )
 
 var configPath = "./"

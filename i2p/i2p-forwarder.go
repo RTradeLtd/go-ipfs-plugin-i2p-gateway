@@ -9,14 +9,14 @@ import (
 )
 
 func (i *I2PGatePlugin) transportHTTP() error {
-    host, err := i.i2pconfig.HTTPHost()
-    if err != nil {
-    return err
-    }
-    port, err := i.i2pconfig.HTTPPort()
-    if err != nil {
-    return err
-    }
+	host, err := i.i2pconfig.HTTPHost()
+	if err != nil {
+		return err
+	}
+	port, err := i.i2pconfig.HTTPPort()
+	if err != nil {
+		return err
+	}
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
@@ -70,14 +70,14 @@ func (i *I2PGatePlugin) transportHTTP() error {
 }
 
 func (i *I2PGatePlugin) transportRPC() error {
-    host, err := i.i2pconfig.RPCHost()
-    if err != nil {
-    return err
-    }
-    port, err := i.i2pconfig.RPCPort()
-    if err != nil {
-    return err
-    }
+	host, err := i.i2pconfig.RPCHost()
+	if err != nil {
+		return err
+	}
+	port, err := i.i2pconfig.RPCPort()
+	if err != nil {
+		return err
+	}
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),

@@ -111,68 +111,68 @@ func (c *Config) Print() []string {
 }
 
 func (c *Config) TargetHTTP() string {
-    h, _ := c.HTTPHost()
-    p, _ := c.HTTPPort()
-	return h+":"+p
+	h, _ := c.HTTPHost()
+	p, _ := c.HTTPPort()
+	return h + ":" + p
 }
 
 func (c *Config) HTTPHost() (string, error) {
-    temp, err := c.MaTargetHTTP()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetHTTP()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
 func (c *Config) HTTPPort() (string, error) {
-    temp, err := c.MaTargetHTTP()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetHTTP()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) TargetRPC() string {
 	h, _ := c.RPCHost()
-    p, _ := c.RPCPort()
-	return h+":"+p
+	p, _ := c.RPCPort()
+	return h + ":" + p
 }
 
 func (c *Config) RPCHost() (string, error) {
-    temp, err := c.MaTargetRPC()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetRPC()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
 func (c *Config) RPCPort() (string, error) {
-    temp, err := c.MaTargetRPC()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetRPC()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) TargetSwarm() string {
 	h, _ := c.SwarmHost()
-    p, _ := c.SwarmPort()
-	return h+""+p
+	p, _ := c.SwarmPort()
+	return h + "" + p
 }
 
 func (c *Config) SwarmHost() (string, error) {
-    temp, err := c.MaTargetSwarm()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetSwarm()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
 func (c *Config) SwarmPort() (string, error) {
-    temp, err := c.MaTargetSwarm()
-    if err != nil {
-        return "", err
-    }
+	temp, err := c.MaTargetSwarm()
+	if err != nil {
+		return "", err
+	}
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
