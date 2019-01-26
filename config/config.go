@@ -108,18 +108,36 @@ func (c *Config) Print() []string {
 }
 
 func (c *Config) TargetHTTP() string {
-	st := strings.TrimPrefix(c.AddressHTTP, "/ip4/")
-	st = strings.TrimPrefix(st, "/ip6/")
-	st = strings.Replace(st, "/tcp/", ":", -1)
-	rt := strings.TrimSuffix("/", st)
+	return c.HTTPHost() + ":" + c.HTTPPort()
+}
+
+func (c *Config) HTTPHost() string {
+	st := strings.SplitN(c.AddressHTTP, "/tcp/", 2)
+	rt := strings.TrimPrefix(st[0], "/ip4/")
+	rt = strings.TrimPrefix(st[0], "/ip6/")
+	return rt
+}
+
+func (c *Config) HTTPPort() string {
+	st := strings.SplitN(c.AddressHTTP, "/tcp/", 2)
+	rt := strings.Replace(strings.TrimPrefix(st[1], "tcp"), "/", "", -1)
 	return rt
 }
 
 func (c *Config) TargetRPC() string {
-	st := strings.TrimPrefix(c.AddressRPC, "/ip4/")
-	st = strings.TrimPrefix(st, "/ip6/")
-	st = strings.Replace(st, "/tcp/", ":", -1)
-	rt := strings.TrimSuffix("/", st)
+	return c.RPCHost() + ":" + c.RPCPort()
+}
+
+func (c *Config) RPCHost() string {
+	st := strings.SplitN(c.AddressRPC, "/tcp/", 2)
+	rt := strings.TrimPrefix(st[0], "/ip4/")
+	rt = strings.TrimPrefix(st[0], "/ip6/")
+	return rt
+}
+
+func (c *Config) RPCPort() string {
+	st := strings.SplitN(c.AddressRPC, "/tcp/", 2)
+	rt := strings.Replace(strings.TrimPrefix(st[1], "tcp"), "/", "", -1)
 	return rt
 }
 

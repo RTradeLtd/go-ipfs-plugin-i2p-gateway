@@ -1,7 +1,6 @@
 package i2pgate
 
 import (
-	"github.com/rtradeltd/go-garlic-tcp-transport"
 	"os"
 	"strings"
 	//"github.com/rtradeltd/go-garlic-tcp-transport/conn"
@@ -59,31 +58,20 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	rpcaddressbytes, err := i.config.Addresses.API.MarshalJSON()
-	if err != nil {
-		return err
-	}
-	i.forwardRPC = strings.Replace(string(rpcaddressbytes), "\"", "", -1)
-	httpaddressbytes, err := i.config.Addresses.Gateway.MarshalJSON()
-	if err != nil {
-		return err
-	}
-	i.forwardHTTP = strings.Replace(string(httpaddressbytes), "\"", "", -1)
+
+	i.forwardRPC = i.rpcString()
+	i.forwardHTTP = i.httpString()
+
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
 	if err != nil {
 		return err
 	}
-	idbytes := i.config.Identity.PeerID
-	idstring := strings.Replace(string(idbytes), "\"", "", -1)
-	i.id, err = peer.IDFromString(idstring)
+
+	i.id, err = peer.IDFromString(i.idString())
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
-	if err != nil {
-		return err
-	}
-	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.i2pconfig)
+	err = i.configGateway()
 	if err != nil {
 		return err
 	}
@@ -96,70 +84,37 @@ func (i *I2PGatePlugin) Init() error {
 	return nil
 }
 
-func (i *I2PGatePlugin) transportHTTP() error {
-	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
-		i2ptcp.LocalPeerID(i.id),
-		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
-		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
-		i2ptcp.SAMPass(""),
-		i2ptcp.KeysPath(i.configPath+".i2pkeys"),
-		i2ptcp.OnlyGarlic(i.i2pconfig.OnlyI2P),
-		i2ptcp.GarlicOptions(i.i2pconfig.Print()),
-	)
+func (i *I2PGatePlugin) configGateway() error {
+	err := i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return err
 	}
-	GarlicTCPConn, err := GarlicTCPTransport.ListenI2P()
+	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.i2pconfig)
 	if err != nil {
 		return err
 	}
-	err = i2pgateconfig.ListenerBase32(GarlicTCPConn.Base32(), i.i2pconfig)
-	if err != nil {
-		return err
-	}
-	err = i2pgateconfig.ListenerBase64(GarlicTCPConn.Base64(), i.i2pconfig)
-	if err != nil {
-		return err
-	}
-	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	if err != nil {
-		return err
-	}
-	GarlicTCPConn.ForwardI2P(i.i2pconfig.MaTargetHTTP())
 	return nil
 }
 
-func (i *I2PGatePlugin) transportRPC() error {
-	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
-		i2ptcp.LocalPeerID(i.id),
-		i2ptcp.SAMHost(i.i2pconfig.SAMHost),
-		i2ptcp.SAMPort(i.i2pconfig.SAMPort),
-		i2ptcp.SAMPass(""),
-		i2ptcp.KeysPath(i.configPath+".i2pkeys"),
-		i2ptcp.OnlyGarlic(i.i2pconfig.OnlyI2P),
-		i2ptcp.GarlicOptions(i.i2pconfig.Print()),
-	)
+func (i *I2PGatePlugin) rpcString() string {
+	rpcaddressbytes, err := i.config.Addresses.API.MarshalJSON()
 	if err != nil {
-		return err
+		panic("could not read RPC address, aborting")
 	}
-	GarlicTCPConn, err := GarlicTCPTransport.ListenI2P()
+	return strings.Replace(string(rpcaddressbytes), "\"", "", -1)
+}
+
+func (i *I2PGatePlugin) httpString() string {
+	httpaddressbytes, err := i.config.Addresses.Gateway.MarshalJSON()
 	if err != nil {
-		return err
+		panic("could not read HTTP address, aborting")
 	}
-	err = i2pgateconfig.ListenerBase32RPC(GarlicTCPConn.Base32(), i.i2pconfig)
-	if err != nil {
-		return err
-	}
-	err = i2pgateconfig.ListenerBase64RPC(GarlicTCPConn.Base64(), i.i2pconfig)
-	if err != nil {
-		return err
-	}
-	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	if err != nil {
-		return err
-	}
-	GarlicTCPConn.ForwardI2P(i.i2pconfig.MaTargetRPC())
-	return nil
+	return strings.Replace(string(httpaddressbytes), "\"", "", -1)
+}
+
+func (i *I2PGatePlugin) idString() string {
+	idbytes := i.config.Identity.PeerID
+	return strings.Replace(string(idbytes), "\"", "", -1)
 }
 
 // I2PTypeName returns I2PType
