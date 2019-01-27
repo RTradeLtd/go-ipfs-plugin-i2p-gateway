@@ -32,10 +32,6 @@ go-ipfs-plugin-i2p-gateway.so: plugin.go
 plugin-libp2p:
 	$(GOCC) build -a -tags libp2p -buildmode=plugin
 
-docker:
-	docker build -t eyedeekay/go-ipfs-plugin-base .
-	docker build -f Dockerfile.build -t eyedeekay/go-ipfs-plugin-build .
-
 deps:
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
@@ -53,7 +49,6 @@ gx-install:
 	$(GX_PATH) install
 
 test:
-	go test ./config
 	go test ./i2p -v
 
 vet:

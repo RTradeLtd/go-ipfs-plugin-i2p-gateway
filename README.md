@@ -11,6 +11,13 @@ your IPFS gateway accessible via i2p clients, but it **will not route**
 yet. It's also emphatically *not* a product of the i2p Project and doesn't carry
 a guarantee from them. File an issue here, I'm happy to help.
 
+Also, even if your IP address and/or location are obfuscated, your IPFS identity
+is unique. You can serve information to anonymous users, but you have an
+identity which corresponds to the IPFS node that you are using(No different to
+the key fingerprint of an SSH server). If it isn't possible to associate it to
+a real-life identity or organization, and can't be correlated with a real
+physical location, then it could be regarded as "pseudonymous."
+
 How it works
 ------------
 

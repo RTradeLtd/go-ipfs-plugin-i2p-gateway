@@ -188,6 +188,7 @@ func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
 }
 
 func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
+	log.Println("Swarm Address:", c.AddressSwarm)
 	return ma.NewMultiaddr(c.AddressSwarm)
 }
 
@@ -230,6 +231,7 @@ func Init(out io.Writer) (*Config, error) {
 		TunName:                            "ipfs",
 		AddressRPC:                         "/ip4/127.0.0.1/tcp/4001/",
 		AddressHTTP:                        "/ip4/127.0.0.1/tcp/5001/",
+		AddressSwarm:                       "/ip4/127.0.0.1/tcp/4001/",
 		EncryptLeaseSet:                    false,
 		EncryptedLeaseSetKey:               "",
 		EncryptedLeaseSetPrivateKey:        "",
