@@ -29,7 +29,7 @@ type I2PGatePlugin struct {
 // that use it.
 var I2PType = "i2pgate"
 
-var _ plugin.Plugin = (*I2PGatePlugin)(nil)
+var _ plugin.PluginTracer = (*I2PGatePlugin)(nil)
 
 // Name returns the plugin's name, satisfying the plugin.Plugin interface.
 func (*I2PGatePlugin) Name() string {
