@@ -11,7 +11,7 @@ import (
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 	peer "github.com/libp2p/go-libp2p-peer"
-	"github.com/opentracing/opentracing-go"
+	//"github.com/opentracing/opentracing-go"
 )
 
 type I2PGatePlugin struct {
@@ -153,5 +153,5 @@ func unquote(s string) string {
 }
 
 func (*I2PGatePlugin) InitTracer() (opentracing.Tracer, error) {
-	return opentracing.NoopTracer{}, nil
+	return nil, nil
 }
