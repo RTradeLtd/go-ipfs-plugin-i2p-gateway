@@ -59,6 +59,7 @@ type Config struct {
 	ListenerBase32Swarm                string
 	ListenerBase64Swarm                string
 	ListenerSKSwarm                    string
+    I2PBootstrapAddresses                   []string
 }
 
 func (c *Config) accesslisttype() string {
@@ -219,6 +220,10 @@ func (c *Config) SAMAddr() string {
 
 func (c *Config) SAMMultiaddr() (ma.Multiaddr, error) {
 	return ma.NewMultiaddr(c.SAMAddr())
+}
+
+func (c *Config) BootstrapAddresses() []string {
+    return c.I2PBootstrapAddresses
 }
 
 const (

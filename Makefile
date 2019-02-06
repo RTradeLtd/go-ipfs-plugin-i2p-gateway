@@ -35,8 +35,10 @@ plugin-libp2p:
 	$(GOCC) build -a -tags libp2p -buildmode=plugin
 
 deps:
+	go get -u github.com/rtradeltd/go-garlic-tcp-transport
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
+
 
 clobber:
 	rm -rf $(GOPATH)
@@ -51,6 +53,7 @@ gx-install:
 	$(GX_PATH) install
 
 test:
+	go test ./config -v
 	go test ./i2p -v
 
 vet:

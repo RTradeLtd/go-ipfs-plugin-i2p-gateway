@@ -18,6 +18,9 @@ the key fingerprint of an SSH server). If it isn't possible to associate it to
 a real-life identity or organization, and can't be correlated with a real
 physical location, then it could be regarded as "pseudonymous."
 
+*Todo:* For right now the plugin exposes the HTTP and RPC API's only. It's
+possible to talk directly to the coreAPI now, and soon, it will do so.
+
 How it works
 ------------
 
