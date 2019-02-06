@@ -59,7 +59,7 @@ type Config struct {
 	ListenerBase32Swarm                string
 	ListenerBase64Swarm                string
 	ListenerSKSwarm                    string
-    I2PBootstrapAddresses                   []string
+	I2PBootstrapAddresses              []string
 }
 
 func (c *Config) accesslisttype() string {
@@ -223,7 +223,7 @@ func (c *Config) SAMMultiaddr() (ma.Multiaddr, error) {
 }
 
 func (c *Config) BootstrapAddresses() []string {
-    return c.I2PBootstrapAddresses
+	return c.I2PBootstrapAddresses
 }
 
 const (
@@ -379,6 +379,13 @@ func AddressHTTP(addr string, cfg interface{}) error {
 
 func AddressSwarm(addr string, cfg interface{}) error {
 	cfg.(*Config).AddressSwarm = addr
+	return nil
+}
+
+func AddressesBootstrap(addr []string, cfg interface{}) error {
+	for _, v := range addr {
+		cfg.(*Config).I2PBootstrapAddresses = append(cfg.(*Config).I2PBootstrapAddresses, v)
+	}
 	return nil
 }
 
