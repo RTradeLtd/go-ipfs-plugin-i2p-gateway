@@ -113,12 +113,15 @@ func (c *Config) Print() []string {
 	return confstring
 }
 
+// TargetHTTP returns the string representation of the IPFS gateway in host:port
+// form(not a multiaddr)
 func (c *Config) TargetHTTP() string {
 	h, _ := c.HTTPHost()
 	p, _ := c.HTTPPort()
 	return h + ":" + p
 }
 
+// HTTPHost returns the string representation of the IPFS gateway host only
 func (c *Config) HTTPHost() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
@@ -127,6 +130,7 @@ func (c *Config) HTTPHost() (string, error) {
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
+// HTTPPort returns the string representation of the IPFS gateway port only
 func (c *Config) HTTPPort() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
@@ -135,12 +139,15 @@ func (c *Config) HTTPPort() (string, error) {
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
+// TargetRPC returns the string representation of the RPC gateway in host:port
+// form(not a multiaddr)
 func (c *Config) TargetRPC() string {
 	h, _ := c.RPCHost()
 	p, _ := c.RPCPort()
 	return h + ":" + p
 }
 
+// RPCHost returns the string representation of the RPC gateway host only
 func (c *Config) RPCHost() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {
@@ -149,6 +156,7 @@ func (c *Config) RPCHost() (string, error) {
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
+// RPCPort returns the string representation of the RPC gateway port only
 func (c *Config) RPCPort() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {

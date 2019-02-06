@@ -7,13 +7,15 @@ import (
 
 	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	//TODO: Get a better understanding of gx.
+	coreiface "github.com/ipsn/go-ipfs/core/coreapi/interface"
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
 	peer "github.com/libp2p/go-libp2p-peer"
-	"github.com/opentracing/opentracing-go"
 )
 
+// I2PGatePlugin is a structure containing information which is used for
+// setting up an i2p tunnel that connects an IPFS gateway to a tunnel over i2p.
 type I2PGatePlugin struct {
 	configPath    string
 	config        *config.Config
@@ -29,7 +31,7 @@ type I2PGatePlugin struct {
 // that use it.
 var I2PType = "i2pgate"
 
-var _ plugin.PluginTracer = (*I2PGatePlugin)(nil)
+var _ plugin.PluginDaemon = (*I2PGatePlugin)(nil)
 
 // Name returns the plugin's name, satisfying the plugin.Plugin interface.
 func (*I2PGatePlugin) Name() string {
@@ -45,22 +47,7 @@ func (*I2PGatePlugin) Version() string {
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
 	var err error
-	i.configPath, err = fsrepo.BestKnownPath()
-	if err != nil {
-		return err
-	}
-	err = os.Setenv("KEYS_PATH", i.configPath)
-	if err != nil {
-		return err
-	}
-	i.config, err = fsrepo.ConfigAt(i.configPath)
-	if err != nil {
-		return err
-	}
-	i.forwardRPC = i.rpcString()
-	i.forwardHTTP = i.httpString()
-
-	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
+	i, err = Setup()
 	if err != nil {
 		return err
 	}
@@ -74,11 +61,12 @@ func (i *I2PGatePlugin) Init() error {
 	if err != nil {
 		return err
 	}
-	go i.transportHTTP()
-	go i.transportRPC()
+
 	return nil
 }
 
+// Setup creates an I2PGatePlugin and config file, but it doesn't start
+// any tunnels.
 func Setup() (*I2PGatePlugin, error) {
 	var err error
 	var i I2PGatePlugin
@@ -152,6 +140,14 @@ func unquote(s string) string {
 	return strings.Replace(s, "\"", "", -1)
 }
 
-func (*I2PGatePlugin) InitTracer() (opentracing.Tracer, error) {
-	return nil, nil
+// Start starts the tunnels and also satisfies the Daemon plugin interface
+func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
+	go i.transportHTTP()
+	go i.transportRPC()
+	return nil
+}
+
+// Close satisfies the Daemon plugin interface
+func (*I2PGatePlugin) Close() error {
+	return nil
 }
