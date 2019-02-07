@@ -37,7 +37,7 @@ plugin-libp2p:
 deps:
 	go get -u github.com/rtradeltd/go-garlic-tcp-transport
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config
-	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
+	$(GX_GO_PATH) get github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
 
 clobber:
 	rm -rf $(GOPATH)
