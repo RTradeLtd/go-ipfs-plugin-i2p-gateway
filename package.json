@@ -6,6 +6,13 @@
   "gx": {
     "dvcsimport": "github.com/rtradeltd/go-ipfs-plugin-i2p-gateway"
   },
+  "gxDependencies": [
+    {
+      "hash": "QmUJYo4etAQqFfSS2rarFAE97eNGB8ej64YkRT2SmsYD4r",
+      "name": "go-ipfs",
+      "version": "0.4.18"
+    }
+  ],
   "gxVersion": "0.14.0",
   "language": "go",
   "license": "",

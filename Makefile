@@ -55,3 +55,6 @@ test:
 vet:
 	go vet ./config
 	go vet ./i2p
+
+import:
+	gx import github.com/ipfs/go-ipfs

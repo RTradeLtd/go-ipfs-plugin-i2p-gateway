@@ -24,9 +24,6 @@ possible to talk directly to the coreAPI now, and soon, it will do so.
 How it works
 ------------
 
-First of all, it uses the un-gxed version of IPFS found here for now:
-[Un-gxed IPFS](github.com/ipsn/go-ipfs).
-
 It simply takes advantage of the plugin system to set up some hidden services
 when the IPFS plugin is initialized. It does this by reading the IPFS config
 file to find the ports that have been configured by the admin running IPFS, then
