@@ -39,7 +39,6 @@ deps:
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config
 	go get -u github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/i2p
 
-
 clobber:
 	rm -rf $(GOPATH)
 
@@ -50,7 +49,7 @@ fmt:
 	find ./i2p ./config -name '*.go' -exec gofmt -w {} \;
 
 gx-install:
-	$(GX_PATH) install
+	$(GX_GO_PATH) import github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
 
 test:
 	go test ./config -v
