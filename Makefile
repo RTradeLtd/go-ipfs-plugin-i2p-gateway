@@ -1,3 +1,4 @@
+GOCC ?= go
 IPFSVERSION=v0.4.18
 
 .PHONY: install build gx
