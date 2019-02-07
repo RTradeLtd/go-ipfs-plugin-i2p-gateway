@@ -1,13 +1,4 @@
-GOCC ?= go
-IPFS_PATH ?= $(HOME)/.ipfs
-
-VERSION="0.0.0"
-
-GOPATH=$(shell pwd)/go
-
-GX_PATH=$(GOPATH)/bin/gx
-UNGX_PATH=$(GOPATH)/bin/ungx
-GX_GO_PATH=$(GOPATH)/bin/gx-go
+IPFSVERSION=v0.4.18
 
 .PHONY: install build gx
 
@@ -58,3 +49,21 @@ vet:
 
 import:
 	gx import github.com/ipfs/go-ipfs
+
+.PHONY: vendor
+
+vendor:
+	# Nuke vendor directory
+	rm -rf vendor
+
+	# Update standard dependencies
+	#dep ensure -v -update
+	dep ensure -v
+	# Generate IPFS dependencies
+	rm -rf vendor/github.com/ipfs/go-ipfs
+	git clone https://github.com/ipfs/go-ipfs.git vendor/github.com/ipfs/go-ipfs
+	( cd vendor/github.com/ipfs/go-ipfs ; gx install --local --nofancy )
+	mv vendor/github.com/ipfs/go-ipfs/vendor/* vendor
+
+	# Remove problematic dependencies
+	find . -name test-vectors -type d -exec rm -r {} +

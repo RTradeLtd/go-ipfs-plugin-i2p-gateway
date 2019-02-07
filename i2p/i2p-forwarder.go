@@ -5,8 +5,8 @@ package i2pgate
 import (
 	"log"
 
+	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
 	"github.com/eyedeekay/sam-forwarder"
-	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
 func (i *I2PGatePlugin) transportHTTP() error {

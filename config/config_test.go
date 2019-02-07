@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/rtradeltd/go-garlic-tcp-transport"
+	"github.com/RTradeLtd/go-garlic-tcp-transport"
 
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
 )
