@@ -1,5 +1,4 @@
 GOCC ?= go
-IPFSVERSION=v0.4.18
 
 .PHONY: install build gx
 
@@ -52,7 +51,6 @@ import:
 	gx import github.com/ipfs/go-ipfs
 
 .PHONY: vendor
-
 vendor:
 	# Nuke vendor directory
 	rm -rf vendor
@@ -68,3 +66,7 @@ vendor:
 
 	# Remove problematic dependencies
 	find . -name test-vectors -type d -exec rm -r {} +
+
+.PHONY: ipfs
+ipfs:
+	( cd vendor/github.com/ipfs/go-ipfs/cmd/ipfs ; go build ; cp ipfs $(GOPATH)/bin)
