@@ -1,6 +1,5 @@
 README.md.asc
 *.so
-go
 vendor
 *log*
 *err*
