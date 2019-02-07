@@ -6,7 +6,7 @@ import (
 
 	"github.com/rtradeltd/go-garlic-tcp-transport"
 
-	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
+	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
 )
 
 var configPath = "./"
