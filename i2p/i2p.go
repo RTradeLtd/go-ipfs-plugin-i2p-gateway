@@ -5,11 +5,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 	config "github.com/ipfs/go-ipfs-config"
 	coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
 	plugin "github.com/ipfs/go-ipfs/plugin"
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
+	"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
 // I2PGatePlugin is a structure containing information which is used for
