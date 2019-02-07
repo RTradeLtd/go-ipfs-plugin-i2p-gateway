@@ -11,7 +11,6 @@ import (
 	config "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config"
 	plugin "github.com/ipsn/go-ipfs/plugin"
 	fsrepo "github.com/ipsn/go-ipfs/repo/fsrepo"
-	peer "github.com/libp2p/go-libp2p-peer"
 )
 
 // I2PGatePlugin is a structure containing information which is used for
@@ -21,7 +20,6 @@ type I2PGatePlugin struct {
 	config        *config.Config
 	i2pconfigPath string
 	i2pconfig     *i2pgateconfig.Config
-	id            peer.ID
 
 	forwardHTTP string
 	forwardRPC  string
@@ -98,7 +96,6 @@ func (i I2PGatePlugin) configGateway() error {
 	if err != nil {
 		return err
 	}
-	i.id, err = peer.IDFromString(i.idString())
 	if err != nil {
 		return err
 	}
@@ -116,7 +113,7 @@ func (i *I2PGatePlugin) rpcString() string {
 		panic("could not read RPC address, aborting")
 	}
 	//return unquote(string(rpcaddressbytes))
-    return string(rpcaddressbytes)
+	return string(rpcaddressbytes)
 }
 
 func (i *I2PGatePlugin) httpString() string {
@@ -125,13 +122,13 @@ func (i *I2PGatePlugin) httpString() string {
 		panic("could not read HTTP address, aborting")
 	}
 	//return unquote(string(httpaddressbytes))
-    return string(httpaddressbytes)
+	return string(httpaddressbytes)
 }
 
 func (i *I2PGatePlugin) idString() string {
 	idbytes := i.config.Identity.PeerID
 	//return unquote(string(idbytes))
-    return string(idbytes)
+	return string(idbytes)
 }
 
 // I2PTypeName returns I2PType

@@ -3,7 +3,6 @@ package i2pgate
 import (
 	"os"
 	"testing"
-
 	//"github.com/rtradeltd/go-ipfs-plugin-i2p-gateway/config"
 )
 
@@ -14,19 +13,19 @@ func Test_Network(t *testing.T) {
 
 	err := os.Setenv("IPFS_PATH", configPath)
 
-    var i *I2PGatePlugin
-    err = i.Init()
-    if err != nil {
+	var i *I2PGatePlugin
+	err = i.Init()
+	if err != nil {
 		t.Fatal(err)
 	}
 	/*
-    err = i.transportHTTP()
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = i.transportRPC()
-	if err != nil {
-		t.Fatal(err)
-	}
-    */
+	    err = i.transportHTTP()
+		if err != nil {
+			t.Fatal(err)
+		}
+		err = i.transportRPC()
+		if err != nil {
+			t.Fatal(err)
+		}
+	*/
 }

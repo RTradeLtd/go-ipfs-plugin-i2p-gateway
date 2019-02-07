@@ -12,8 +12,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	ma "github.com/multiformats/go-multiaddr"
 
-	//serialize "github.com/ipfs/go-ipfs-config/serialize"
-	serialize "github.com/ipsn/go-ipfs/gxlibs/github.com/ipfs/go-ipfs-config/serialize"
+	serialize "github.com/ipfs/go-ipfs-config/serialize"
 )
 
 // Config is a struct very alike the one used to configure IPFS which is used
@@ -314,7 +313,7 @@ func Load(filename string) (*Config, error) {
 		}
 		return cfg, serialize.WriteConfigFile(filename, cfg)
 	}
-    log.Println("i2p Gateway tunnel configuration found in: ", filename)
+	log.Println("i2p Gateway tunnel configuration found in: ", filename)
 	var cfg Config
 	err := serialize.ReadConfigFile(filename, &cfg)
 	if err != nil {
