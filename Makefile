@@ -48,9 +48,6 @@ b:
 fmt:
 	find ./i2p ./config -name '*.go' -exec gofmt -w {} \;
 
-gx-install:
-	$(GX_GO_PATH) import github.com/rtradeltd/go-ipfs-plugin-i2p-gateway
-
 test:
 	go test ./config -v
 	go test ./i2p -v
