@@ -1,6 +1,6 @@
 README.md.asc
 *.so
-vendor
+go
 *log*
 *err*
 config/config

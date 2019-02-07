@@ -1,0 +1,33 @@
+ignored = ["github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway"]
+
+[[constraint]]
+  branch = "fix/imports"
+  name = "github.com/RTradeLtd/go-garlic-tcp-transport"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/eyedeekay/sam-forwarder"
+
+[[constraint]]
+  name = "github.com/ipfs/go-ipfs-config"
+  version = "0.2.15"
+
+[[constraint]]
+  name = "github.com/ipfs/go-ipfs-util"
+  version = "1.2.8"
+
+[[constraint]]
+  name = "github.com/mitchellh/go-homedir"
+  version = "1.1.0"
+
+[[constraint]]
+  name = "github.com/ipfs/go-ipfs"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/multiformats/go-multiaddr"
+  branch = "master"
+
+[prune]
+  go-tests = true
+  unused-packages = true
