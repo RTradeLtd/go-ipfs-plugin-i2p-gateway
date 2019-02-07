@@ -314,7 +314,7 @@ func Load(filename string) (*Config, error) {
 		}
 		return cfg, serialize.WriteConfigFile(filename, cfg)
 	}
-
+    log.Println("i2p Gateway tunnel configuration found in: ", filename)
 	var cfg Config
 	err := serialize.ReadConfigFile(filename, &cfg)
 	if err != nil {
