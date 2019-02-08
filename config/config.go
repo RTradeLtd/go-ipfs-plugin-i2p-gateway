@@ -125,8 +125,10 @@ func (c *Config) TargetHTTP() string {
 func (c *Config) HTTPHost() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
+		log.Println("Failed to get HTTP Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Getting value for HTTP host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -134,8 +136,10 @@ func (c *Config) HTTPHost() (string, error) {
 func (c *Config) HTTPPort() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
+		log.Println("Failed to get HTTP Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Value for HTTP port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -151,8 +155,10 @@ func (c *Config) TargetRPC() string {
 func (c *Config) RPCHost() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {
+		log.Println("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Value for RPC host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -160,8 +166,10 @@ func (c *Config) RPCHost() (string, error) {
 func (c *Config) RPCPort() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {
+		log.Println("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Value for RPC port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -174,26 +182,30 @@ func (c *Config) TargetSwarm() string {
 func (c *Config) SwarmHost() (string, error) {
 	temp, err := c.MaTargetSwarm()
 	if err != nil {
+		log.Println("Failed to get Swarm Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Value for Swarm host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
 func (c *Config) SwarmPort() (string, error) {
 	temp, err := c.MaTargetSwarm()
 	if err != nil {
+		log.Println("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
+	log.Println("Value for Swarm port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
-    log.Println("Detected HTTP address:", c.AddressHTTP)
+	log.Println("Detected HTTP address:", c.AddressHTTP)
 	return ma.NewMultiaddr(Unquote(c.AddressHTTP))
 }
 
 func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
-    log.Println("Detected RPC address:", c.AddressRPC)
+	log.Println("Detected RPC address:", c.AddressRPC)
 	return ma.NewMultiaddr(Unquote(c.AddressRPC))
 }
 
@@ -205,12 +217,14 @@ func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
 func (c *Config) HostSAM() string {
 	m, _ := c.SAMMultiaddr()
 	at, _ := m.ValueForProtocol(ma.P_IP4)
+	log.Println("SAM Host:", at)
 	return at
 }
 
 func (c *Config) PortSAM() string {
 	m, _ := c.SAMMultiaddr()
 	at, _ := m.ValueForProtocol(ma.P_TCP)
+	log.Println("SAM Port:", at)
 	return at
 }
 
