@@ -3,9 +3,8 @@ package i2pgate
 import (
 	"log"
 	"os"
-	"strings"
 
-	config "gx/ipfs/QmcRKBUqc2p3L1ZraoJjbXfs9E6xzvEuyK9iypb5RGwfsr/go-ipfs-config"
+	config "gx/ipfs/QmTbcMKv6GU3fxhnNcbzYChdox9Fdd7VpucM3PQ7UWjX3D/go-ipfs-config"
 
 	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
 	coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
@@ -135,8 +134,12 @@ func (*I2PGatePlugin) I2PTypeName() string {
 
 // Start starts the tunnels and also satisfies the Daemon plugin interface
 func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
-	go i.transportHTTP()
-	go i.transportRPC()
+	i2p, err := Setup()
+	if err != nil {
+		return err
+	}
+	go i2p.transportRPC()
+	go i2p.transportHTTP()
 	return nil
 }
 
