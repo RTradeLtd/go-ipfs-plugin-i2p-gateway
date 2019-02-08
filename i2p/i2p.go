@@ -112,8 +112,7 @@ func (i *I2PGatePlugin) rpcString() string {
 	if err != nil {
 		panic("could not read RPC address, aborting")
 	}
-	//return unquote(string(rpcaddressbytes))
-	return string(rpcaddressbytes)
+	return i2pgateconfig.Unquote(string(rpcaddressbytes))
 }
 
 func (i *I2PGatePlugin) httpString() string {
@@ -121,23 +120,17 @@ func (i *I2PGatePlugin) httpString() string {
 	if err != nil {
 		panic("could not read HTTP address, aborting")
 	}
-	//return unquote(string(httpaddressbytes))
-	return string(httpaddressbytes)
+	return i2pgateconfig.Unquote(string(httpaddressbytes))
 }
 
 func (i *I2PGatePlugin) idString() string {
 	idbytes := i.config.Identity.PeerID
-	//return unquote(string(idbytes))
-	return string(idbytes)
+	return i2pgateconfig.Unquote(string(idbytes))
 }
 
 // I2PTypeName returns I2PType
 func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
-}
-
-func unquote(s string) string {
-	return strings.Replace(s, "\"", "", -1)
 }
 
 // Start starts the tunnels and also satisfies the Daemon plugin interface

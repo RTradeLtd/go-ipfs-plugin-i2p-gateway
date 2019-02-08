@@ -62,14 +62,6 @@
   revision = "554202709f15e1faad9741f3975128831139266f"
 
 [[projects]]
-  branch = "master"
-  digest = "1:c183111eaf02a9e6bb39c213bdfb5472b16f1955dd4c9dab82db83f114c64a63"
-  name = "github.com/facebookgo/atomicfile"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "2de1f203e7d5e386a6833233882782932729f27e"
-
-[[projects]]
   digest = "1:d059a146ab350e553c2687d3e17f198eb5b27c7cf55fe6ba0e2d21349df63388"
   name = "github.com/gogo/protobuf"
   packages = ["proto"]
@@ -114,25 +106,6 @@
   ]
   pruneopts = "UT"
   revision = "df373ca3876ed4f706d8635c200c973f4189fcc6"
-
-[[projects]]
-  digest = "1:5e59d6e02abee7ab8ef7f396f5d681054fbfae02ff159fe3d1e1a01e6ed2b034"
-  name = "github.com/ipfs/go-ipfs-addr"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "563b741b4726c35ffb6cd18eb053dab346df2684"
-  version = "v0.1.25"
-
-[[projects]]
-  digest = "1:354eaf2ad748ba462a3e61c55db15ad6b5a28b2149797e3fc4aa43394d0c5a0c"
-  name = "github.com/ipfs/go-ipfs-config"
-  packages = [
-    ".",
-    "serialize",
-  ]
-  pruneopts = "UT"
-  revision = "eb01b81e9031bd2f5456f7836833a9ff73296c4a"
-  version = "v0.2.15"
 
 [[projects]]
   digest = "1:aae82c244bd91107575a0244a29e82e34ba23e06b6892557e33728de48deba96"
@@ -368,8 +341,6 @@
   input-imports = [
     "github.com/RTradeLtd/go-garlic-tcp-transport",
     "github.com/eyedeekay/sam-forwarder",
-    "github.com/ipfs/go-ipfs-config",
-    "github.com/ipfs/go-ipfs-config/serialize",
     "github.com/ipfs/go-ipfs-util",
     "github.com/ipfs/go-ipfs/core/coreapi/interface",
     "github.com/ipfs/go-ipfs/plugin",

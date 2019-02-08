@@ -188,16 +188,18 @@ func (c *Config) SwarmPort() (string, error) {
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
-	return ma.NewMultiaddr(c.AddressHTTP)
+    log.Println("Detected HTTP address:", c.AddressHTTP)
+	return ma.NewMultiaddr(Unquote(c.AddressHTTP))
 }
 
 func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
-	return ma.NewMultiaddr(c.AddressRPC)
+    log.Println("Detected RPC address:", c.AddressRPC)
+	return ma.NewMultiaddr(Unquote(c.AddressRPC))
 }
 
 func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
-	log.Println("Swarm Address:", c.AddressSwarm)
-	return ma.NewMultiaddr(c.AddressSwarm)
+	log.Println("Detected Swarm Address:", c.AddressSwarm)
+	return ma.NewMultiaddr(Unquote(c.AddressSwarm))
 }
 
 func (c *Config) HostSAM() string {
@@ -416,4 +418,8 @@ func ListenerBase32Swarm(addr string, cfg interface{}) error {
 func ListenerBase64Swarm(addr string, cfg interface{}) error {
 	cfg.(*Config).ListenerBase64Swarm = addr
 	return nil
+}
+
+func Unquote(s string) string {
+	return strings.Replace(s, "\"", "", -1)
 }
