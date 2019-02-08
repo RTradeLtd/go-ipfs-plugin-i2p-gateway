@@ -15,12 +15,12 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	if err != nil {
 		return err
 	}
-	log.Println("host", host)
+	log.Println("HTTP host", host)
 	port, err := i.i2pconfig.HTTPPort()
 	if err != nil {
 		return err
 	}
-	log.Println("port", port)
+	log.Println("HTTP port", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
@@ -85,12 +85,12 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
-	log.Println("host", host)
+	log.Println("RPC host", host)
 	port, err := i.i2pconfig.RPCPort()
 	if err != nil {
 		return err
 	}
-	log.Println("port", port)
+	log.Println("RPC port", port)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
