@@ -86,7 +86,7 @@ func Setup() (*I2PGatePlugin, error) {
 	return &i, nil
 }
 
-func (i I2PGatePlugin) configGateway() error {
+func (i *I2PGatePlugin) configGateway() error {
 	err := i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return err
@@ -130,6 +130,18 @@ func (i *I2PGatePlugin) idString() string {
 // I2PTypeName returns I2PType
 func (*I2PGatePlugin) I2PTypeName() string {
 	return I2PType
+}
+
+func (i *I2PGatePlugin) falseStart() error {
+	i2p, err := Setup()
+	if err != nil {
+		return err
+	}
+
+	go i2p.transportHTTP()
+	go i2p.transportRPC()
+
+	return nil
 }
 
 // Start starts the tunnels and also satisfies the Daemon plugin interface

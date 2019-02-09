@@ -21,13 +21,19 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		return err
 	}
 	log.Println("HTTP port", port)
+    pathRoot, err := i2pgateconfig.PathRoot()
+    if err != nil {
+		return err
+	}
+	log.Println("Config Path", pathRoot)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
+        samforwarder.SetType("server"),
+        samforwarder.SetSaveFile(true),
+        samforwarder.SetFilePath(pathRoot),
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
 		samforwarder.SetHost(host),
 		samforwarder.SetPort(port),
-		samforwarder.SetType("server"),
-		samforwarder.SetSaveFile(true),
 		samforwarder.SetName("ipfs-gateway-http"),
 		samforwarder.SetInLength(i.i2pconfig.InLength),
 		samforwarder.SetOutLength(i.i2pconfig.OutLength),
@@ -91,13 +97,19 @@ func (i *I2PGatePlugin) transportRPC() error {
 		return err
 	}
 	log.Println("RPC port", port)
+    pathRoot, err := i2pgateconfig.PathRoot()
+    if err != nil {
+		return err
+	}
+	log.Println("Config Path", pathRoot)
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
+		samforwarder.SetType("server"),
+        samforwarder.SetSaveFile(true),
+        samforwarder.SetFilePath(pathRoot),
 		samforwarder.SetSAMHost(i.i2pconfig.HostSAM()),
 		samforwarder.SetSAMPort(i.i2pconfig.PortSAM()),
 		samforwarder.SetHost(host),
 		samforwarder.SetPort(port),
-		samforwarder.SetType("server"),
-		samforwarder.SetSaveFile(true),
 		samforwarder.SetName("ipfs-gateway-rpc"),
 		samforwarder.SetInLength(i.i2pconfig.InLength),
 		samforwarder.SetOutLength(i.i2pconfig.OutLength),
