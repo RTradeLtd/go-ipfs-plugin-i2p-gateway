@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	config "github.com/ipfs/go-ipfs-config"
+	config "gx/ipfs/QmTbcMKv6GU3fxhnNcbzYChdox9Fdd7VpucM3PQ7UWjX3D/go-ipfs-config"
 
 	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
 	coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
