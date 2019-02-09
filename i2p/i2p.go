@@ -3,7 +3,6 @@ package i2pgate
 import (
 	"log"
 	"os"
-	"strings"
 
 	config "github.com/ipfs/go-ipfs-config"
 
@@ -134,8 +133,10 @@ func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
 	if err != nil {
 		return err
 	}
+
 	go i2p.transportHTTP()
 	go i2p.transportRPC()
+
 	return nil
 }
 
