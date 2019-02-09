@@ -44,6 +44,11 @@ func (*I2PGatePlugin) Version() string {
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
 	var err error
+    i, err = Setup()
+	if err != nil {
+		return err
+	}
+
 	err = i.configGateway()
 	if err != nil {
 		return err
