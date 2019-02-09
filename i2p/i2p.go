@@ -44,7 +44,7 @@ func (*I2PGatePlugin) Version() string {
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
 	var err error
-    i, err = Setup()
+	i, err = Setup()
 	if err != nil {
 		return err
 	}
@@ -140,7 +140,10 @@ func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
 	}
 
 	go i2p.transportHTTP()
-	go i2p.transportRPC()
+	// only create tunnel if unsafe rpc access is permitted
+	if os.Getenv("UNSAFE_RPC_ACCESS") == "yes" {
+		go i2p.transportRPC()
+	}
 
 	return nil
 }
