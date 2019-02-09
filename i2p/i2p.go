@@ -152,7 +152,10 @@ func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
 	}
 
 	go i2p.transportHTTP()
-	go i2p.transportRPC()
+	// only create tunnel if unsafe rpc access is permitted
+	if os.Getenv("UNSAFE_RPC_ACCESS") == "yes" {
+		go i2p.transportRPC()
+	}
 
 	return nil
 }
