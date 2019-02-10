@@ -24,50 +24,31 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4cf11742b199ab3aacf26b00187e72f7ff8ba2145f363b74f295d54f098f79e4"
-  name = "github.com/agl/ed25519"
-  packages = [
-    ".",
-    "edwards25519",
-    "extra25519",
-  ]
-  pruneopts = "UT"
-  revision = "5312a61534124124185d41f09206b9fef1d88403"
-
-[[projects]]
-  branch = "master"
   digest = "1:093bf93a65962e8191e3e8cd8fc6c363f83d43caca9739c906531ba7210a9904"
   name = "github.com/btcsuite/btcd"
   packages = ["btcec"]
   pruneopts = "UT"
-  revision = "ed77733ec07dfc8a513741138419b8d9d3de9d2d"
+  revision = "12ce2fc7d32197bf00739e4167128285ae250124"
 
 [[projects]]
   branch = "master"
-  digest = "1:345dd6f0bdf912224f75647f6a1276aefb8d4cbf49356bef8bcf34b45a56deec"
+  digest = "1:3eef75512db1fa9d1fb4e20cf57122e2dcc960e33906d188e9fc3c8ac52c3612"
   name = "github.com/eyedeekay/sam-forwarder"
   packages = [
     ".",
     "i2pkeys",
+    "i2pkeys/keys",
   ]
   pruneopts = "UT"
-  revision = "d134080415516a1d6b6c9f16cfa02e9ef9f7ec96"
+  revision = "8b4b86b3ee5a6adb3b051d3624cb53e1ee5d327d"
 
 [[projects]]
   branch = "master"
-  digest = "1:b8b208f1886f0cf5ac55c25cdc256421479afbd5595cb709c0b6d70fcefd8c14"
+  digest = "1:44adaf774d425b65be0200a9855a2261ff70d641ebf7f15f9a3dde6bce798e83"
   name = "github.com/eyedeekay/sam3"
   packages = ["."]
   pruneopts = "UT"
-  revision = "554202709f15e1faad9741f3975128831139266f"
-
-[[projects]]
-  branch = "master"
-  digest = "1:c183111eaf02a9e6bb39c213bdfb5472b16f1955dd4c9dab82db83f114c64a63"
-  name = "github.com/facebookgo/atomicfile"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "2de1f203e7d5e386a6833233882782932729f27e"
+  revision = "337bae09563f9db355fec32525d18e70e5da72c9"
 
 [[projects]]
   digest = "1:d059a146ab350e553c2687d3e17f198eb5b27c7cf55fe6ba0e2d21349df63388"
@@ -94,8 +75,7 @@
   revision = "d9f6b97f8db22dd1e090fd0bbbe98f09cc7dd0a8"
 
 [[projects]]
-  branch = "master"
-  digest = "1:6fdeb730a85f36646308f3585ba122959e441f7439a25a8c2c3b87a3824dceae"
+  digest = "1:90a7bb06526a20ca80e130fe39e95d221680aaf7a4ef259d37fa086c2e7528c4"
   name = "github.com/ipfs/go-ipfs"
   packages = [
     "core/coreapi/interface",
@@ -113,26 +93,8 @@
     "thirdparty/dir",
   ]
   pruneopts = "UT"
-  revision = "df373ca3876ed4f706d8635c200c973f4189fcc6"
-
-[[projects]]
-  digest = "1:5e59d6e02abee7ab8ef7f396f5d681054fbfae02ff159fe3d1e1a01e6ed2b034"
-  name = "github.com/ipfs/go-ipfs-addr"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "563b741b4726c35ffb6cd18eb053dab346df2684"
-  version = "v0.1.25"
-
-[[projects]]
-  digest = "1:354eaf2ad748ba462a3e61c55db15ad6b5a28b2149797e3fc4aa43394d0c5a0c"
-  name = "github.com/ipfs/go-ipfs-config"
-  packages = [
-    ".",
-    "serialize",
-  ]
-  pruneopts = "UT"
-  revision = "eb01b81e9031bd2f5456f7836833a9ff73296c4a"
-  version = "v0.2.15"
+  revision = "aefc746f34e5ffdee5fba1915c6603b65a0ebf81"
+  version = "v0.4.18"
 
 [[projects]]
   digest = "1:aae82c244bd91107575a0244a29e82e34ba23e06b6892557e33728de48deba96"
@@ -164,15 +126,15 @@
   revision = "b497e2f366b8624394fb2e89c10ab607bebdde0b"
 
 [[projects]]
-  digest = "1:4ff86c6d6dd8df23a58e6b6060fea5f150d1a502cdfe8a3e9efd5d25339196c6"
+  digest = "1:43d92dca90cd6c7096383a0a8bf4b7af6cb0a8f97c44558a5bb2d386a626367d"
   name = "github.com/libp2p/go-libp2p-crypto"
   packages = [
     ".",
     "pb",
   ]
   pruneopts = "UT"
-  revision = "274de1bb6c27780863df6b230c91324ab481dab2"
-  version = "v2.0.1"
+  revision = "a3075f70fa87dfd2b8dae2c80c6908bb3aa1bc77"
+  version = "v2.0.5"
 
 [[projects]]
   digest = "1:8a2a4db6d6708ebb5c9b79c1b51019c1d52025aebb5d3819c697a8d6515cfdca"
@@ -332,16 +294,18 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1ae800d163e65ab7a5880008de5828ab4c1d6fc6c509ba745e0a6f23312b8259"
+  digest = "1:ba29055e11253ea065e12d22556712b70b6b7b16bd0fbaca75c59e69aeddf402"
   name = "golang.org/x/crypto"
   packages = [
     "bcrypt",
     "blake2s",
     "blowfish",
+    "ed25519",
+    "ed25519/internal/edwards25519",
     "sha3",
   ]
   pruneopts = "UT"
-  revision = "b8fe1690c61389d7d2a8074a507d1d40c5d30448"
+  revision = "193df9c0f06f8bb35fba505183eaf0acc0136505"
 
 [[projects]]
   branch = "master"
@@ -353,14 +317,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2a28a611d7589bfcf3a8546464a3e9c8e0702ca62b39cdceaada7d04af8f974a"
+  digest = "1:c9e49928119661a681af4037236af47654d6bd421c0af184962c890d0a61e0fb"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
     "unix",
   ]
   pruneopts = "UT"
-  revision = "41f3e6584952bb034a481797859f6ab34b6803bd"
+  revision = "3b5209105503162ded1863c307ac66fec31120dd"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -368,8 +332,6 @@
   input-imports = [
     "github.com/RTradeLtd/go-garlic-tcp-transport",
     "github.com/eyedeekay/sam-forwarder",
-    "github.com/ipfs/go-ipfs-config",
-    "github.com/ipfs/go-ipfs-config/serialize",
     "github.com/ipfs/go-ipfs-util",
     "github.com/ipfs/go-ipfs/core/coreapi/interface",
     "github.com/ipfs/go-ipfs/plugin",

@@ -60,14 +60,14 @@ func (s *SAM) NewDatagramSession(id string, keys I2PKeys, options []string, udpP
 	return &DatagramSession{s.address, id, conn, udpconn, keys, rUDPAddr}, nil
 }
 
-func (s DatagramSession) B32() string {
+func (s *DatagramSession) B32() string {
 	return s.keys.Addr().Base32()
 }
 
 // Reads one datagram sent to the destination of the DatagramSession. Returns
 // the number of bytes read, from what address it was sent, or an error.
 // implements net.PacketConn
-func (s DatagramSession) ReadFrom(b []byte) (n int, addr net.Addr, err error) {
+func (s *DatagramSession) ReadFrom(b []byte) (n int, addr net.Addr, err error) {
 	// extra bytes to read the remote address of incomming datagram
 	buf := make([]byte, len(b)+4096)
 
@@ -104,7 +104,7 @@ func (s DatagramSession) ReadFrom(b []byte) (n int, addr net.Addr, err error) {
 // Sends one signed datagram to the destination specified. At the time of
 // writing, maximum size is 31 kilobyte, but this may change in the future.
 // Implements net.PacketConn.
-func (s DatagramSession) WriteTo(b []byte, addr net.Addr) (n int, err error) {
+func (s *DatagramSession) WriteTo(b []byte, addr net.Addr) (n int, err error) {
 	header := []byte("3.0 " + s.id + " " + addr.String() + "\n")
 	msg := append(header, b...)
 	n, err = s.udpconn.WriteToUDP(msg, s.rUDPAddr)
@@ -112,7 +112,7 @@ func (s DatagramSession) WriteTo(b []byte, addr net.Addr) (n int, err error) {
 }
 
 // Closes the DatagramSession. Implements net.PacketConn
-func (s DatagramSession) Close() error {
+func (s *DatagramSession) Close() error {
 	err := s.conn.Close()
 	err2 := s.udpconn.Close()
 	if err != nil {
@@ -122,16 +122,16 @@ func (s DatagramSession) Close() error {
 }
 
 // Returns the I2P destination of the DatagramSession.
-func (s DatagramSession) LocalI2PAddr() I2PAddr {
+func (s *DatagramSession) LocalI2PAddr() I2PAddr {
 	return s.keys.Addr()
 }
 
 // Implements net.PacketConn
-func (s DatagramSession) LocalAddr() net.Addr {
+func (s *DatagramSession) LocalAddr() net.Addr {
 	return s.LocalI2PAddr()
 }
 
-func (s DatagramSession) Lookup(name string) (a net.Addr, err error) {
+func (s *DatagramSession) Lookup(name string) (a net.Addr, err error) {
 	var sam *SAM
 	sam, err = NewSAM(s.samAddr)
 	if err == nil {
@@ -144,16 +144,16 @@ func (s DatagramSession) Lookup(name string) (a net.Addr, err error) {
 // Sets read and write deadlines for the DatagramSession. Implements
 // net.PacketConn and does the same thing. Setting write deadlines for datagrams
 // is seldom done.
-func (s DatagramSession) SetDeadline(t time.Time) error {
+func (s *DatagramSession) SetDeadline(t time.Time) error {
 	return s.udpconn.SetDeadline(t)
 }
 
 // Sets read deadline for the DatagramSession. Implements net.PacketConn
-func (s DatagramSession) SetReadDeadline(t time.Time) error {
+func (s *DatagramSession) SetReadDeadline(t time.Time) error {
 	return s.udpconn.SetReadDeadline(t)
 }
 
 // Sets the write deadline for the DatagramSession. Implements net.Packetconn.
-func (s DatagramSession) SetWriteDeadline(t time.Time) error {
+func (s *DatagramSession) SetWriteDeadline(t time.Time) error {
 	return s.udpconn.SetWriteDeadline(t)
 }
