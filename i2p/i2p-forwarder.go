@@ -25,7 +25,7 @@ func (i *I2PGatePlugin) transportHTTP() error {
 	if err != nil {
 		return err
 	}
-	log.Println("Keys Path", pathRoot+"ipfs-gateway-http.i2pkeys")
+	log.Println("Keys Path", pathRoot+"/ipfs-gateway-http.i2pkeys")
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetType("server"),
 		samforwarder.SetSaveFile(true),
@@ -61,11 +61,11 @@ func (i *I2PGatePlugin) transportHTTP() error {
 		return err
 
 	}
-	log.Println("SAM Generated Garlic Forwarder")
+	log.Println("SAM Generated Garlic Forwarder for HTTP service")
 	go GarlicForwarder.Serve()
 	for {
 		if len(GarlicForwarder.Base32()) > 51 {
-			log.Println("i2p base32: ", GarlicForwarder.Base32())
+			log.Println("i2p base32 for HTTP service: ", GarlicForwarder.Base32())
 			break
 		} else {
 			log.Println("waiting for address")
@@ -102,7 +102,7 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
-	log.Println("Keys Path", pathRoot+"ipfs-gateway-rpc.i2pkeys")
+	log.Println("Keys Path", pathRoot+"/ipfs-gateway-rpc.i2pkeys")
 	GarlicForwarder, err := samforwarder.NewSAMForwarderFromOptions(
 		samforwarder.SetType("server"),
 		samforwarder.SetSaveFile(true),
@@ -137,11 +137,11 @@ func (i *I2PGatePlugin) transportRPC() error {
 	if err != nil {
 		return err
 	}
-	log.Println("SAM Generated Garlic Forwarder")
+	log.Println("SAM Generated Garlic Forwarder for RPC Service")
 	go GarlicForwarder.Serve()
 	for {
 		if len(GarlicForwarder.Base32()) > 51 {
-			log.Println("i2p base32: ", GarlicForwarder.Base32())
+			log.Println("i2p base32 for RPC service: ", GarlicForwarder.Base32())
 			break
 		} else {
 			log.Println("waiting for address")

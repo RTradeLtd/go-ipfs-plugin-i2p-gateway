@@ -121,6 +121,13 @@ func (c *Config) TargetHTTP() string {
 	return h + ":" + p
 }
 
+func correctAddr(s string, e error) (string, error){
+    if s == "0.0.0.0" {
+        return "127.0.0.1", e
+    }
+    return s, e
+}
+
 // HTTPHost returns the string representation of the IPFS gateway host only
 func (c *Config) HTTPHost() (string, error) {
 	temp, err := c.MaTargetHTTP()
@@ -129,7 +136,7 @@ func (c *Config) HTTPHost() (string, error) {
 		return "", err
 	}
 	log.Println("Getting value for HTTP host IPv4 protocol")
-	return temp.ValueForProtocol(ma.P_IP4)
+	return correctAddr(temp.ValueForProtocol(ma.P_IP4))
 }
 
 // HTTPPort returns the string representation of the IPFS gateway port only
@@ -159,7 +166,7 @@ func (c *Config) RPCHost() (string, error) {
 		return "", err
 	}
 	log.Println("Value for RPC host IPv4 protocol")
-	return temp.ValueForProtocol(ma.P_IP4)
+	return correctAddr(temp.ValueForProtocol(ma.P_IP4))
 }
 
 // RPCPort returns the string representation of the RPC gateway port only
@@ -186,7 +193,7 @@ func (c *Config) SwarmHost() (string, error) {
 		return "", err
 	}
 	log.Println("Value for Swarm host IPv4 protocol")
-	return temp.ValueForProtocol(ma.P_IP4)
+	return correctAddr(temp.ValueForProtocol(ma.P_IP4))
 }
 
 func (c *Config) SwarmPort() (string, error) {
