@@ -40,7 +40,7 @@ fmt:
 	find ./i2p ./config -name '*.go' -exec gofmt -w {} \;
 
 test:
-	go test ./config -v
+	#go test ./config -v
 	go test ./i2p -v
 
 vet:

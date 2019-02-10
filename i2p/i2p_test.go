@@ -19,8 +19,4 @@ func Test_Network(t *testing.T) {
 	}
     i.falseStart()
 
-    err = i.Init()
-	if err != nil {
-		t.Fatal(err)
-	}
 }

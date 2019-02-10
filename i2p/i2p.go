@@ -43,22 +43,10 @@ func (*I2PGatePlugin) Version() string {
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
-	var err error
-	i, err = Setup()
-	if err != nil {
-		return err
-	}
-
-	err = i.configGateway()
-	if err != nil {
-		return err
-	}
-
-	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	if err != nil {
-		return err
-	}
-
+    /*i := Setup()
+    if err != nil {
+		return nil, err
+	}*/
 	return nil
 }
 
@@ -83,27 +71,31 @@ func Setup() (*I2PGatePlugin, error) {
 	i.forwardHTTP = i.httpString()
 	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
-	return &i, nil
-}
-
-func (i *I2PGatePlugin) configGateway() error {
-	err := i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
+    if err != nil {
+		return nil, err
+	}
+    err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	err = i2pgateconfig.AddressHTTP(i.forwardHTTP, i.i2pconfig)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if err != nil {
-		return err
+		return nil, err
 	}
-	log.Println(i.idString())
+
 	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+
+	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
+	if err != nil {
+		return nil, err
+	}
+	return &i, nil
 }
 
 func (i *I2PGatePlugin) rpcString() string {
@@ -138,8 +130,8 @@ func (i *I2PGatePlugin) falseStart() error {
 		return err
 	}
 
-	go i2p.transportHTTP()
-	go i2p.transportRPC()
+	i2p.transportHTTP()
+    i2p.transportRPC()
 
 	return nil
 }
