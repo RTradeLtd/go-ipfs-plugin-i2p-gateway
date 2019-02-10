@@ -1,5 +1,6 @@
 README.md.asc
 *.so
+build
 go
 *log*
 *err*
