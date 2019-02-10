@@ -88,7 +88,7 @@ func (h I2PDestHash) String() string {
 }
 
 // Returns "I2P"
-func (h I2PDestHash) Network() string {
+func (h *I2PDestHash) Network() string {
 	return "I2P"
 }
 
@@ -135,7 +135,7 @@ func FiveHundredAs() I2PAddr {
 		s += "A"
 	}
 	r, _ := NewI2PAddrFromString(s)
-    return r
+	return r
 }
 
 // Creates a new I2P address from a byte array. The inverse of ToBytes().

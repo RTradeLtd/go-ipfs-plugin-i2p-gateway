@@ -27,10 +27,13 @@ echo:
 	find . -path ./.go -prune -o -name "*.go" -exec gofmt -w {} \;
 	find . -path ./.go -prune -o -name "*.i2pkeys" -exec rm {} \;
 	find . -path ./.go -prune -o -name "*.go" -exec cat {} \; | nl
+
+## TODO: Remove this, replace with something right
+fix-debian:
 	find ./debian -type f -exec sed -i 's|lair repo key|eyedeekay|g' {} \;
 	find ./debian -type f -exec sed -i 's|eyedeekay@safe-mail.net|hankhill19580@gmail.com|g' {} \;
 
-test: test-ntcp test-ssu test-config test-manager
+test: test-keys test-ntcp test-ssu test-config test-manager
 
 long-test: test-serve test
 
@@ -54,6 +57,9 @@ test-config:
 test-manager:
 	cd manager && go test
 
+test-keys:
+	cd i2pkeys && go test
+
 try-web:
 	cd bin && \
 		./samcatd-web -w -f ../etc/samcatd/tunnels.ini
@@ -71,10 +77,12 @@ deps:
 	go get -u github.com/eyedeekay/udptunnel
 	go get -u github.com/eyedeekay/sam-forwarder
 	go get -u github.com/eyedeekay/sam-forwarder/i2pkeys
+	go get -u github.com/eyedeekay/sam-forwarder/i2pkeys/keys
 	go get -u github.com/eyedeekay/sam-forwarder/udp
 	go get -u github.com/eyedeekay/sam-forwarder/config
 	go get -u github.com/eyedeekay/sam-forwarder/manager
 	go get -u github.com/eyedeekay/sam3
+	go get -u github.com/eyedeekay/littleboss
 	go get -u github.com/eyedeekay/samcatd-web
 
 mine:
@@ -85,11 +93,12 @@ webdep:
 
 build: clean bin/$(appname)
 
-install: bin/$(appname) bin/$(samcatd) bin/$(samcatd)-web
+install:
 	install -m755 ./bin/$(appname) $(PREFIX)$(USR)$(LOCAL)/bin/
 	install -m755 ./bin/$(samcatd) $(PREFIX)$(USR)$(LOCAL)/bin/
 	install -m755 ./bin/$(samcatd)-web $(PREFIX)$(USR)$(LOCAL)/bin/
 	install -m644 ./etc/init.d/samcatd $(PREFIX)$(ETC)/init.d
+	mkdir -p $(PREFIX)$(ETC)/samcatd/ $(PREFIX)$(ETC)/sam-forwarder/ $(PREFIX)$(ETC)/i2pvpn/
 	install -m644 ./etc/samcatd/tunnels.ini $(PREFIX)$(ETC)/samcatd/
 	install -m644 ./etc/sam-forwarder/tunnels.ini $(PREFIX)$(ETC)/sam-forwarder/
 	install -m644 ./etc/i2pvpn/i2pvpn.ini $(PREFIX)$(ETC)/i2pvpn/
@@ -123,7 +132,7 @@ bin/$(samcatd)-web:
 		-o ./bin/$(samcatd)-web \
 		./daemon/*.go
 
-all: daemon build server
+all: daemon daemon-web build server
 
 clean-all: clean clean-server clean-daemon clean-daemon-web
 

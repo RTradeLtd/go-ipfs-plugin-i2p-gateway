@@ -22,21 +22,21 @@ type StreamSession struct {
 }
 
 // Returns the local tunnel name of the I2P tunnel used for the stream session
-func (ss StreamSession) ID() string {
+func (ss *StreamSession) ID() string {
 	return ss.id
 }
 
-func (ss StreamSession) Close() error {
+func (ss *StreamSession) Close() error {
 	return ss.conn.Close()
 }
 
 // Returns the I2P destination (the address) of the stream session
-func (ss StreamSession) Addr() I2PAddr {
+func (ss *StreamSession) Addr() I2PAddr {
 	return ss.keys.Addr()
 }
 
 // Returns the keys associated with the stream session
-func (ss StreamSession) Keys() I2PKeys {
+func (ss *StreamSession) Keys() I2PKeys {
 	return ss.keys
 }
 

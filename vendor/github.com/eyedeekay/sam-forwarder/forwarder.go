@@ -397,14 +397,18 @@ func NewSAMForwarderFromOptions(opts ...func(*SAMForwarder) error) (*SAMForwarde
 		return nil, err
 	}
 	log.Println("SAM Bridge connection established.")
-	if s.SamKeys, err = s.samConn.NewKeys(); err != nil {
+	if s.save {
+		log.Println("Saving i2p keys")
+	}
+	if s.SamKeys, err = i2pkeys.Load(s.FilePath, s.TunName, s.passfile, s.samConn, s.save); err != nil {
 		return nil, err
 	}
 	log.Println("Destination keys generated, tunnel name:", s.TunName)
 	if s.save {
-		if err := i2pkeys.Save(s.FilePath, s.TunName, s.passfile, &s.SamKeys); err != nil {
+		if err := i2pkeys.Save(s.FilePath, s.TunName, s.passfile, s.SamKeys); err != nil {
 			return nil, err
 		}
+		log.Println("Saved tunnel keys for", s.TunName)
 	}
 	return &s, nil
 }
