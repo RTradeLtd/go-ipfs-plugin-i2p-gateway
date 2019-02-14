@@ -20,8 +20,9 @@ type I2PGatePlugin struct {
 	i2pconfigPath string
 	i2pconfig     *i2pgateconfig.Config
 
-	forwardHTTP string
-	forwardRPC  string
+	forwardHTTP  string
+	forwardRPC   string
+	forwardSwarm string
 }
 
 // I2PType will be used to identify this as the i2p gateway plugin to things
@@ -43,10 +44,10 @@ func (*I2PGatePlugin) Version() string {
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
-    /*i := Setup()
-    if err != nil {
-		return nil, err
-	}*/
+	/*i := Setup()
+	    if err != nil {
+			return nil, err
+		}*/
 	return nil
 }
 
@@ -69,12 +70,13 @@ func Setup() (*I2PGatePlugin, error) {
 	}
 	i.forwardRPC = i.rpcString()
 	i.forwardHTTP = i.httpString()
+	i.forwardSwarm = i.swarmString()
 	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
-    err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return nil, err
 	}
@@ -82,6 +84,7 @@ func Setup() (*I2PGatePlugin, error) {
 	if err != nil {
 		return nil, err
 	}
+	err = i2pgateconfig.AddressSwarm(i.forwardSwarm, i.i2pconfig)
 	if err != nil {
 		return nil, err
 	}
@@ -91,10 +94,10 @@ func Setup() (*I2PGatePlugin, error) {
 		return nil, err
 	}
 
-	i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
+	/*i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
 	if err != nil {
 		return nil, err
-	}
+	}*/
 	return &i, nil
 }
 
@@ -114,6 +117,14 @@ func (i *I2PGatePlugin) httpString() string {
 	return i2pgateconfig.Unquote(string(httpaddressbytes))
 }
 
+func (i *I2PGatePlugin) swarmString() string {
+	swarmaddressbytes := ""
+	for _, v := range i.config.Addresses.Swarm {
+		swarmaddressbytes += v
+	}
+	return i2pgateconfig.Unquote(string(swarmaddressbytes))
+}
+
 func (i *I2PGatePlugin) idString() string {
 	idbytes := i.config.Identity.PeerID
 	return i2pgateconfig.Unquote(string(idbytes))
@@ -131,7 +142,8 @@ func (i *I2PGatePlugin) falseStart() error {
 	}
 
 	i2p.transportHTTP()
-    i2p.transportRPC()
+	i2p.transportSwarm()
+	i2p.transportRPC()
 
 	return nil
 }
@@ -144,6 +156,7 @@ func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
 	}
 
 	go i2p.transportHTTP()
+	go i2p.transportSwarm()
 	// only create tunnel if unsafe rpc access is permitted
 	if os.Getenv("UNSAFE_RPC_ACCESS") == "yes" {
 		go i2p.transportRPC()
