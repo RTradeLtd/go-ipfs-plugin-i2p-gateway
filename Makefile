@@ -5,14 +5,14 @@ GOCC ?= go
 # build plugin and ipfs daemon
 .PHONY: build
 build:
-	mkdir build
+	mkdir -p build
 	@$(MAKE) -f $(THIS_FILE) plugin-ipfs
 	@$(MAKE) -f $(THIS_FILE) ipfs
 
 # build the actual plugin
 .PHONY: plugin-ipfs
 plugin-ipfs:
-	$(GOCC) build -o build/go-ipfs-plugin-i2p-gateway.so -buildmode=plugin 
+	$(GOCC) build -o build/go-ipfs-plugin-i2p-gateway.so -buildmode=plugin
 	chmod +x "build/go-ipfs-plugin-i2p-gateway.so"
 
 # build ipfs daemon
