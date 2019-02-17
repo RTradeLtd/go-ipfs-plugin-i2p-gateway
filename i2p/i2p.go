@@ -38,16 +38,12 @@ func (*I2PGatePlugin) Name() string {
 
 // Version returns the plugin's version, satisfying the plugin.Plugin interface.
 func (*I2PGatePlugin) Version() string {
-	return "0.0.0"
+	return "0.0.1"
 }
 
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
-	/*i := Setup()
-	    if err != nil {
-			return nil, err
-		}*/
 	return nil
 }
 
@@ -93,11 +89,6 @@ func Setup() (*I2PGatePlugin, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	/*i.i2pconfig, err = i.i2pconfig.Save(i.configPath)
-	if err != nil {
-		return nil, err
-	}*/
 	return &i, nil
 }
 
@@ -165,7 +156,7 @@ func (i *I2PGatePlugin) Start(coreiface.CoreAPI) error {
 	return nil
 }
 
-// Close satisfies the Daemon plugin interface
+// Close satisfies the plugin interface
 func (*I2PGatePlugin) Close() error {
 	return nil
 }
