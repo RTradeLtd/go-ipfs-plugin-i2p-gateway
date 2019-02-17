@@ -46,13 +46,6 @@ gx:
 plugin-libp2p:
 	$(GOCC) build -a -tags libp2p -buildmode=plugin
 
-# fetch dependencies
-.PHONY: deps
-deps:
-	go get -u github.com/RTradeLtd/go-garlic-tcp-transport
-	go get -u github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config
-	$(GX_GO_PATH) get github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway
-
 # build i2p  folder
 .PHONY: build-i2p
 build-i2p:

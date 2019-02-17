@@ -7,7 +7,8 @@ import (
 	config "gx/ipfs/QmTbcMKv6GU3fxhnNcbzYChdox9Fdd7VpucM3PQ7UWjX3D/go-ipfs-config"
 
 	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
-	coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
+	//coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
+    coreiface "github.com/ipfs/interface-go-ipfs-core"
 	plugin "github.com/ipfs/go-ipfs/plugin"
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
 )
