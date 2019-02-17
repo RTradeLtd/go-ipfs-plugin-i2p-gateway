@@ -18,7 +18,7 @@ plugin-ipfs:
 # build ipfs daemon
 .PHONY: ipfs
 ipfs:
-	( cd vendor/github.com/ipfs/go-ipfs/cmd/ipfs ; go build -o ../../../../../../build/ipfs ; cp ipfs $(GOPATH)/bin)
+	( cd vendor/github.com/ipfs/go-ipfs/cmd/ipfs ; go build -o ../../../../../../build/ipfs ; cp ../../../../../../build/ipfs $(GOPATH)/bin)
 
 # clean up files
 .PHONY: clean
