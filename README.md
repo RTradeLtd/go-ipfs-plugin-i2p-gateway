@@ -45,7 +45,7 @@ builds the plugin. Since there's no "main" function you can't "go get" the
 plugin package, you have to clone it.
 
         git clone https://github.com/RTradeLTd/go-ipfs-plugin-i2p-gateway
-        make deps build
+        make vendor build
 
 Installing and Using it
 -----------------------
