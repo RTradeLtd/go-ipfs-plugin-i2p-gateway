@@ -75,6 +75,33 @@
   revision = "d9f6b97f8db22dd1e090fd0bbbe98f09cc7dd0a8"
 
 [[projects]]
+  digest = "1:75ea7415736432ce95ed66318b10661985dcbdd22112f488ba852afd74238aca"
+  name = "github.com/ipfs/go-ipfs"
+  packages = [
+    "core/coredag",
+    "filestore",
+    "filestore/pb",
+    "keystore",
+    "plugin",
+    "repo",
+    "repo/common",
+    "repo/fsrepo",
+    "repo/fsrepo/migrations",
+    "thirdparty/dir",
+  ]
+  pruneopts = "UT"
+  revision = "aefc746f34e5ffdee5fba1915c6603b65a0ebf81"
+  version = "v0.4.18"
+
+[[projects]]
+  digest = "1:aae82c244bd91107575a0244a29e82e34ba23e06b6892557e33728de48deba96"
+  name = "github.com/ipfs/go-ipfs-util"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "10d786c5ed859afd22223df76a89bf57b24b2ee1"
+  version = "v1.2.8"
+
+[[projects]]
   digest = "1:43248b562ac2508990699768e9e0c3d8073c2d0081a5f2dbdc5efd727d9ed426"
   name = "github.com/ipfs/go-log"
   packages = [
@@ -302,6 +329,11 @@
   input-imports = [
     "github.com/RTradeLtd/go-garlic-tcp-transport",
     "github.com/eyedeekay/sam-forwarder",
+    "github.com/ipfs/go-ipfs-util",
+    "github.com/ipfs/go-ipfs/plugin",
+    "github.com/ipfs/go-ipfs/repo/fsrepo",
+    "github.com/mitchellh/go-homedir",
+    "github.com/multiformats/go-multiaddr",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
