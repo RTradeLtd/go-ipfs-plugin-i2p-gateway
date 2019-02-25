@@ -75,7 +75,8 @@
   revision = "d9f6b97f8db22dd1e090fd0bbbe98f09cc7dd0a8"
 
 [[projects]]
-  digest = "1:75ea7415736432ce95ed66318b10661985dcbdd22112f488ba852afd74238aca"
+  branch = "master"
+  digest = "1:150b96b5e6d65dc2f5aca89bb7767360c9089c8ad45a142e6801317a26129a58"
   name = "github.com/ipfs/go-ipfs"
   packages = [
     "core/coredag",
@@ -90,8 +91,7 @@
     "thirdparty/dir",
   ]
   pruneopts = "UT"
-  revision = "aefc746f34e5ffdee5fba1915c6603b65a0ebf81"
-  version = "v0.4.18"
+  revision = "149254eeabf811f03c788081e86b197627842a3a"
 
 [[projects]]
   digest = "1:aae82c244bd91107575a0244a29e82e34ba23e06b6892557e33728de48deba96"
