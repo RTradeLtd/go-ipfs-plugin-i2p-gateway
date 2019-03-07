@@ -7,7 +7,6 @@ GOCC ?= go
 build:
 	mkdir -p build
 	@$(MAKE) -f $(THIS_FILE) plugin-ipfs
-	@$(MAKE) -f $(THIS_FILE) ipfs
 
 # build the actual plugin
 .PHONY: plugin-ipfs
@@ -91,7 +90,7 @@ vendor-ipfs:
 	# Generate IPFS dependencies
 	rm -rf vendor/github.com/ipfs/go-ipfs
 	git clone https://github.com/ipfs/go-ipfs.git vendor/github.com/ipfs/go-ipfs
-	( cd vendor/github.com/ipfs/go-ipfs ; git checkout -b 0.4.19 ; gx install --local --nofancy )
+	( cd vendor/github.com/ipfs/go-ipfs ; gx install --local --nofancy )
 	mv vendor/github.com/ipfs/go-ipfs/vendor/* vendor
 
 	# Remove problematic dependencies
