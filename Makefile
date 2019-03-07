@@ -75,18 +75,38 @@ import:
 
 # completely rebuild vendor
 .PHONY: vendor
-vendor:
+vendor: vendor-dep vendor-ipfs
+
+.PHONY: vendor-dep
+vendor-dep:
 	# Nuke vendor directory
 	rm -rf vendor
 
 	# Update standard dependencies
 	#dep ensure -v -update
 	dep ensure -v
+
+.PHONY: vendor-ipfs
+vendor-ipfs:
 	# Generate IPFS dependencies
 	rm -rf vendor/github.com/ipfs/go-ipfs
 	git clone https://github.com/ipfs/go-ipfs.git vendor/github.com/ipfs/go-ipfs
-	( cd vendor/github.com/ipfs/go-ipfs ; gx install --local --nofancy )
+	( cd vendor/github.com/ipfs/go-ipfs ; git checkout -b 0.4.19 ; gx install --local --nofancy )
 	mv vendor/github.com/ipfs/go-ipfs/vendor/* vendor
 
 	# Remove problematic dependencies
 	find . -name test-vectors -type d -exec rm -r {} +
+
+.PHONY: dep
+dep:
+	go get -u github.com/ipfs/interface-go-ipfs-core
+	go get -u github.com/ipfs/go-cid
+	go get -u github.com/ipfs/go-ipfs-posinfo
+	go get -u github.com/ipfs/go-ipfs-blockstore
+	go get -u github.com/ipfs/go-ipfs-config
+	go get -u github.com/ipfs/go-ipfs-util
+	go get -u github.com/ipfs/go-ipfs
+	go get -u github.com/ipfs/go-fs-lock
+	go get -u github.com/ipfs/go-ds-measure
+	go get -u github.com/ipfs/go-datastore
+	go get -u github.com/ipfs/go-block-format

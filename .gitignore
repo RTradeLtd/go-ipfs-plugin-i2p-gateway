@@ -13,3 +13,4 @@ i2p/i2pconfig
 */i2pconfig
 */*.i2pkeys
 *.i2pkeys
+vendor/

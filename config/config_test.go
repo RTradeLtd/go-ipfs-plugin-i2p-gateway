@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/RTradeLtd/go-garlic-tcp-transport"
+	//"github.com/RTradeLtd/go-garlic-tcp-transport"
 
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
 )
@@ -48,10 +48,12 @@ func Test_Config(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	transportHTTP(i2pconfig)
-	transportRPC(i2pconfig)
+	//transportHTTP(i2pconfig)
+	//transportRPC(i2pconfig)
 }
 
+// These may be re-enabled as the transport becomes more relevant
+/*
 func transportHTTP(i2pconfig *Config) error {
 	GarlicTCPTransport, err := i2ptcp.NewGarlicTCPTransportFromOptions(
 		i2ptcp.SAMHost(i2pconfig.SAMHost),
@@ -113,3 +115,4 @@ func transportRPC(i2pconfig *Config) error {
 	}
 	return nil
 }
+*/
