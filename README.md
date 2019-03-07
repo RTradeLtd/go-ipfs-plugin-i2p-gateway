@@ -40,9 +40,9 @@ that is using the same version of IPFS which was used to build the plugin.
 Due to `gx` being extensively used by the IPFS project, and it being hard to
 work with, you will not be able to use it with any IPFS daemon that wasn't built
 from the code within the `vendor/github.com/ipfs/go-ipfs` folder of this
-repository. This is somewhat undesirable, but it is the only way to reliably run
-this plugin.  At the time of this commit, the go-ipfs commit we use is
-[df373ca3876ed4f706d8635c200c973f4189fcc6](https://github.com/ipfs/go-ipfs/commit/df373ca3876ed4f706d8635c200c973f4189fcc6).
+repository. This is somewhat undesirable, but it is the only way to
+reliably run this plugin.  At the time of this commit, the go-ipfs commit we
+use is [df373ca3876ed4f706d8635c200c973f4189fcc6](https://github.com/ipfs/go-ipfs/commit/df373ca3876ed4f706d8635c200c973f4189fcc6).
 Over time hopefully we can imrpove this system, and make it usable with released
 versions of IPFS. As such, all dependencies are vendored with this repository.
 
@@ -55,7 +55,7 @@ builds the plugin. Since there's no "main" function you can't "go get" the
 plugin package, you have to clone it.
 
         git clone https://github.com/RTradeLTd/go-ipfs-plugin-i2p-gateway
-        make vendor build
+        make deps build
 
 Installing and Using it
 -----------------------

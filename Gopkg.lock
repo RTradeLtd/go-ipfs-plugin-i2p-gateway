@@ -51,12 +51,32 @@
   revision = "337bae09563f9db355fec32525d18e70e5da72c9"
 
 [[projects]]
-  digest = "1:d059a146ab350e553c2687d3e17f198eb5b27c7cf55fe6ba0e2d21349df63388"
+  branch = "master"
+  digest = "1:c183111eaf02a9e6bb39c213bdfb5472b16f1955dd4c9dab82db83f114c64a63"
+  name = "github.com/facebookgo/atomicfile"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2de1f203e7d5e386a6833233882782932729f27e"
+
+[[projects]]
+  digest = "1:a9c85389dbd301c97a3499fe15a2b65b505b5f0cb0f1120dea59f1f3d6b11d96"
   name = "github.com/gogo/protobuf"
-  packages = ["proto"]
+  packages = [
+    "gogoproto",
+    "proto",
+    "protoc-gen-gogo/descriptor",
+  ]
   pruneopts = "UT"
   revision = "4cbf7e384e768b4e01799441fdf2a706a5635ae7"
   version = "v1.2.0"
+
+[[projects]]
+  digest = "1:582b704bebaa06b48c29b0cec224a6058a09c86883aaddabde889cd1a5f73e1b"
+  name = "github.com/google/uuid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "0cd6bf5da1e1c83f8b45653022c74f71af0538a4"
+  version = "v1.1.1"
 
 [[projects]]
   branch = "master"
@@ -75,8 +95,81 @@
   revision = "d9f6b97f8db22dd1e090fd0bbbe98f09cc7dd0a8"
 
 [[projects]]
+  digest = "1:d15ee511aa0f56baacc1eb4c6b922fa1c03b38413b6be18166b996d82a0156ea"
+  name = "github.com/hashicorp/golang-lru"
+  packages = [
+    ".",
+    "simplelru",
+  ]
+  pruneopts = "UT"
+  revision = "7087cb70de9f7a8bc0a10c375cb0d2280a8edf9c"
+  version = "v0.5.1"
+
+[[projects]]
+  digest = "1:fe9aa4ac8c8d9bf5eaec1a8dd8c029f2cecd1c4ad91072b7ac99ecb44ff66910"
+  name = "github.com/ipfs/bbloom"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4492942caf937893b9cf1ebba71c297beda904b2"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:97b7b1549d94c885626167359549d9164bb35a9a584faa7c3a576909be0ea37f"
+  name = "github.com/ipfs/go-block-format"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "9e46c0dce5d9a041b8ea1eed8ca924b36355c61b"
+  version = "v0.0.2"
+
+[[projects]]
+  digest = "1:436923060f1b2d9c69e08904fec5d0baa34514d0cd4fbfef258e73b8afa0be5e"
+  name = "github.com/ipfs/go-blockservice"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2a4abcdcc1c6ce87cae854fc6178bad5b3be5572"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:ff780041e005869242b2cf977f1d4fa3b8f9bdd302fd254b4a19f78502a6ee10"
+  name = "github.com/ipfs/go-cid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e7e67e08cfba888a4297224402e12832bdc15ea0"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:f1941ddf5b39101c47cb3c5e4eee485a4e1349aae9a890919799a436763bf2ac"
+  name = "github.com/ipfs/go-datastore"
+  packages = [
+    ".",
+    "keytransform",
+    "mount",
+    "namespace",
+    "query",
+  ]
+  pruneopts = "UT"
+  revision = "1b371980cb3fe9edba40c0f0584042e5cb4477a4"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:afbc88b3730097cd76ea72695941270547a5b3ed00d870ee0612897ac9943d79"
+  name = "github.com/ipfs/go-ds-measure"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a74729db656decb31c9d0546aef893eaeb4247f7"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:bc3ed1378495622fd5eba7b63c86c10af1e5c4c1ae8642ab85b994ed89cf08bf"
+  name = "github.com/ipfs/go-fs-lock"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "66f8794e4aed94004486434cf8bf815e5991a0a4"
+  version = "v0.0.1"
+
+[[projects]]
   branch = "master"
-  digest = "1:150b96b5e6d65dc2f5aca89bb7767360c9089c8ad45a142e6801317a26129a58"
+  digest = "1:76f456900c5840f5bd4b94f4ee80cc9375bf02cdeae6892ab977eb4cb1a40327"
   name = "github.com/ipfs/go-ipfs"
   packages = [
     "core/coredag",
@@ -91,7 +184,66 @@
     "thirdparty/dir",
   ]
   pruneopts = "UT"
-  revision = "149254eeabf811f03c788081e86b197627842a3a"
+  revision = "3702368fe364841a8c285efd40111fa536b58eef"
+
+[[projects]]
+  digest = "1:cfecb1f62c703a0b4651b4c98c2b9c7645f2f062038208ad25060a77c9ae7e5d"
+  name = "github.com/ipfs/go-ipfs-addr"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "ac4881d4db36effbbeebf93d9172fcb20ed04c15"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:429edc38cba9210059680d94ed67a8552632025635e666e112313986de135d74"
+  name = "github.com/ipfs/go-ipfs-blockstore"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "8d6a694a33d2729a94d848208c75d117b77c3492"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:33f0dba361152df45dbe16c20baa14d53a14378738589fd0f4a0055f154a4d7a"
+  name = "github.com/ipfs/go-ipfs-config"
+  packages = [
+    ".",
+    "serialize",
+  ]
+  pruneopts = "UT"
+  revision = "355e5f1c516b56e0a6a64c20975bc97d4952d2d5"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:0fcfbb9a7c8245d19d5a79c13ad702201c1d9cd8ca79619379a22845de723278"
+  name = "github.com/ipfs/go-ipfs-ds-help"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4a69beb72c1b4e6e7ed62c5c5cbc1bd7a3d219b2"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:c8bc4cbd7b94d84784f6f99cca35ebedebb5f9ded2d561e4130d8c67cc5127b0"
+  name = "github.com/ipfs/go-ipfs-exchange-interface"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "b6e88260772433e18af18bb3f237d78678e65f0b"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:b339bad919aeac5c8497e2d9607c698df54371fe30eb3c211473012142d524eb"
+  name = "github.com/ipfs/go-ipfs-files"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "946ef0a5786be40d226979e960899c6af16e9a75"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:990c3a92954ef12159a3564533e63edc53feeadcb513930250351b919c6756f5"
+  name = "github.com/ipfs/go-ipfs-posinfo"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "19b0f52f6bd140be93fb568203586a165eb1aadf"
+  version = "v0.0.1"
 
 [[projects]]
   digest = "1:aae82c244bd91107575a0244a29e82e34ba23e06b6892557e33728de48deba96"
@@ -100,6 +252,25 @@
   pruneopts = "UT"
   revision = "10d786c5ed859afd22223df76a89bf57b24b2ee1"
   version = "v1.2.8"
+
+[[projects]]
+  digest = "1:53f917e28732fbb5c1f24e368af2f03edbd3547dfe6e6a252b3727ce9f18f9cd"
+  name = "github.com/ipfs/go-ipld-cbor"
+  packages = [
+    ".",
+    "encoding",
+  ]
+  pruneopts = "UT"
+  revision = "e63450c54844e1bfe509b17cc73071c4ab150ef0"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:a64b5e2c43d7a8a9bbda0d8519dca1841cdd7e352ffd059cf2a8fa06978ec5d1"
+  name = "github.com/ipfs/go-ipld-format"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "e6e9ea4d16a85d09cafb4dace15b978e984fa672"
+  version = "v0.0.1"
 
 [[projects]]
   digest = "1:43248b562ac2508990699768e9e0c3d8073c2d0081a5f2dbdc5efd727d9ed426"
@@ -113,6 +284,64 @@
   pruneopts = "UT"
   revision = "14e95105cbafcda64fdc36197fe6a30b23c693dc"
   version = "v1.5.7"
+
+[[projects]]
+  digest = "1:2a0a558512c952db14c161e7faa7fb9d607d990e335c7bd6d2422f3d100ea7a4"
+  name = "github.com/ipfs/go-merkledag"
+  packages = [
+    ".",
+    "pb",
+  ]
+  pruneopts = "UT"
+  revision = "d76ea28263c01e3164b39097abc13b6a1a5b8f06"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:2de37461901377cb21aae96aab4ca67ebbb6d77e5f140c8f376eb566b7805365"
+  name = "github.com/ipfs/go-metrics-interface"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "87aa106f53272f064ca7956a6db83f17a553f254"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:57bb81595e098df73d0e9018fdd7c8f32db46a2cd7fcc74e6404b6fd7a7d8c84"
+  name = "github.com/ipfs/go-path"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "95361c4d70142d87d572080aaa120790af20df5e"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:f9f70ce64f324338a71937b81544c3bc2825848ac485d112ef4bed61eff76062"
+  name = "github.com/ipfs/go-unixfs"
+  packages = [
+    ".",
+    "pb",
+  ]
+  pruneopts = "UT"
+  revision = "e337258f39e4d4510a9132459fa7ee29359cd5c7"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:78438260483c355139f9d83830a88ecd69578904f0f288134d3a95786c4f0864"
+  name = "github.com/ipfs/go-verifcid"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "34e41ba962e7ce0211a05915f788486c8db755f1"
+  version = "v0.0.1"
+
+[[projects]]
+  digest = "1:24fb34c61a5be51ea5355492af8aa9a6aad7ace1246939e70d1105b6b5da791d"
+  name = "github.com/ipfs/interface-go-ipfs-core"
+  packages = [
+    ".",
+    "options",
+    "options/namesys",
+  ]
+  pruneopts = "UT"
+  revision = "cec7292c1392a3d973df9220c8d53afa45e12145"
+  version = "v0.0.1"
 
 [[projects]]
   branch = "master"
@@ -230,6 +459,14 @@
   version = "v1.1.0"
 
 [[projects]]
+  digest = "1:b9fe622bbadbb060338620752b1cb3aa1473855071195ebe83813af5ebb3629b"
+  name = "github.com/multiformats/go-base32"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a9c2755c3d1672dbe6a7e4a5d182169fa30b6a8e"
+  version = "v0.0.3"
+
+[[projects]]
   branch = "master"
   digest = "1:b2e02cbee843d6aa42a31f1ce7650ca143fb8ba639e759262dea65f456d0c1b6"
   name = "github.com/multiformats/go-multiaddr"
@@ -254,6 +491,14 @@
   version = "v1.7.1"
 
 [[projects]]
+  digest = "1:8f2a32f6d211bf2685d5c47ace5d6b59bd4359f69e92b632793d066129a65c4e"
+  name = "github.com/multiformats/go-multibase"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d63641945dc1749baa23686ad0564ad63fef0493"
+  version = "v0.0.1"
+
+[[projects]]
   digest = "1:c0ea71365e7d0e63a2e8f48e6fc2ba92f2f2b739bbeb3cdabdcd719037e175c2"
   name = "github.com/multiformats/go-multihash"
   packages = ["."]
@@ -274,6 +519,23 @@
   version = "v1.0.2"
 
 [[projects]]
+  branch = "master"
+  digest = "1:81cabf22b8b73b50524e3d0779a2330384218768d4ba7b1d6446ef3bbb09ae8c"
+  name = "github.com/polydawn/refmt"
+  packages = [
+    ".",
+    "cbor",
+    "json",
+    "obj",
+    "obj/atlas",
+    "pretty",
+    "shared",
+    "tok",
+  ]
+  pruneopts = "UT"
+  revision = "df39d6c2d9927373b43de256531d24ade9884f98"
+
+[[projects]]
   digest = "1:919bb3aa6d9d0b67648c219fa4925312bc3c2872da19e818fa769e9c97a2b643"
   name = "github.com/spaolacci/murmur3"
   packages = ["."]
@@ -288,6 +550,14 @@
   packages = ["."]
   pruneopts = "UT"
   revision = "0457bb6b88fc1973573aaf6b5145d8d3ae972390"
+
+[[projects]]
+  branch = "master"
+  digest = "1:52796c672f9529f506ac63c10bf44072c8156cb2c85c0784a8b8ccb164e94903"
+  name = "go4.org"
+  packages = ["lock"]
+  pruneopts = "UT"
+  revision = "ce4c26f7be8eb27dc77f996b08d286dd80bc4a01"
 
 [[projects]]
   branch = "master"
@@ -314,11 +584,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c9e49928119661a681af4037236af47654d6bd421c0af184962c890d0a61e0fb"
+  digest = "1:f11a2dc61aae6c601dc075fb0f9ecda1743a9c644d91e37af2c729a399ef17fc"
   name = "golang.org/x/sys"
   packages = [
     "cpu",
     "unix",
+    "windows",
   ]
   pruneopts = "UT"
   revision = "3b5209105503162ded1863c307ac66fec31120dd"
@@ -329,9 +600,12 @@
   input-imports = [
     "github.com/RTradeLtd/go-garlic-tcp-transport",
     "github.com/eyedeekay/sam-forwarder",
+    "github.com/ipfs/go-ipfs-config",
+    "github.com/ipfs/go-ipfs-config/serialize",
     "github.com/ipfs/go-ipfs-util",
     "github.com/ipfs/go-ipfs/plugin",
     "github.com/ipfs/go-ipfs/repo/fsrepo",
+    "github.com/ipfs/interface-go-ipfs-core",
     "github.com/mitchellh/go-homedir",
     "github.com/multiformats/go-multiaddr",
   ]
