@@ -44,14 +44,18 @@ func (*I2PGatePlugin) Version() string {
 }
 
 // Log wraps around log.Println and adds information about the plugin
-func (i *I2PGatePlugin) Log(in ...interface{}){
-    log.Println(i.Name(), i.Version(), in)
+func (i *I2PGatePlugin) Log(in ...interface{}) {
+	log.Println(i.Name(), i.Version(), in)
 }
-
 
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
+	var err error
+	i.Log("Initializing the IPFS plugin configuration")
+	if i, err = Setup(); err != nil {
+		return err
+	}
 	return nil
 }
 

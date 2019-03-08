@@ -2,7 +2,7 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 UNSAFE=no
 GOCC ?= go
 IPFS_VERSION=v0.4.19
-IPFS_PATH="$(HOME)/Workspace/ipfs"
+IPFS_PATH?="$(HOME)/Workspace/ipfs"
 
 # build plugin and ipfs daemon
 .PHONY: build

@@ -293,7 +293,7 @@ func Init(out io.Writer) (*Config, error) {
 		ListenerBase32Swarm:                "",
 		ListenerBase64Swarm:                "",
 		ListenerSKSwarm:                    "",
-        I2PBootstrapAddresses:              []string{ "bynpyv26k5ddqplda6gpqgzifxfd4e3wincmaonjznksfkmwmjmq.b32.i2p" },
+		I2PBootstrapAddresses:              []string{"bynpyv26k5ddqplda6gpqgzifxfd4e3wincmaonjznksfkmwmjmq.b32.i2p"},
 	}
 	return cfg, nil
 }
@@ -441,6 +441,6 @@ func Unquote(s string) string {
 }
 
 // Log wraps around log.Println to to give additional relevant information.
-func Log(in ...interface{}){
-    log.Println("I2P Plugin Configurator", in)
+func Log(in ...interface{}) {
+	log.Println("I2P Plugin Configurator", in)
 }
