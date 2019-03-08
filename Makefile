@@ -17,7 +17,7 @@ plugin-ipfs:
 # build ipfs daemon
 .PHONY: ipfs
 ipfs:
-	( cd $(GOPATH)/src/github.com/ipfs/go-ipfs/; make install )
+	( cd vendor/github.com/ipfs/go-ipfs/cmd/ipfs; go build -o ../../../../../../build/ipfs )
 
 # clean up files
 .PHONY: clean
@@ -38,7 +38,6 @@ gx:
 	go get -u github.com/whyrusleeping/gx
 	go get -u github.com/whyrusleeping/gx-go
 	go get -u github.com/karalabe/ungx
-
 
 # build libp2p plugin
 .PHONY: plugin-libp2p
@@ -89,23 +88,11 @@ vendor-dep:
 vendor-ipfs:
 	# Generate IPFS dependencies
 	rm -rf vendor/github.com/ipfs/go-ipfs
-	git clone https://github.com/ipfs/go-ipfs.git vendor/github.com/ipfs/go-ipfs
+	git clone https://github.com/ipfs/go-ipfs.git vendor/github.com/ipfs/go-ipfs --branch v0.4.19
 	( cd vendor/github.com/ipfs/go-ipfs ; gx install --local --nofancy )
-	mv vendor/github.com/ipfs/go-ipfs/vendor/* vendor
+
+	rsync -ravhp vendor/github.com/ipfs/go-ipfs/vendor/* vendor/
+	rm -rf vendor/github.com/ipfs/go-ipfs/vendor/
 
 	# Remove problematic dependencies
 	find . -name test-vectors -type d -exec rm -r {} +
-
-.PHONY: dep
-dep:
-	go get -u github.com/ipfs/interface-go-ipfs-core
-	go get -u github.com/ipfs/go-cid
-	go get -u github.com/ipfs/go-ipfs-posinfo
-	go get -u github.com/ipfs/go-ipfs-blockstore
-	go get -u github.com/ipfs/go-ipfs-config
-	go get -u github.com/ipfs/go-ipfs-util
-	go get -u github.com/ipfs/go-ipfs
-	go get -u github.com/ipfs/go-fs-lock
-	go get -u github.com/ipfs/go-ds-measure
-	go get -u github.com/ipfs/go-datastore
-	go get -u github.com/ipfs/go-block-format

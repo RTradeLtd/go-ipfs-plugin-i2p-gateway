@@ -4,11 +4,14 @@ import (
 	"log"
 	"os"
 
-    config "github.com/ipfs/go-ipfs-config"
+    //config "github.com/ipfs/go-ipfs-config"
+    config "gx/ipfs/QmUAuYuiafnJRZxDDX7MuruMNsicYNuyub5vUeAcupUBNs/go-ipfs-config"
+
 	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
 	plugin "github.com/ipfs/go-ipfs/plugin"
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
-	coreiface "github.com/ipfs/interface-go-ipfs-core"
+	//coreiface "github.com/ipfs/interface-go-ipfs-core"
+    coreiface "gx/ipfs/QmXLwxifxwfc2bAwq6rdjbYqAsGzWsDE9RM5TWMGtykyj6/interface-go-ipfs-core"
 )
 
 // I2PGatePlugin is a structure containing information which is used for
