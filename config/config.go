@@ -110,7 +110,7 @@ func (c *Config) Print() []string {
 		c.accesslist(),
 	}
 
-	log.Println(confstring)
+	Log(confstring)
 	return confstring
 }
 
@@ -126,10 +126,10 @@ func (c *Config) TargetHTTP() string {
 func (c *Config) HTTPHost() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
-		log.Println("Failed to get HTTP Multiaddr", err.Error())
+		Log("Failed to get HTTP Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Getting value for HTTP host IPv4 protocol")
+	Log("Getting value for HTTP host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -137,10 +137,10 @@ func (c *Config) HTTPHost() (string, error) {
 func (c *Config) HTTPPort() (string, error) {
 	temp, err := c.MaTargetHTTP()
 	if err != nil {
-		log.Println("Failed to get HTTP Multiaddr", err.Error())
+		Log("Failed to get HTTP Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Value for HTTP port IPv4 protocol")
+	Log("Value for HTTP port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -156,10 +156,10 @@ func (c *Config) TargetRPC() string {
 func (c *Config) RPCHost() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {
-		log.Println("Failed to get RPC Multiaddr", err.Error())
+		Log("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Value for RPC host IPv4 protocol")
+	Log("Value for RPC host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
@@ -167,10 +167,10 @@ func (c *Config) RPCHost() (string, error) {
 func (c *Config) RPCPort() (string, error) {
 	temp, err := c.MaTargetRPC()
 	if err != nil {
-		log.Println("Failed to get RPC Multiaddr", err.Error())
+		Log("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Value for RPC port IPv4 protocol")
+	Log("Value for RPC port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
@@ -183,49 +183,49 @@ func (c *Config) TargetSwarm() string {
 func (c *Config) SwarmHost() (string, error) {
 	temp, err := c.MaTargetSwarm()
 	if err != nil {
-		log.Println("Failed to get Swarm Multiaddr", err.Error())
+		Log("Failed to get Swarm Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Value for Swarm host IPv4 protocol")
+	Log("Value for Swarm host IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_IP4)
 }
 
 func (c *Config) SwarmPort() (string, error) {
 	temp, err := c.MaTargetSwarm()
 	if err != nil {
-		log.Println("Failed to get RPC Multiaddr", err.Error())
+		Log("Failed to get RPC Multiaddr", err.Error())
 		return "", err
 	}
-	log.Println("Value for Swarm port IPv4 protocol")
+	Log("Value for Swarm port IPv4 protocol")
 	return temp.ValueForProtocol(ma.P_TCP)
 }
 
 func (c *Config) MaTargetHTTP() (ma.Multiaddr, error) {
-	log.Println("Detected HTTP address:", c.AddressHTTP)
+	Log("Detected HTTP address:", c.AddressHTTP)
 	return ma.NewMultiaddr(Unquote(c.AddressHTTP))
 }
 
 func (c *Config) MaTargetRPC() (ma.Multiaddr, error) {
-	log.Println("Detected RPC address:", c.AddressRPC)
+	Log("Detected RPC address:", c.AddressRPC)
 	return ma.NewMultiaddr(Unquote(c.AddressRPC))
 }
 
 func (c *Config) MaTargetSwarm() (ma.Multiaddr, error) {
-	log.Println("Detected Swarm Address:", c.AddressSwarm)
+	Log("Detected Swarm Address:", c.AddressSwarm)
 	return ma.NewMultiaddr(Unquote(c.AddressSwarm))
 }
 
 func (c *Config) HostSAM() string {
 	m, _ := c.SAMMultiaddr()
 	at, _ := m.ValueForProtocol(ma.P_IP4)
-	log.Println("SAM Host:", at)
+	Log("SAM Host:", at)
 	return at
 }
 
 func (c *Config) PortSAM() string {
 	m, _ := c.SAMMultiaddr()
 	at, _ := m.ValueForProtocol(ma.P_TCP)
-	log.Println("SAM Port:", at)
+	Log("SAM Port:", at)
 	return at
 }
 
@@ -293,6 +293,7 @@ func Init(out io.Writer) (*Config, error) {
 		ListenerBase32Swarm:                "",
 		ListenerBase64Swarm:                "",
 		ListenerSKSwarm:                    "",
+        I2PBootstrapAddresses:              []string{ "bynpyv26k5ddqplda6gpqgzifxfd4e3wincmaonjznksfkmwmjmq.b32.i2p" },
 	}
 	return cfg, nil
 }
@@ -323,14 +324,14 @@ func Load(filename string) (*Config, error) {
 			return nil, err
 		}
 		defer f.Close()
-		log.Println("i2p Gateway tunnel configuration initialized in: ", filename)
+		Log("i2p Gateway tunnel configuration initialized in: ", filename)
 		cfg, err := Init(f)
 		if err != nil {
 			return nil, err
 		}
 		return cfg, serialize.WriteConfigFile(filename, cfg)
 	}
-	log.Println("i2p Gateway tunnel configuration found in: ", filename)
+	Log("i2p Gateway tunnel configuration found in: ", filename)
 	var cfg Config
 	err := serialize.ReadConfigFile(filename, &cfg)
 	if err != nil {
@@ -353,7 +354,7 @@ func (cfg *Config) Save(ipfs_path string) (*Config, error) {
 			return nil, err
 		}
 		defer f.Close()
-		log.Println("i2p Gateway tunnel configuration saved in: ", filename)
+		Log("i2p Gateway tunnel configuration saved in: ", filename)
 		return cfg, serialize.WriteConfigFile(filename, cfg)
 	}
 	return Load(filename)
@@ -437,4 +438,9 @@ func ListenerBase64Swarm(addr string, cfg interface{}) error {
 
 func Unquote(s string) string {
 	return strings.Replace(s, "\"", "", -1)
+}
+
+// Log wraps around log.Println to to give additional relevant information.
+func Log(in ...interface{}){
+    log.Println("I2P Plugin Configurator", in)
 }

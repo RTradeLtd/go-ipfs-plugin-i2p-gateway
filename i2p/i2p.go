@@ -43,6 +43,12 @@ func (*I2PGatePlugin) Version() string {
 	return "0.0.1"
 }
 
+// Log wraps around log.Println and adds information about the plugin
+func (i *I2PGatePlugin) Log(in ...interface{}){
+    log.Println(i.Name(), i.Version(), in)
+}
+
+
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
@@ -69,7 +75,7 @@ func Setup() (*I2PGatePlugin, error) {
 	i.forwardRPC = i.rpcString()
 	i.forwardHTTP = i.httpString()
 	i.forwardSwarm = i.swarmString()
-	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
+	i.Log("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
 	if err != nil {
 		return nil, err

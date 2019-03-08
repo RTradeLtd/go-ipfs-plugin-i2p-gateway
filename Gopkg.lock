@@ -3,6 +3,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:c15bc0691dd21e34745b0ca6e9061600d2882e5b77d21c4cc69dc2b9d7228346"
+  name = "github.com/RTradeLtd/go-ipfs-plugin-i2p-bootstrap"
+  packages = ["i2p"]
+  pruneopts = "UT"
+  revision = "c2c1d58accf3171918f6d2c3b7a7448800920a6f"
+
+[[projects]]
+  branch = "master"
   digest = "1:3eef75512db1fa9d1fb4e20cf57122e2dcc960e33906d188e9fc3c8ac52c3612"
   name = "github.com/eyedeekay/sam-forwarder"
   packages = [
@@ -130,16 +138,17 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f07388e1ebdd833da6df6366a0665895716274de38110b165d4c22cb028b4a60"
+  digest = "1:5179fde7a9603edf900af00ba8934e67d1ab0408f27e3e573a868f5f663585a7"
   name = "golang.org/x/sys"
   packages = ["cpu"]
   pruneopts = "UT"
-  revision = "572b51eaf7221935bdec454796989ba8318fa6f3"
+  revision = "584f3b12f43e1e55248c90e84804777009eed0a4"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/RTradeLtd/go-ipfs-plugin-i2p-bootstrap/i2p",
     "github.com/eyedeekay/sam-forwarder",
     "github.com/ipfs/go-ipfs-util",
     "github.com/ipfs/go-ipfs/plugin",
