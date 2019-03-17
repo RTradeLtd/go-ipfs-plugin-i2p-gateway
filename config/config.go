@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ipfs/go-ipfs-util"
+	util "github.com/ipfs/go-ipfs-util"
 	"github.com/mitchellh/go-homedir"
 	ma "github.com/multiformats/go-multiaddr"
 
@@ -293,7 +293,7 @@ func Init(out io.Writer) (*Config, error) {
 		ListenerBase32Swarm:                "",
 		ListenerBase64Swarm:                "",
 		ListenerSKSwarm:                    "",
-		I2PBootstrapAddresses:              []string{"bynpyv26k5ddqplda6gpqgzifxfd4e3wincmaonjznksfkmwmjmq.b32.i2p"},
+		I2PBootstrapAddresses:              []string{"bynpyv26k5ddqplda6gpqgzifxfd4e3wincmaonjznksfkmwmjmq.b32.i2p", "lnqnyufyxsabozw5epav3ycups6g5e2iueyomn4hwjj5qn27h3nq.b32.i2p"},
 	}
 	return cfg, nil
 }
