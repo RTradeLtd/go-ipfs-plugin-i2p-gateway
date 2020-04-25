@@ -3,6 +3,7 @@ package peerstore
 import (
 	"context"
 	"errors"
+	"io"
 	"math"
 	"time"
 
@@ -18,7 +19,7 @@ var (
 	AddressTTL = time.Hour
 
 	// TempAddrTTL is the ttl used for a short lived address
-	TempAddrTTL = time.Second * 10
+	TempAddrTTL = time.Minute * 2
 
 	// ProviderAddrTTL is the TTL of an address we've received from a provider.
 	// This is also a temporary address, but lasts longer. After this expires,
@@ -49,20 +50,18 @@ const (
 // Peerstore provides a threadsafe store of Peer related
 // information.
 type Peerstore interface {
+	io.Closer
+
 	AddrBook
 	KeyBook
 	PeerMetadata
 	Metrics
+	ProtoBook
 
 	// PeerInfo returns a peer.PeerInfo struct for given peer.ID.
 	// This is a small slice of the information Peerstore has on
 	// that peer, useful to other services.
 	PeerInfo(peer.ID) PeerInfo
-
-	GetProtocols(peer.ID) ([]string, error)
-	AddProtocols(peer.ID, ...string) error
-	SetProtocols(peer.ID, ...string) error
-	SupportsProtocols(peer.ID, ...string) ([]string, error)
 
 	// Peers returns all of the peer IDs stored across all inner stores.
 	Peers() peer.IDSlice
@@ -122,14 +121,15 @@ type AddrBook interface {
 
 // KeyBook tracks the keys of Peers.
 type KeyBook interface {
-
 	// PubKey stores the public key of a peer.
 	PubKey(peer.ID) ic.PubKey
 
 	// AddPubKey stores the public key of a peer.
 	AddPubKey(peer.ID, ic.PubKey) error
 
-	// PrivKey returns the private key of a peer.
+	// PrivKey returns the private key of a peer, if known. Generally this might only be our own
+	// private key, see
+	// https://discuss.libp2p.io/t/what-is-the-purpose-of-having-map-peer-id-privatekey-in-peerstore/74.
 	PrivKey(peer.ID) ic.PrivKey
 
 	// AddPrivKey stores the private key of a peer.
@@ -137,4 +137,12 @@ type KeyBook interface {
 
 	// PeersWithKeys returns all the peer IDs stored in the KeyBook
 	PeersWithKeys() peer.IDSlice
+}
+
+// ProtoBook tracks the protocols supported by peers
+type ProtoBook interface {
+	GetProtocols(peer.ID) ([]string, error)
+	AddProtocols(peer.ID, ...string) error
+	SetProtocols(peer.ID, ...string) error
+	SupportsProtocols(peer.ID, ...string) ([]string, error)
 }

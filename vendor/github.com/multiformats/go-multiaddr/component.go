@@ -3,8 +3,11 @@ package multiaddr
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/json"
 	"fmt"
 	"strings"
+
+	"github.com/multiformats/go-varint"
 )
 
 // Component is a single multiaddr Component.
@@ -16,6 +19,54 @@ type Component struct {
 
 func (c *Component) Bytes() []byte {
 	return c.bytes
+}
+
+func (c *Component) MarshalBinary() ([]byte, error) {
+	return c.Bytes(), nil
+}
+
+func (c *Component) UnmarshalBinary(data []byte) error {
+	_, comp, err := readComponent(data)
+	if err != nil {
+		return err
+	}
+	*c = comp
+	return nil
+}
+
+func (c *Component) MarshalText() ([]byte, error) {
+	return []byte(c.String()), nil
+}
+
+func (c *Component) UnmarshalText(data []byte) error {
+	bytes, err := stringToBytes(string(data))
+	if err != nil {
+		return err
+	}
+	_, comp, err := readComponent(bytes)
+	if err != nil {
+		return err
+	}
+	*c = comp
+	return nil
+}
+
+func (c *Component) MarshalJSON() ([]byte, error) {
+	txt, err := c.MarshalText()
+	if err != nil {
+		return nil, err
+	}
+
+	return json.Marshal(string(txt))
+}
+
+func (m *Component) UnmarshalJSON(data []byte) error {
+	var v string
+	if err := json.Unmarshal(data, &v); err != nil {
+		return err
+	}
+
+	return m.UnmarshalText([]byte(v))
 }
 
 func (c *Component) Equal(o Multiaddr) bool {
@@ -34,7 +85,7 @@ func (c *Component) Decapsulate(o Multiaddr) Multiaddr {
 }
 
 func (c *Component) Encapsulate(o Multiaddr) Multiaddr {
-	m := multiaddr{bytes: c.bytes}
+	m := &multiaddr{bytes: c.bytes}
 	return m.Encapsulate(o)
 }
 
@@ -109,7 +160,7 @@ func newComponent(protocol Protocol, bvalue []byte) *Component {
 	size := len(bvalue)
 	size += len(protocol.VCode)
 	if protocol.Size < 0 {
-		size += VarintSize(len(bvalue))
+		size += varint.UvarintSize(uint64(len(bvalue)))
 	}
 	maddr := make([]byte, size)
 	var offset int
