@@ -4,12 +4,12 @@ import (
 	"log"
 	"os"
 
-	config "gx/ipfs/QmTbcMKv6GU3fxhnNcbzYChdox9Fdd7VpucM3PQ7UWjX3D/go-ipfs-config"
+	config "github.com/ipfs/go-ipfs-config"
 
-	"github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
-	coreiface "github.com/ipfs/go-ipfs/core/coreapi/interface"
+	i2pgateconfig "github.com/RTradeLtd/go-ipfs-plugin-i2p-gateway/config"
 	plugin "github.com/ipfs/go-ipfs/plugin"
 	fsrepo "github.com/ipfs/go-ipfs/repo/fsrepo"
+	coreiface "github.com/ipfs/interface-go-ipfs-core"
 )
 
 // I2PGatePlugin is a structure containing information which is used for
@@ -43,10 +43,10 @@ func (*I2PGatePlugin) Version() string {
 // Init initializes plugin, satisfying the plugin.Plugin interface. Put any
 // initialization logic here.
 func (i *I2PGatePlugin) Init() error {
-    /*i := Setup()
-    if err != nil {
-		return nil, err
-	}*/
+	/*i := Setup()
+	    if err != nil {
+			return nil, err
+		}*/
 	return nil
 }
 
@@ -71,10 +71,10 @@ func Setup() (*I2PGatePlugin, error) {
 	i.forwardHTTP = i.httpString()
 	log.Println("Prepared to forward:", i.forwardRPC, i.forwardHTTP)
 	i.i2pconfig, err = i2pgateconfig.ConfigAt(i.configPath)
-    if err != nil {
+	if err != nil {
 		return nil, err
 	}
-    err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
+	err = i2pgateconfig.AddressRPC(i.forwardRPC, i.i2pconfig)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func (i *I2PGatePlugin) falseStart() error {
 	}
 
 	i2p.transportHTTP()
-    i2p.transportRPC()
+	i2p.transportRPC()
 
 	return nil
 }

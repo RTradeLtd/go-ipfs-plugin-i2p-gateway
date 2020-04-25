@@ -2,9 +2,17 @@ THIS_FILE := $(lastword $(MAKEFILE_LIST))
 UNSAFE=no
 GOCC ?= go
 
-# build plugin and ipfs daemon
+
 .PHONY: build
 build:
+	rm -rf build
+	mkdir build
+	@$(MAKE) -f $(THIS_FILE) plugin-ipfs
+	@$(MAKE) -f $(THIS_FILE) ipfs
+
+# build plugin and ipfs daemon
+.PHONY: bbuild
+bbuild:
 	mkdir build
 	@$(MAKE) -f $(THIS_FILE) plugin-ipfs
 	@$(MAKE) -f $(THIS_FILE) ipfs
